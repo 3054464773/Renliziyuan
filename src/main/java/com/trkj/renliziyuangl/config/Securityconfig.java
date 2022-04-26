@@ -1,7 +1,7 @@
 package com.trkj.renliziyuangl.config;
 
 
-//import com.trkj.renliziyuangl.filter.JwtFilter;
+import com.trkj.renliziyuangl.filter.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,8 +17,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class Securityconfig extends WebSecurityConfigurerAdapter {
-//    @Autowired
-//    private JwtFilter jwtFilter;
+    @Autowired
+    private JwtFilter jwtFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -37,11 +37,10 @@ public class Securityconfig extends WebSecurityConfigurerAdapter {
                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                .and()
                .authorizeRequests()
-//               .antMatchers("/login").anonymous()
-////               .antMatchers("/grzx").hasAuthority("goindex")
-//               .anyRequest().authenticated();
-        .anyRequest().permitAll();
-//       http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+               .antMatchers("/YuangongLogin").anonymous()
+//               .antMatchers("/grzx").hasAuthority("goindex")
+               .anyRequest().authenticated();
+       http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         //开启跨域
         http.cors();
     }
