@@ -37,8 +37,10 @@ public class LoginserviceImpl implements Loginservice {
         Yuangongbiao yhb = loginUser.getYhb();
         String token = jwtTokenUtil.generateToken(yhb.getYzh(), yhb.getYbh() + "");
         redisTemplate.opsForValue().set("user"+yhb.getYbh(),loginUser);
+        String name = ygdao.byidfindYgname(yhb.getYbh());
         Map map=new HashMap();
         map.put("token",token);
+        map.put("yname",name);
         //查看动态菜单路由
 //        map.put("dtly", JSON.toJSONString(zlist));
         return map;

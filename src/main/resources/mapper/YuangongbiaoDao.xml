@@ -2,4 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.YuangongbiaoDao">
 
+    <select id="byidfindYgname" resultType="java.lang.String">
+        SELECT  r.rzname FROM yuangongbiao y INNER JOIN rencaizibiao r on y.rzbh = r.rzbh  WHERE y.ybh =#{yid}
+    </select>
 </mapper>
