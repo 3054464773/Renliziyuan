@@ -6,6 +6,7 @@ import io.jsonwebtoken.SignatureException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,6 +37,8 @@ public class GlobalExceptionHandler {
             return AjaxResponse.error(new CustomError(CustomErrorType.USER_INPUT_ERROR,e.getMessage()));
         }else if (e instanceof AccessDeniedException){
             return AjaxResponse.error(new CustomError(CustomErrorType.USER_NOQXH_ERROR,"权限不足"));
+        }else if(e instanceof MethodArgumentNotValidException){
+            return  AjaxResponse.error(new CustomError(CustomErrorType.SYSTEM_ERROR,"输入不合法！"));
         }
         else if (e instanceof CustomError){
             return  AjaxResponse.error((CustomError) e);
