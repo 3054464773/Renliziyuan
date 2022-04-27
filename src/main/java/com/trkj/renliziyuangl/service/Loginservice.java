@@ -6,4 +6,5 @@ import java.util.Map;
 
 public interface Loginservice {
     Map login(Yuangongbiao ygb);
+    void logout();
 }

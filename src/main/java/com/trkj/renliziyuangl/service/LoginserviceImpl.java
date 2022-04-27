@@ -12,6 +12,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -28,7 +29,7 @@ public class LoginserviceImpl implements Loginservice {
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private RedisTemplate redisTemplate;
-
+    //用户登录
     @Override
     public Map login(Yuangongbiao ygb) {
         UsernamePasswordAuthenticationToken upat=new UsernamePasswordAuthenticationToken(ygb.getYzh(),ygb.getYmm());
@@ -44,5 +45,14 @@ public class LoginserviceImpl implements Loginservice {
         //查看动态菜单路由
 //        map.put("dtly", JSON.toJSONString(zlist));
         return map;
+    }
+    //用户退出
+    @Override
+    public void logout() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        Yuangongbiao yhb = loginUser.getYhb();
+        int ybh = yhb.getYbh();
+        redisTemplate.delete("user"+ybh);
     }
 }
