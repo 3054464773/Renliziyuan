@@ -33,7 +33,7 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         /** Token 验证 */
         String token = request.getHeader(jwtTokenUtil.getHeader());
-
+        System.out.println("token"+token);
         if("null".equals(token)||jwtTokenUtil.isTokenExpired(token)){
            filterChain.doFilter(request,response);
            return;

@@ -14,7 +14,7 @@ jwt:
   # 密匙KEY
   secret: JwtSecret
   # 过期时间(这里设定为豪秒)
-  expire: 60000
+  expire: 600000
   # HeaderKEY
   header: JWTDemo
 server:
