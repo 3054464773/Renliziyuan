@@ -1,8 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.YuangongbiaoDao">
-
+    <resultMap id="UserMap" type="com.trkj.renliziyuangl.pojo.Yuangongbiao">
+        <id column="ybh" property="ybh"/>
+        <result column="bcbh" property="bcbh"/>
+        <result column="rzbh" property="rzbh"/>
+        <result column="zwbh" property="zwbh"/>
+        <result column="sbbh" property="sbbh"/>
+        <result column="ygzt" property="ygzt"/>
+        <result column="yzh" property="yzh"/>
+        <result column="ymm" property="ymm"/>
+    </resultMap>
     <select id="byidfindYgname" resultType="java.lang.String">
         SELECT  r.rzname FROM yuangongbiao y INNER JOIN rencaizibiao r on y.rzbh = r.rzbh  WHERE y.ybh =#{yid}
     </select>
+    <sql id="userCol">
+        ybh,ygzt,bcbh,rzbh,zwbh,sbbh,yzh,ymm
+    </sql>
+    <select id="findUserById" parameterType="int" resultMap="UserMap">
+        select  <include refid="userCol"/>
+        from yuangongbiao where  ybh=#{ybh}
+    </select>
+
+    <select id="findusers" resultMap="UserMap">
+        select  <include refid="userCol"/>
+        from yuangongbiao
+    </select>
+    <update id="updateUser" >
+        update yuangongbiao
+        <set>
+            <if test="ybh !=null">
+                ybh=#{ybh},
+            </if>
+            <if test="bcbh !=null">
+                bcbh=#{bcbh},
+            </if>
+            <if test="rzbh !=null">
+                rzbh=#{rzbh},
+            </if>
+            <if test="zwbh !=null">
+                zwbh=#{zwbh},
+            </if>
+            <if test="sbbh !=null">
+                sbbh=#{sbbh},
+            </if>
+            <if test="ygzt !=null">
+                ygzt=#{ygzt},
+            </if>
+            <if test="yzh !=null">
+                yzh=#{yzh},
+            </if>
+            <if test="ymm !=null">
+                ymm=#{ymm},
+            </if>
+        </set>
+        where ybh=#{ybh}
+
+    </update>
+    <delete id="deleteById">
+        delete from yuangongbiao  where YBH = #{ybh}
+    </delete>
+    <insert id="insersUsers" >
+        insert  into yuangongbiao (ybh,bcbh,rzbh,zwbh,sbbh,ygzt,yzh,ymm) values (#{ybh},#{bcbh},#{rzbh},#{zwbh},#{sbbh},#{ygzt},#{yzh},#{ymm})
+    </insert>
 </mapper>
