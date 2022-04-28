@@ -2,4 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.JixiaobiaoDao">
 
+        <resultMap id="JixiaoMap" type="com.trkj.renliziyuangl.pojo.Jixiaobiao">
+            <id column="jbh" property="jbh"/>
+            <result column="zwbh" property="zwbh"/>
+            <result column="jnr" property="jnr"/>
+            <result column="jmc" property="jmc"/>
+        </resultMap>
+
+        <sql id="jixiaoCol">
+            jbh,zwbh,jnr,jmc
+        </sql>
+
+        <select id="findJixiao" resultMap="JixiaoMap">
+            select <include refid="jixiaoCol"/>
+            from jixiaobiao
+        </select>
+
+        <insert id="insert" keyProperty="jbh">
+            insert into jixiaobiao(jbh,jnr,jmc)
+            values (#{jbh},#{jnr},#{jmc})
+        </insert>
+
+        <update id="update">
+            update jixiaobiao
+            <set>
+                <if test="jnr != null">
+                    jnr=#{jnr},
+                </if>
+                <if test="jmc != null">
+                    jmc=#{jmc},
+                </if>
+            </set>
+            where jbh=#{jbh}
+        </update>
+
+        <select id="findJixiaoById" parameterType="int" resultMap="JixiaoMap">
+            select <include refid="jixiaoCol"/>
+            from jixiaobiao where jbh=#{jbh}
+        </select>
+
+        <delete id="deleteJixiao">
+            delete from jixiaobiao where jbh=#{jbh}
+        </delete>
 </mapper>
