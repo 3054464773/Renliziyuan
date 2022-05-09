@@ -1,5 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.ShebaofananbiaoDao">
+    <!--社保方案表-->
+    <resultMap id="faMap" type="com.trkj.renliziyuangl.pojo.Shebaofananbiao">
+        <id column="sbbh" property="sbbh"/>
+        <result column="sbmc" property="sbmc"/>
+    </resultMap>
+    <!--社保基数表-->
+    <resultMap id="jsMap" type="com.trkj.renliziyuangl.pojo.Shebaojishubiao">
+        <id column="sbjsbh" property="sbjsbh"/>
+        <result column="sbjsje" property="sbjsje"/>
+        <result column="sbname" property="sbname"/>
+        <result column="sbjnbl" property="sbjnbl"/>
+    </resultMap>
+    <!--人才信息子表-->
+    <resultMap id="rczbMap" type="com.trkj.renliziyuangl.pojo.Rencaizibiao">
+        <id column="rzbh" property="rzbh"/>
+        <result column="rzname" property="rzname"/>
+        <result column="rzsex" property="rzsex"/>
+        <result column="rzcsrq" property="rzcsrq"/>
+        <result column="rzage" property="rzage"/>
+        <result column="rzxl" property="rzxl"/>
+        <result column="rzsfz" property="rzsfz"/>
+        <result column="rzphone" property="rzphone"/>
+        <result column="rzdz" property="rzdz"/>
+        <result column="rzgzjl" property="rzgzjl"/>
+        <result column="rzhyzk" property="rzhyzk"/>
+        <result column="rzmz" property="rzmz"/>
+        <result column="rzzzmm" property="rzzzmm"/>
+    </resultMap>
 
+    <!--查询社保方案-->
+    <select id="cxshebaofangan" resultMap="faMap">
+        select fab.sbbh,fab.sbmc from shebaofananbiao fab
+    </select>
+    <!--查询具体的社保方案（多表）-->
+    <select id="selectsbfa" resultType="map">
+        select fab.sbbh,fab.sbmc,jsb.sbjsbh,jsb.sbjsje,jsb.sbname,jsb.sbjnbl from shebaofananbiao fab
+        INNER JOIN sbzjb zjb on fab.sbbh=zjb.sbbh
+        INNER JOIN shebaojishubiao jsb on jsb.sbjsbh= zjb.sbjsbh
+        where fab.sbbh=#{sbbh}
+    </select>
+    <!--根据方案名称模糊查询社保方案信息-->
+    <select id="cxfaByIdAndName" resultMap="faMap">
+        select fab.sbbh,fab.sbmc from shebaofananbiao fab
+        <where>
+            <if test="sbmc!=null and sbmc!=''">
+                sbmc like concat('%',#{sbmc},'%')
+            </if>
+        </where>
+    </select>
+
+    <!--查询社保基数表信息-->
+    <select id="selectsbjsxx" resultMap="jsMap">
+        select sbjsbh,sbjsje,sbname,sbjnbl from shebaojishubiao
+    </select>
+    <!--新增社保方案信息-->
+    <insert id="insertfaxx">
+        insert into shebaofananbiao(sbbh,sbmc) values(#{sbbh},#{sbmc});
+        insert into shebaojishubiao(sbjsbh,sbjsje,sbname,sbjnbl) values(#{sbjsbh},#{sbjsje},#{sbname},#{sbjnbl});
+        insert into sbzjb(sbbh,sbjsbh) values(#{sbbh},#{sbjsbh});
+    </insert>
+
+    <!--删除指定一条社保方案-->
+    <delete id="deletesbfaxx">
+        delete from shebaofananbiao where sbbh=#{sbbh}
+    </delete>
+
+
+    <!--查询参保人员信息——社保方案为空的员工，需要参保-->
+    <select id="cxcanbaorenyuan" resultType="map">
+        select ygb.ybh,ygb.sbbh,ygb.ygzt,
+            rczb.rzname,rczb.rzsex,rczb.rzcsrq,rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,
+            rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
+        from yuangongbiao ygb inner join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+    </select>
 </mapper>
