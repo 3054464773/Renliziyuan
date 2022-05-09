@@ -1,17 +1,19 @@
 package com.trkj.renliziyuangl.service;
-
-import com.github.pagehelper.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.renliziyuangl.dao.YuangongbiaoDao;
-import com.trkj.renliziyuangl.exception.CustomError;
-import com.trkj.renliziyuangl.exception.CustomErrorType;
 import com.trkj.renliziyuangl.pojo.Yuangongbiao;
+import com.trkj.renliziyuangl.vo.UsersXinZiVo;
+import com.trkj.renliziyuangl.vo.usersssVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class UserserviceImpl implements Userservice {
     @Autowired
@@ -35,8 +37,7 @@ public class UserserviceImpl implements Userservice {
 //修改
     @Override
     public Yuangongbiao updateUser(Yuangongbiao userVo) {
-        Yuangongbiao user=new Yuangongbiao();
-        int count=userDao.updateUser(user);
+        int count=userDao.updateUser(userVo);
         return userVo;
     }
 //根据id删除
@@ -51,4 +52,31 @@ public class UserserviceImpl implements Userservice {
 
         return userVo;
     }
+
+    @Override
+    public PageInfo<usersssVo> finduserssss(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<usersssVo> list = userDao.finduserssss();
+        PageInfo<usersssVo> pageInfo = new PageInfo<>(list);
+        System.out.println(pageInfo);
+        return pageInfo;
+    }
+
+    @Override
+    public PageInfo<UsersXinZiVo> findxinzi(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<UsersXinZiVo> list=userDao.findxinzi();
+        PageInfo<UsersXinZiVo> pageInfo=new PageInfo<>(list);
+        return pageInfo;
+    }
+
+    @Override
+    public PageInfo<usersssVo> findusershmd(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<usersssVo> list=userDao.findusershmd();
+        PageInfo<usersssVo> pageInfo=new PageInfo<>(list);
+        return pageInfo;
+    }
+
+
 }

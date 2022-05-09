@@ -24,7 +24,7 @@ public class Yuangongbiao implements Serializable {
 
     private int sbbh;
 
-    private int ygzt;
+    private String ygzt;
     @Size(max = 6,min = 3)
     private String yzh;
     @Size(max = 10,min =6)

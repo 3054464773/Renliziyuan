@@ -2,6 +2,10 @@ package com.trkj.renliziyuangl.service;
 
 import com.github.pagehelper.PageInfo;
 import com.trkj.renliziyuangl.pojo.Yuangongbiao;
+import com.trkj.renliziyuangl.vo.UsersXinZiVo;
+import com.trkj.renliziyuangl.vo.usersssVo;
+
+import java.util.Map;
 
 
 public interface Userservice {
@@ -15,5 +19,13 @@ public interface Userservice {
     public int deleteById(int ybh);
     //添加
     public Yuangongbiao insersUsers(Yuangongbiao userVo);
+
+    //分页以及查询所有
+    public PageInfo<usersssVo> finduserssss(int pageNum, int pageSize);
+  //分页查询员工基本工资
+    public  PageInfo<UsersXinZiVo> findxinzi(int pageNum,int pageSize);
+    //员工黑名单
+    public  PageInfo<usersssVo> findusershmd(int pageNum,int pageSize);
+
 
 }

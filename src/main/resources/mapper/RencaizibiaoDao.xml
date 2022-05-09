@@ -1,5 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.RencaizibiaoDao">
+    <resultMap id="RecruitMap" type="com.trkj.renliziyuangl.pojo.Rencaizibiao">
+        <id column="rzbh" property="rzbh"/>
+        <result column="rzname" property="rzname"/>
+        <result column="rzsex" property="rzsex"/>
+        <result column="rzcsrq" property="rzcsrq"/>
+        <result column="rzage" property="rzage"/>
+        <result column="rzxl" property="rzxl"/>
+        <result column="rzsfz" property="rzsfz"/>
+        <result column="rzphone" property="rzphone"/>
+        <result column="rzdz" property="rzdz"/>
+        <result column="rzgzjl" property="rzgzjl"/>
+        <result column="rzhyzk" property="rzhyzk"/>
+        <result column="rzmz" property="rzmz"/>
+        <result column="rzzzmm" property="rzzzmm"/>
+    </resultMap>
+    <sql id="RecruitCol">
+        rzbh,rzname,rzsex,rzcsrq,rzage,rzxl,rzsfz,rzphone,rzdz,rzgzjl,rzhyzk,rzmz,rzzzmm
+    </sql>
+    <select id="selectRecruit"  resultMap="RecruitMap">
+        select <include refid="RecruitCol"/>
+        from rencaizibiao
+    </select>
+    <select id="selectid" parameterType="int" resultMap="RecruitMap">
+        select <include refid="RecruitCol"/> from rencaizibiao where rzbh=#{rzbh}
+    </select>
+    <update id="updataRecruit"  >
+        update rencaizibiao
+     <set>
+    <if test="rzbh !=null">
+        rzbh=#{rzbh},
+    </if>
+    <if test="rzname !=null">
+        rzname=#{rzname},
+    </if>
+    <if test="rzsex !=null">
+        rzsex=#{rzsex},
+    </if>
+    <if test="rzcsrq !=null">
+        rzcsrq=#{rzcsrq},
+    </if>
+    <if test="rzage !=null">
+        rzage=#{rzage},
+    </if>
+    <if test="rzxl !=null">
+        rzxl=#{rzxl},
+    </if>
+    <if test="rzsfz !=null">
+        rzsfz=#{rzsfz},
+    </if>
+    <if test="rzphone !=null">
+        rzphone=#{rzphone},
+    </if>
+    <if test="rzdz !=null">
+        rzdz=#{rzdz},
+    </if>
+    <if test="rzgzjl !=null">
+        rzgzjl=#{rzgzjl},
+    </if>
+    <if test="rzhyzk !=null">
+         rzhyzk=#{rzhyzk},
+   </if>
+    <if test="rzmz !=null">
+          rzmz=#{rzmz},
+    </if>
+    <if test="rzzzmm !=null">
+          rzzzmm=#{rzzzmm},
+    </if>
+   </set>
+    where rzbh=#{rzbh}
+    </update>
 
+    <insert id="insertRecruit"  parameterType="com.trkj.renliziyuangl.pojo.Rencaizibiao" useGeneratedKeys="true"
+            keyProperty="rzbh">
+        insert  into rencaizibiao (rzbh,rzname,rzsex,rzcsrq,rzage,rzxl,rzsfz,rzphone,rzdz,rzgzjl,rzhyzk,rzmz,rzzzmm) values
+       (#{rzbh},#{rzname},#{rzsex},#{rzcsrq},#{rzage},#{rzxl},#{rzsfz},#{rzphone},#{rzdz},#{rzgzjl},#{rzhyzk},#{rzmz},#{rzzzmm});
+       insert  into rencaibiao (rzbh,rid,rzt,rsj,rsf) select rzbh,rzsfz,rzgzjl,rzcsrq,rzage from rencaizibiao order by rzbh desc LIMIT 1;
+    </insert>
+
+
+    <delete id="deleteById">
+        delete from rencaizibiao where RZBH =#{rzbh}
+    </delete>
 </mapper>

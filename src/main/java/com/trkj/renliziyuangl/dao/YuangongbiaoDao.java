@@ -1,8 +1,9 @@
 package com.trkj.renliziyuangl.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.github.pagehelper.PageInfo;
 import com.trkj.renliziyuangl.pojo.Yuangongbiao;
+import com.trkj.renliziyuangl.vo.UsersXinZiVo;
+import com.trkj.renliziyuangl.vo.usersssVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -19,4 +20,11 @@ public interface YuangongbiaoDao extends BaseMapper<Yuangongbiao> {
         public Yuangongbiao findUserById(int ybh);
         //添加
         public int insersUsers(Yuangongbiao user);
+       //员工多表详细信息
+        public List<usersssVo> finduserssss();
+        //员工多表薪资信息
+        public  List<UsersXinZiVo> findxinzi();
+        //员工黑名单
+      public  List<usersssVo> findusershmd();
+
 }
