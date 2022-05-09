@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.renliziyuangl.dao.UsersssDao">
+
+    <select id="mohuchaxunygg" resultType="com.trkj.renliziyuangl.vo.usersssVo">
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,c.rsj,b.rzgzjl,a.ygzt FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                                                                                                                  INNER JOIN rencaibiao c on a.rzbh=c.rzbh WHERE b.rzname like "%" #{rzname} "%" and  ygzt!='黑名单'
+    </select>
+    <select id="mohuchaxunyghmd" resultType="com.trkj.renliziyuangl.vo.usersssVo">
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,c.rsj,b.rzgzjl,a.ygzt FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                                                                                                                  INNER JOIN rencaibiao c on a.rzbh=c.rzbh WHERE b.rzname like "%" #{rzname} "%" and  ygzt='黑名单'
+    </select>
+</mapper>

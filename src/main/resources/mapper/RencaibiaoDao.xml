@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.RencaibiaoDao">
-
+<sql id="cxrc">
+    rid,ybh,zwbh,rzbh,rzt,rsj,rsf
+</sql>
+    <select id="selecd" resultType="com.trkj.renliziyuangl.vo.interviewVo">
+        SELECT y.rid,r.rzname,r.rzbh,y.rsj,y.rzt FROM rencaibiao y INNER JOIN rencaizibiao r ON y.rzbh=r.rzbh
+    </select>
+    <select id="selecdrencai" resultType="com.trkj.renliziyuangl.pojo.Rencaibiao">
+        select <include refid="cxrc"/> from rencaibiao
+    </select>
 </mapper>

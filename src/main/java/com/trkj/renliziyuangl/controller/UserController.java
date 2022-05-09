@@ -5,6 +5,8 @@ import com.trkj.renliziyuangl.pojo.Yuangongbiao;
 import com.trkj.renliziyuangl.service.Userservice;
 import com.trkj.renliziyuangl.vo.AjaxResponse;
 
+import com.trkj.renliziyuangl.vo.UsersXinZiVo;
+import com.trkj.renliziyuangl.vo.usersssVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,12 +26,11 @@ public class UserController {
     //根据id查找
     @GetMapping("/user/{ybh}")
     public AjaxResponse findUserById(@PathVariable("ybh") int ybh){
-        Yuangongbiao userById = userservice.findUserById(ybh);
-        List<Yuangongbiao> list=new ArrayList<>();
-        list.add(userById);
-
-        return AjaxResponse.success(list);
-    }
+            Yuangongbiao userById = userservice.findUserById(ybh);
+            List<Yuangongbiao> list=new ArrayList<>();
+            list.add(userById);
+            return AjaxResponse.success(list);
+        }
     //查询所有以及分页
     @GetMapping("/findusers")
     public AjaxResponse findusers(int pageNum,int pageSize){
@@ -53,4 +54,22 @@ public class UserController {
       System.out.println(userVo);
         return AjaxResponse.success(userservice.insersUsers(userVo));
   }
+    //查询所有以及分页
+    @GetMapping("/finduserssss")
+    public AjaxResponse finduserssss(int pageNum,int pageSize){
+        PageInfo<usersssVo> info=userservice.finduserssss(pageNum,pageSize);
+        return AjaxResponse.success(info);
+    }
+    //查询员工薪资信息
+    @GetMapping("/findusersxinzi")
+    public AjaxResponse findxinzi(int pageNum,int pageSize){
+        PageInfo<UsersXinZiVo> info=userservice.findxinzi(pageNum,pageSize);
+        return AjaxResponse.success(info);
+    }
+    //黑名单
+    @GetMapping("/findusershmd")
+    public AjaxResponse findusershmd(int pageNum,int pageSize){
+        PageInfo<usersssVo> info=userservice.findusershmd(pageNum, pageSize);
+        return  AjaxResponse.success(info);
+    }
 }
