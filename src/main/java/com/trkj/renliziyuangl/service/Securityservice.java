@@ -25,7 +25,7 @@ public class Securityservice implements UserDetailsService {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
         LambdaQueryWrapper<Yuangongbiao> qw=new LambdaQueryWrapper<>();
-        qw.eq(Yuangongbiao::getYzh,s);
+        qw.eq(Yuangongbiao::getYzh,s).in(Yuangongbiao::getYgzt,2,3);
         Yuangongbiao yhb = dao.selectOne(qw);
         if (Objects.isNull(yhb)){
             throw  new CustomError(CustomErrorType.USER_INPUT_ERROR,"用户或密码错误！");
