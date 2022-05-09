@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.QuanxianbiaoDao">
+    <insert id="insertjiaoseqx">
+            insert jiaosequanxianbiao values (#{jsid},#{qxid});
+    </insert>
+    <delete id="deletejiaoseqx">
+        delete from jiaosequanxianbiao where  jsbh=#{jsid} and qxbh=#{qxid}
+    </delete>
 
+    <select id="injsidfindqxs" resultType="com.trkj.renliziyuangl.pojo.Quanxianbiao">
+        SELECT q.* FROM jiaosequanxianbiao j INNER JOIN quanxianbiao q ON j.qxbh=q.qxbh WHERE j.jsbh=#{jsid}
+    </select>
 </mapper>
