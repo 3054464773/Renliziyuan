@@ -76,7 +76,6 @@
             keyProperty="rzbh">
         insert  into rencaizibiao (rzbh,rzname,rzsex,rzcsrq,rzage,rzxl,rzsfz,rzphone,rzdz,rzgzjl,rzhyzk,rzmz,rzzzmm) values
        (#{rzbh},#{rzname},#{rzsex},#{rzcsrq},#{rzage},#{rzxl},#{rzsfz},#{rzphone},#{rzdz},#{rzgzjl},#{rzhyzk},#{rzmz},#{rzzzmm});
-       insert  into rencaibiao (rzbh,rid,rzt,rsj,rsf) select rzbh,rzsfz,rzgzjl,rzcsrq,rzage from rencaizibiao order by rzbh desc LIMIT 1;
     </insert>
 
 
