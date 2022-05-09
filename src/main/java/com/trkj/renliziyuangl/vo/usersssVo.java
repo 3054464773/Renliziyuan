@@ -12,7 +12,7 @@ public class usersssVo {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date rzcsrq;
     private String rzxl;
-    private String ygzt;
+    private int ygzt;
     private String rzgzjl;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date rsj;
