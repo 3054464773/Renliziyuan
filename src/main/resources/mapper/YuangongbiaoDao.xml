@@ -29,12 +29,12 @@
     </select>
         <select id="finduserssss" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
             SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,c.rsj,b.rzgzjl,a.ygzt,b.rzbh FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
-                                                                                                                      INNER JOIN rencaibiao c on a.rzbh=c.rzbh where ygzt!='黑名单'
+                                                                                                                      INNER JOIN rencaibiao c on a.rzbh=c.rzbh where ygzt!=5
     </select>
 
     <select id="findusershmd" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
         SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,c.rsj,b.rzgzjl,a.ygzt,b.rzbh FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
-                                                                                                                  INNER JOIN rencaibiao c on a.rzbh=c.rzbh where ygzt='黑名单'
+                                                                                                                  INNER JOIN rencaibiao c on a.rzbh=c.rzbh where ygzt=5
     </select>
     <select id="findxinzi" resultType="com.trkj.renliziyuangl.vo.UsersXinZiVo" >
         SELECT a.ybh,b.rzname,a.zwbh,c.xzjljbgz,c.xzjlsb,c.szjlze,c.szjlsj,b.rzbh FROM  yuangongbiao a    INNER JOIN rencaizibiao b

@@ -13,16 +13,17 @@
             jbh,zwbh,jnr,jmc
         </sql>
 
+<!--        查询全部绩效名称-->
         <select id="findJixiao" resultMap="JixiaoMap">
             select <include refid="jixiaoCol"/>
             from jixiaobiao
         </select>
-
-        <insert id="insert" keyProperty="jbh">
-            insert into jixiaobiao(jbh,jnr,jmc)
-            values (#{jbh},#{jnr},#{jmc})
+<!--        添加绩效信息-->
+        <insert id="insert" >
+            insert into jixiaobiao(jnr,jmc)
+            values (#{jnr},#{jmc})
         </insert>
-
+<!--        修改绩效信息-->
         <update id="update">
             update jixiaobiao
             <set>
@@ -35,13 +36,73 @@
             </set>
             where jbh=#{jbh}
         </update>
-
+<!--        根据编号查绩效内容-->
         <select id="findJixiaoById" parameterType="int" resultMap="JixiaoMap">
             select <include refid="jixiaoCol"/>
             from jixiaobiao where jbh=#{jbh}
         </select>
-
+<!--        删除绩效内容-->
         <delete id="deleteJixiao">
             delete from jixiaobiao where jbh=#{jbh}
         </delete>
+
+<!--        查询绩效评分-->
+        <select id="findGrade" resultType="com.trkj.renliziyuangl.vo.gradeVo">
+            select j.jmc,j.jnr,p.jxbh,p.jbh,p.ybh,p.jxsj,p.jxfs,d.jdjb,r.rzname
+            from jixiaobiao j inner join jixiaopinfenbiao p on j.jbh=p.jbh
+                              inner join yuangongbiao y  on y.ybh=p.ybh
+                              inner join rencaizibiao r on r.rzbh=y.rzbh
+                              inner join jixiaodinjibiao d on d.jxbh=p.jxbh
+                              order by jxbh asc
+        </select>
+
+<!--        条件查询  根据名称查-->
+        <select id="findGradeByName" resultType="com.trkj.renliziyuangl.vo.gradeVo">
+            select j.jmc,j.jnr,p.jxbh,p.jbh,p.ybh,p.jxsj,p.jxfs,d.jdjb,r.rzname
+            from jixiaobiao j inner join jixiaopinfenbiao p on j.jbh=p.jbh
+                              inner join yuangongbiao y  on y.ybh=p.ybh
+                              inner join rencaizibiao r on r.rzbh=y.rzbh
+                              inner join jixiaodinjibiao d on d.jxbh=p.jxbh
+                              where r.rzname like "%" #{rzname} "%"
+                              order by jxbh asc
+        </select>
+<!--        修改绩效评分-->
+        <update id="updateGrade">
+            update jixiaopinfenbiao
+            <set>
+                <if test="jxfs != null">
+                    jxfs=#{jxfs},
+                </if>
+            </set>
+            where jxbh=#{jxbh};
+        </update>
+
+        <update id="updateScore">
+            update jixiaopinfenbiao as p,jixiaodinjibiao as d
+            <set>
+                <if test="p.jxfs !=null">
+                    d.jdfs=p.jxfs
+                </if>
+            </set>
+                where p.jxbh=d.jxbh
+        </update>
+
+<!--        根据编号查单条数据-->
+        <select id="findGradeById"  resultType="com.trkj.renliziyuangl.vo.gradeVo">
+            select j.jmc,j.jnr,p.jxbh,p.jbh,p.ybh,p.jxsj,p.jxfs
+            from jixiaobiao j inner join jixiaopinfenbiao p
+            on j.jbh=p.jbh where p.jxbh=#{jxbh}
+        </select>
+
+<!--        根据编号删除评分记录-->
+        <delete id="deleteGrade">
+            delete from jixiaopinfenbiao where jxbh=#{jxbh}
+        </delete>
+<!--        月报统计-->
+        <select id="findAllScore" resultType="com.trkj.renliziyuangl.vo.scoreVo">
+            select d.jdjb,count(p.ybh) as empCount from jixiaodinjibiao d inner join jixiaopinfenbiao p on d.jxbh=p.jxbh
+            where (DATE_FORMAT(jxsj,'%Y-%m'))='2022-05' and (p.ybh=1 or p.ybh=2 or p.ybh=3 or p.ybh=4 or p.ybh=5 )group by d.jdjb
+        </select>
+
+
 </mapper>
