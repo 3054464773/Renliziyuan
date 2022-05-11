@@ -2,8 +2,10 @@ package com.trkj.renliziyuangl.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.trkj.renliziyuangl.pojo.Rencaizibiao;
+
 import com.trkj.renliziyuangl.service.RecruitService;
 import com.trkj.renliziyuangl.vo.AjaxResponse;
+import com.trkj.renliziyuangl.vo.rencaiVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,5 +58,23 @@ public class RecruitController {
     public AjaxResponse mohuRencaizibiao(int page,String rzname){
         System.out.println(rzname);
         return AjaxResponse.success(recruitService.mohuRencaizibiao(page,rzname));
+    }
+    //分页查询
+    @GetMapping("/selectMs")
+    public AjaxResponse selectMs(int pageNum, int pageSize){
+        PageInfo<rencaiVo> info=recruitService.selectMs(pageNum,pageSize);
+        return AjaxResponse.success(info);
+    }
+    //分页查询
+    @GetMapping("/selectMss")
+    public AjaxResponse selectMss(int pageNum, int pageSize){
+        PageInfo<rencaiVo> info=recruitService.selectMss(pageNum,pageSize);
+        return AjaxResponse.success(info);
+    }
+    //分页查询
+    @GetMapping("/selectMsss")
+    public AjaxResponse selectMsss(int pageNum, int pageSize){
+        PageInfo<rencaiVo> info=recruitService.selectMsss(pageNum,pageSize);
+        return AjaxResponse.success(info);
     }
 }

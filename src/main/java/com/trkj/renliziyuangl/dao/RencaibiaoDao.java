@@ -12,5 +12,9 @@ import java.util.List;
 public interface RencaibiaoDao extends BaseMapper<Rencaibiao> {
     public List<interviewVo> selecd();
     public List<Rencaibiao> selecdrencai();
+    public int xiugaizt(int rid);
+    public int xiugaiztt(int rid);
+
+
 
 }

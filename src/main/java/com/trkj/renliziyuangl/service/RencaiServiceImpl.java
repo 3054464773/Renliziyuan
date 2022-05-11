@@ -28,4 +28,14 @@ public class RencaiServiceImpl implements RencaiService{
         PageInfo<Rencaibiao> info=new PageInfo<>(list);
         return info;
     }
+
+    @Override
+    public int xiugaizt(int rid) {
+        return rencaibiaoDao.xiugaizt(rid);
+    }
+
+    @Override
+    public int xiugaiztt(int rid) {
+        return rencaibiaoDao.xiugaiztt(rid);
+    }
 }

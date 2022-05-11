@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.renliziyuangl.dao.UserXzDao">
+    <!--    薪资查询-->
+    <select id="findxinzimohu" resultType="com.trkj.renliziyuangl.vo.UsersXinZiVo" >
+        SELECT a.ybh,b.rzname,a.zwbh,c.xzjljbgz,c.xzjlsb,c.szjlze,c.szjlsj,b.rzbh FROM  yuangongbiao a    INNER JOIN rencaizibiao b
+                                                                                                                     ON b.rzbh=a.rzbh INNER JOIN xingzijilubiao c  on c.ybh=a.ybh
+        WHERE b.rzname like "%" #{rzname} "%"
+    </select>
+</mapper>

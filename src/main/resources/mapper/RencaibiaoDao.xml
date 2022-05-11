@@ -10,4 +10,10 @@
     <select id="selecdrencai" resultType="com.trkj.renliziyuangl.pojo.Rencaibiao">
         select <include refid="cxrc"/> from rencaibiao
     </select>
+    <update id="xiugaizt">
+        UPDATE rencaibiao set rzt=2 where rid=#{rid}
+    </update>
+    <update id="xiugaiztt">
+        UPDATE rencaibiao set rzt=3 where rid=#{rid}
+    </update>
 </mapper>

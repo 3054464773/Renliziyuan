@@ -10,5 +10,6 @@ import java.util.List;
 public interface UsersssDao extends BaseMapper<usersssVo> {
   public List<usersssVo> mohuchaxunygg(String rzname);
   public List<usersssVo> mohuchaxunyghmd(String rzname);
-
+  public List<usersssVo> mohuchaxunyglz(String rzname);
+  public List<usersssVo> mohuchaxunygwbd(String rzname);
 }

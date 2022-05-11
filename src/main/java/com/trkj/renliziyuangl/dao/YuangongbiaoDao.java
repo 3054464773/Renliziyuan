@@ -26,5 +26,11 @@ public interface YuangongbiaoDao extends BaseMapper<Yuangongbiao> {
         public  List<UsersXinZiVo> findxinzi();
         //员工黑名单
       public  List<usersssVo> findusershmd();
+      //员工未到岗
+      public  List<usersssVo> findwdg();
+      //修改员工状态
+    public int xiugairuzhi(int ybh);
+    //员工离职
+    public List<usersssVo> finduserslz();
 
 }

@@ -4,10 +4,19 @@
 
     <select id="mohuchaxunygg" resultType="com.trkj.renliziyuangl.vo.usersssVo">
         SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,c.rsj,b.rzgzjl,a.ygzt FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
-                                                                                                                  INNER JOIN rencaibiao c on a.rzbh=c.rzbh WHERE b.rzname like "%" #{rzname} "%" and  ygzt!='黑名单'
+                                                                                                                  INNER JOIN rencaibiao c on a.rzbh=c.rzbh WHERE b.rzname like "%" #{rzname} "%" and  ygzt!=5 and ygzt!=1 and ygzt!=4
     </select>
     <select id="mohuchaxunyghmd" resultType="com.trkj.renliziyuangl.vo.usersssVo">
         SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,c.rsj,b.rzgzjl,a.ygzt FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
-                                                                                                                  INNER JOIN rencaibiao c on a.rzbh=c.rzbh WHERE b.rzname like "%" #{rzname} "%" and  ygzt='黑名单'
+                                                                                                                  INNER JOIN rencaibiao c on a.rzbh=c.rzbh WHERE b.rzname like "%" #{rzname} "%" and  ygzt='5'
+    </select>
+
+    <select id="mohuchaxunygwbd" resultType="com.trkj.renliziyuangl.vo.usersssVo">
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,c.rsj,b.rzgzjl,a.ygzt FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                                                                                                                  INNER JOIN rencaibiao c on a.rzbh=c.rzbh WHERE b.rzname like "%" #{rzname} "%" and  ygzt='1'
+    </select>
+    <select id="mohuchaxunyglz" resultType="com.trkj.renliziyuangl.vo.usersssVo">
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,c.rsj,b.rzgzjl,a.ygzt FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                                                                                                                  INNER JOIN rencaibiao c on a.rzbh=c.rzbh WHERE b.rzname like "%" #{rzname} "%" and  ygzt='4'
     </select>
 </mapper>

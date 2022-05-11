@@ -28,4 +28,18 @@ public class UserssVoConller {
         List<usersssVo> usersssVo=usersVoService.mohuchaxunyghmd(rzname);
         return AjaxResponse.success(usersssVo);
     }
+    @GetMapping("/mohuchaxunyglz")
+    public AjaxResponse mohuchaxunyglz(String rzname){
+        System.out.println("1111111111111"+rzname);
+        List<usersssVo> usersssVo=usersVoService.mohuchaxunyglz(rzname);
+
+        return AjaxResponse.success(usersssVo);
+
+    }
+    @GetMapping("/mohuchaxunygwbd")
+    public AjaxResponse mohuchaxunygwbd(String rzname){
+        System.out.println("1111111111111"+rzname);
+        List<usersssVo> usersssVo=usersVoService.mohuchaxunygwbd(rzname);
+        return AjaxResponse.success(usersssVo);
+    }
 }

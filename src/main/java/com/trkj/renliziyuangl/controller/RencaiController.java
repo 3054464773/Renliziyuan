@@ -23,4 +23,14 @@ public class RencaiController {
         PageInfo<Rencaibiao> info=rencaiService.selecdrencai(pageNum,pageSize);
         return AjaxResponse.success(info);
     }
+    @GetMapping ("/xgmszt")
+    public AjaxResponse xgmszt(int rid){
+        System.out.println("66666"+rid);
+        return AjaxResponse.success(rencaiService.xiugaizt(rid));
+    }
+    @GetMapping ("/xgmsztt")
+    public AjaxResponse xgmsztt(int rid){
+        System.out.println("66666"+rid);
+        return AjaxResponse.success(rencaiService.xiugaiztt(rid));
+    }
 }
