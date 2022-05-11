@@ -5,7 +5,7 @@ import com.trkj.renliziyuangl.pojo.Shebaojishubiao;
 import com.trkj.renliziyuangl.service.shebaosystemService;
 import com.trkj.renliziyuangl.vo.AjaxResponse;
 import com.trkj.renliziyuangl.vo.canbaoryVo;
-import com.trkj.renliziyuangl.vo.shebaofaVo;
+import com.trkj.renliziyuangl.vo.ShebaofaVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -43,7 +43,8 @@ public class shebaosystemController {
     }
     //新增社保方案
     @PostMapping("/insertsbfa")
-    public AjaxResponse insertsbfa(shebaofaVo sbvo){
+    public AjaxResponse insertsbfa(@RequestBody ShebaofaVo sbvo){
+        System.out.println(sbvo+"1111111111111");
         return AjaxResponse.success(sbservice.insertsbfa(sbvo));
     }
     //删除社保方案

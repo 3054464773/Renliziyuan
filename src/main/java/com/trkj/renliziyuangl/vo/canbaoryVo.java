@@ -2,21 +2,23 @@ package com.trkj.renliziyuangl.vo;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class canbaoryVo {
     private int ybh;
     private int sbbh;
     private int ygzt;
-    private int rzname;
-    private int rzsex;
-    private int rzcsrq;
+    private String rzname;
+    private String rzsex;
+    private Date rzcsrq;
     private int rzage;
-    private int rzxl;
+    private String rzxl;
     private int rzsfz;
     private int rzphone;
-    private int rzdz;
-    private int rzgzjl;
-    private int rzhyzk;
-    private int rzmz;
-    private int rzzzmm;
+    private String rzdz;
+    private String rzgzjl;
+    private String rzhyzk;
+    private String rzmz;
+    private String rzzzmm;
 }
