@@ -8,4 +8,8 @@ import com.trkj.renliziyuangl.vo.interviewVo;
 public interface RencaiService {
     public PageInfo<interviewVo> selecd(int pageNum, int pageSize);
     public PageInfo<Rencaibiao> selecdrencai(int pageNum,int pageSize);
+    public int xiugaizt(int rid);
+    public int xiugaiztt(int rid);
+
+
 }

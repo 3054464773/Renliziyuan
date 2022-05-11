@@ -1,5 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.ZhaopingjihuabiaoDao">
+    <resultMap id="ZpjhMap" type="com.trkj.renliziyuangl.pojo.Zhaopingjihuabiao">
+        <id column="zbh" property="zbh"/>
+        <result column="shjlbh" property="shjlbh"/>
+        <result column="shbid" property="shbid"/>
+        <result column="zwbh" property="zwbh"/>
+        <result column="zrs" property="zrs"/>
+        <result column="zmc" property="zmc"/>
+    </resultMap>
+    <sql id="zpjh">
+        zbh,shjlbh,shbid,zwbh,zrs,zmc
+    </sql>
+    <select id="findZpjhById" parameterType="int" resultMap="ZpjhMap">
+        select  <include refid="zpjh"/>
+        from zhaopingjihuabiao where  zbh=#{zbh}
+    </select>
+<select id="findszpjh" resultMap="ZpjhMap">
+select <include refid="zpjh"/> from zhaopingjihuabiao
+</select>
+    <delete id="deleteById">
+        delete from zhaopingjihuabiao where ZBH=#{zbh}
+    </delete>
+    <insert id="tianjiazpjh">
+        insert into zhaopingjihuabiao(zbh,shjlbh,shbid,zwbh,zrs,zmc)
+        values (#{zbh},#{shjlbh},#{shbid},#{zwbh},#{zrs},#{zmc})
+    </insert>
+    <update id="updateZpjh">
+        update zhaopingjihuabiao
+        <set>
+            <if test="zbh !=null">
+                zbh=#{zbh},
+            </if>
+            <if test="shjlbh !=null">
+                shjlbh=#{shjlbh},
+            </if>
+            <if test="shbid !=null">
+                shbid=#{shbid},
+            </if>
+            <if test="zwbh !=null">
+                zwbh=#{zwbh},
+            </if>
+            <if test="zrs !=null">
+                zrs=#{zrs},
+            </if>
+            <if test="zmc !=null">
+                zmc=#{zmc},
+            </if>
 
+        </set>
+        where zbh=#{zbh}
+
+    </update>
 </mapper>

@@ -6,6 +6,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.renliziyuangl.dao.RencaizibiaoDao;
 import com.trkj.renliziyuangl.pojo.Rencaizibiao;
+
+import com.trkj.renliziyuangl.vo.rencaiVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,5 +66,32 @@ public class RecruitServicelmpl implements RecruitService {
         map.put("list",page1.getRecords());
         map.put("xxx",page1.getPages());
         return map;
+    }
+
+    @Override
+    public PageInfo<rencaiVo> selectMs(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<rencaiVo> list=recruitDao.selectMs();
+        PageInfo<rencaiVo> recruitPageInfo = new PageInfo<>(list);
+        System.out.println(recruitPageInfo);
+        return recruitPageInfo;
+    }
+
+    @Override
+    public PageInfo<rencaiVo> selectMss(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<rencaiVo> list=recruitDao.selectMss();
+        PageInfo<rencaiVo> recruitPageInfo = new PageInfo<>(list);
+        System.out.println(recruitPageInfo);
+        return recruitPageInfo;
+    }
+
+    @Override
+    public PageInfo<rencaiVo> selectMsss(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<rencaiVo> list=recruitDao.selectMsss();
+        PageInfo<rencaiVo> recruitPageInfo = new PageInfo<>(list);
+        System.out.println(recruitPageInfo);
+        return recruitPageInfo;
     }
 }

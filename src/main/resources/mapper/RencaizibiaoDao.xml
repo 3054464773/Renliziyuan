@@ -23,6 +23,18 @@
         select <include refid="RecruitCol"/>
         from rencaizibiao
     </select>
+    <select id="selectMs" resultType="com.trkj.renliziyuangl.vo.rencaiVo">
+        select a.rzbh,a.rzname,a.rzsex,a.rzcsrq,a.rzage,a.rzxl,a.rzsfz,a.rzphone,a.rzdz,a.rzgzjl,a.rzhyzk,a.rzmz,a.rzzzmm,b.rzt,b.rid
+        from rencaizibiao a INNER JOIN rencaibiao b on a.rzbh=b.rzbh  where b.rzt=1
+    </select>
+    <select id="selectMss" resultType="com.trkj.renliziyuangl.vo.rencaiVo">
+        select a.rzbh,a.rzname,a.rzsex,a.rzcsrq,a.rzage,a.rzxl,a.rzsfz,a.rzphone,a.rzdz,a.rzgzjl,a.rzhyzk,a.rzmz,a.rzzzmm,b.rzt,b.rid
+        from rencaizibiao a INNER JOIN rencaibiao b on a.rzbh=b.rzbh  where b.rzt=2
+    </select>
+    <select id="selectMsss" resultType="com.trkj.renliziyuangl.vo.rencaiVo">
+        select a.rzbh,a.rzname,a.rzsex,a.rzcsrq,a.rzage,a.rzxl,a.rzsfz,a.rzphone,a.rzdz,a.rzgzjl,a.rzhyzk,a.rzmz,a.rzzzmm,b.rzt,b.rid
+        from rencaizibiao a INNER JOIN rencaibiao b on a.rzbh=b.rzbh  where b.rzt=3
+    </select>
     <select id="selectid" parameterType="int" resultMap="RecruitMap">
         select <include refid="RecruitCol"/> from rencaizibiao where rzbh=#{rzbh}
     </select>

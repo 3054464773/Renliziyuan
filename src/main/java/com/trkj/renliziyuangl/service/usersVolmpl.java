@@ -25,5 +25,19 @@ public class usersVolmpl implements UsersVoService {
         return usersssVo;
     }
 
+    @Override
+    public List<usersssVo> mohuchaxunyglz(String rzname) {
+        List<usersssVo> usersssVo=userssssdao.mohuchaxunyglz(rzname);
+        System.out.println("2222222222222Service");
+        return usersssVo;
+    }
+
+    @Override
+    public List<usersssVo> mohuchaxunygwbd(String rzname) {
+        List<usersssVo> usersssVo=userssssdao.mohuchaxunygwbd(rzname);
+        System.out.println("2222222222222Service");
+        return usersssVo;
+    }
+
 }
 

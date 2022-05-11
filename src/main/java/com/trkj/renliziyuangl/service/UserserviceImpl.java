@@ -40,6 +40,7 @@ public class UserserviceImpl implements Userservice {
         int count=userDao.updateUser(userVo);
         return userVo;
     }
+
 //根据id删除
     @Override
     public int deleteById(int ybh) {
@@ -61,7 +62,7 @@ public class UserserviceImpl implements Userservice {
         System.out.println(pageInfo);
         return pageInfo;
     }
-
+    //多表查询以及分页
     @Override
     public PageInfo<UsersXinZiVo> findxinzi(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
@@ -69,13 +70,36 @@ public class UserserviceImpl implements Userservice {
         PageInfo<UsersXinZiVo> pageInfo=new PageInfo<>(list);
         return pageInfo;
     }
-
+    //多表查询以及分页
     @Override
     public PageInfo<usersssVo> findusershmd(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         List<usersssVo> list=userDao.findusershmd();
         PageInfo<usersssVo> pageInfo=new PageInfo<>(list);
         return pageInfo;
+    }
+//多表查询以及分页
+    @Override
+    public PageInfo<usersssVo> findwdg(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<usersssVo> list=userDao.findwdg();
+        PageInfo<usersssVo> pageInfo=new PageInfo<>(list);
+        return pageInfo;
+    }
+
+    @Override
+    public PageInfo<usersssVo> finduserslz(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<usersssVo> list=userDao.finduserslz();
+        PageInfo<usersssVo> pageInfo=new PageInfo<>(list);
+        return  pageInfo;
+    }
+
+    //修改员工状态
+    @Override
+    public int xiugairuzhi(int ybh) {
+        System.out.println("55555555"+ybh);
+    return   userDao.xiugairuzhi(ybh);
     }
 
 

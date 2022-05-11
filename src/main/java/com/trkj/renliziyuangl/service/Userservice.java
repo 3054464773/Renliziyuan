@@ -26,6 +26,11 @@ public interface Userservice {
     public  PageInfo<UsersXinZiVo> findxinzi(int pageNum,int pageSize);
     //员工黑名单
     public  PageInfo<usersssVo> findusershmd(int pageNum,int pageSize);
+    //员工未到岗
+    public  PageInfo<usersssVo> findwdg(int pageNum,int pageSize);
+    //员工离职
+    public PageInfo<usersssVo> finduserslz(int pageNum,int pageSize);
 
-
+  //修改员工状态
+    public int xiugairuzhi(int ybh);
 }
