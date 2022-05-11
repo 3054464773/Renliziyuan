@@ -95,19 +95,11 @@ public class JixiaoServiceImpl implements JixiaoService {
 
     //修改绩效评分
     @Override
-    public Jixiaopinfenbiao updateGrade(Jixiaopinfenbiao grade) {
+    public gradeVo updateGrade(gradeVo grade) {
         int count=dao.updateGrade(grade);
-        if(count==0){
-            throw new CustomError(CustomErrorType.SYSTEM_ERROR,"数据更新异常");
-        }
-        return grade;
-    }
-
-    //改一张表信息 同时更新另外一张表
-    @Override
-    public sheetVo updateScore(sheetVo grade) {
-        int count=dao.updateScore(grade);
-        if(count==0){
+        int count2=dao.updateScore2(grade);//改评分定级信息 更新月报
+        System.out.println(grade.getJdfs()+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        if(count==0 || count2==0){
             throw new CustomError(CustomErrorType.SYSTEM_ERROR,"数据更新异常");
         }
         return grade;
@@ -136,11 +128,17 @@ public class JixiaoServiceImpl implements JixiaoService {
         return info;
     }
 
-    //月报统计
     @Override
     public List<scoreVo> findAllScore() {
-
         return dao.findAllScore();
+    }
+
+    //月报统计
+    @Override
+    public List<scoreVo> findAllScoreByBmbh(int bmbh) {
+
+        return dao.findAllScoreByBmbh(bmbh);
 
     }
+
 }

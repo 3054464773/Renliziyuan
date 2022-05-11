@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class scoreVo {
-    private Integer empCount;
+    private int empCount;
     private String jdjb;
+    private int bmbh;
 }

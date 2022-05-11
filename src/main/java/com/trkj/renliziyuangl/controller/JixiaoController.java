@@ -51,7 +51,6 @@ public class JixiaoController {
 
     @GetMapping("/findJixiaoByName")
     public AjaxResponse findJixiaoByName(int page,String jmc){
-        //System.out.println("======================"+service.findJixiaoByName(num,jmc));
         return AjaxResponse.success(service.findJixiaoByName(page,jmc));
     }
 
@@ -62,7 +61,7 @@ public class JixiaoController {
     }
 
     @PutMapping("/updateGrade")
-    public AjaxResponse updateGrade(@RequestBody Jixiaopinfenbiao grade){
+    public AjaxResponse updateGrade(@RequestBody gradeVo grade){
         return AjaxResponse.success(service.updateGrade(grade));
     }
 
@@ -84,10 +83,9 @@ public class JixiaoController {
         HashMap<String,Object> res=new HashMap<>();
         List<String> name=new ArrayList<>();
         List<Integer> num=new ArrayList<>();
-
         for(int i=0;i<echarts.size();i++){
             name.add(echarts.get(i).getJdjb());
-            num.add(Integer.valueOf(echarts.get(i).getEmpCount()));
+            num.add(echarts.get(i).getEmpCount());
             System.out.println(echarts.get(i).getEmpCount()+"===============================");
         }
         res.put("name",name);
@@ -96,9 +94,23 @@ public class JixiaoController {
         return AjaxResponse.success(res);
     }
 
-    @PutMapping("/updateScore")
-    public AjaxResponse updateScore(@RequestBody sheetVo grade){
-        return AjaxResponse.success(service.updateScore(grade));
+    @GetMapping("/findAllScoreByBmbh")
+    public AjaxResponse findAllScoreByBmbh(int bmbh){
+        List<scoreVo> echarts=service.findAllScoreByBmbh(bmbh);
+
+        System.out.println(echarts);
+        HashMap<String,Object> res=new HashMap<>();
+        List<String> name=new ArrayList<>();
+        List<Integer> num=new ArrayList<>();
+        for(int i=0;i<echarts.size();i++){
+            name.add(echarts.get(i).getJdjb());
+            num.add(echarts.get(i).getEmpCount());
+            System.out.println(echarts.get(i).getEmpCount()+"===============================");
+        }
+        res.put("name",name);
+        res.put("num",num);
+        System.out.println(res);
+        return AjaxResponse.success(res);
     }
 
     @GetMapping("/findGradeByName")

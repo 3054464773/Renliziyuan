@@ -20,13 +20,12 @@ public interface JixiaoService {
     public Map findJixiaoByName(int num, String jmc);//plus模糊查询
 
     public PageInfo<gradeVo> findGrade(int pageNum, int PageSize);//查询绩效评分
-    public Jixiaopinfenbiao updateGrade(Jixiaopinfenbiao grade);//修改绩效评分
-    public sheetVo updateScore(sheetVo grade);//改一张表信息 同时更新另外一张表
+    public gradeVo updateGrade(gradeVo grade);//修改绩效评分
     public gradeVo findGradeById(int jbh);//根据编号查单条数据详情
     public int deleteGrade(int jxbh);//根据编号删除评分
     public PageInfo<gradeVo> findGradeByName(int pageNum,int pageSize,String rzname);//条件查询
 
-    public List<scoreVo> findAllScore();//月报统计
-
+    public List<scoreVo> findAllScore();//查询公司所有员工的绩效月报
+    public List<scoreVo> findAllScoreByBmbh(int bmbh);//月报统计
 
 }

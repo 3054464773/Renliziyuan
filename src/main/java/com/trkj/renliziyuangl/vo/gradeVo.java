@@ -17,4 +17,5 @@ public class gradeVo {
     private int jxfs;
     private String rzname;
     private String jdjb;
+    private int jdfs;
 }
