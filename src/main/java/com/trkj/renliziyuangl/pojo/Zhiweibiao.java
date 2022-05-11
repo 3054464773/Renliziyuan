@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -20,7 +21,7 @@ public class Zhiweibiao implements Serializable {
     private String zwjs;
 
     private String zwmc;
-
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date zwsj;
 
     private static final long serialVersionUID = 1L;

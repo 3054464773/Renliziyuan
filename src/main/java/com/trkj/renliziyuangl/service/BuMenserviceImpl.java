@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.renliziyuangl.dao.BumenbiaoDao;
+import com.trkj.renliziyuangl.dao.ZhiweibiaoDao;
 import com.trkj.renliziyuangl.pojo.Bumenbiao;
 import com.trkj.renliziyuangl.pojo.Jiaosebiao;
+import com.trkj.renliziyuangl.pojo.Zhiweibiao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ import java.util.Map;
 public class BuMenserviceImpl implements BuMenservice {
     @Autowired
     private BumenbiaoDao bmdao;
+    @Autowired
+    private ZhiweibiaoDao zwdao;
 
     @Override
     public Map findallbm(int ym) {
@@ -42,9 +46,15 @@ public class BuMenserviceImpl implements BuMenservice {
     }
 
     @Override
-    public boolean deletebm(int id) {
+    public String deletebm(int id) {
+        LambdaQueryWrapper<Zhiweibiao> qw=new LambdaQueryWrapper<>();
+        qw.eq(Zhiweibiao::getBmbh,id);
+        List<Zhiweibiao> zhiweibiaos = zwdao.selectList(qw);
+        if(zhiweibiaos.size()>0){
+            return "no";
+        }
         int i = bmdao.deleteById(id);
-        return i>0?true:false;
+        return "yes";
     }
 
     @Override
@@ -58,5 +68,14 @@ public class BuMenserviceImpl implements BuMenservice {
     public boolean updatebm(Bumenbiao bm) {
         int jg = bmdao.updateById(bm);
         return jg>0?true:false;
+    }
+
+    @Override
+    public Map inidfindzw(int id,int page) {
+        Page<Zhiweibiao> bumenbiaoPage = zwdao.selectPage(new Page<>(page, 8),  new LambdaQueryWrapper<Zhiweibiao>().eq(Zhiweibiao::getBmbh,id).orderByDesc(Zhiweibiao::getZwbh));
+        Map map=new HashMap();
+        map.put("zwlist",bumenbiaoPage.getRecords());
+        map.put("zts",bumenbiaoPage.getPages());
+        return map;
     }
 }
