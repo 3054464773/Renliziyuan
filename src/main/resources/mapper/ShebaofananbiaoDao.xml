@@ -35,7 +35,7 @@
         select fab.sbbh,fab.sbmc from shebaofananbiao fab
     </select>
     <!--查询具体的社保方案（多表）-->
-    <select id="selectsbfa" resultType="map">
+    <select id="selectsbfa" resultType="com.trkj.renliziyuangl.vo.ShebaofaVo">
         select fab.sbbh,fab.sbmc,jsb.sbjsbh,jsb.sbjsje,jsb.sbname,jsb.sbjnbl from shebaofananbiao fab
         INNER JOIN sbzjb zjb on fab.sbbh=zjb.sbbh
         INNER JOIN shebaojishubiao jsb on jsb.sbjsbh= zjb.sbjsbh
@@ -55,13 +55,17 @@
     <select id="selectsbjsxx" resultMap="jsMap">
         select sbjsbh,sbjsje,sbname,sbjnbl from shebaojishubiao
     </select>
-    <!--新增社保方案信息-->
-    <insert id="insertfaxx">
-        insert into shebaofananbiao(sbbh,sbmc) values(#{sbbh},#{sbmc});
-        insert into shebaojishubiao(sbjsbh,sbjsje,sbname,sbjnbl) values(#{sbjsbh},#{sbjsje},#{sbname},#{sbjnbl});
-        insert into sbzjb(sbbh,sbjsbh) values(#{sbbh},#{sbjsbh});
-    </insert>
 
+    <!--修改社保方案信息-->
+    <update id="updatefaxx">
+        update shebaofananbiao
+        <set>
+            <if test="sbmc!=null">
+                sbmc=#{sbmc}
+            </if>
+        </set>
+        where sbbh=#{sbbh}
+    </update>
     <!--删除指定一条社保方案-->
     <delete id="deletesbfaxx">
         delete from shebaofananbiao where sbbh=#{sbbh}
@@ -74,5 +78,6 @@
             rczb.rzname,rczb.rzsex,rczb.rzcsrq,rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,
             rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
         from yuangongbiao ygb inner join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+        where ygb.sbbh is null
     </select>
 </mapper>
