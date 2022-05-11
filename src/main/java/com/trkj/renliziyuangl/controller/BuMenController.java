@@ -3,6 +3,7 @@ package com.trkj.renliziyuangl.controller;
 
 import com.trkj.renliziyuangl.pojo.Bumenbiao;
 import com.trkj.renliziyuangl.pojo.Jiaosebiao;
+import com.trkj.renliziyuangl.pojo.Zhiweibiao;
 import com.trkj.renliziyuangl.service.BuMenservice;
 import com.trkj.renliziyuangl.vo.AjaxResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class BuMenController {
@@ -26,7 +28,7 @@ public class BuMenController {
     }
     @DeleteMapping("/deletebm")
     public AjaxResponse deletebm( int bmbh){
-        boolean issc = buMenservice.deletebm(bmbh);
+        String issc = buMenservice.deletebm(bmbh);
         return AjaxResponse.success(issc);
     }
     @PostMapping("/insertbm")
@@ -38,5 +40,10 @@ public class BuMenController {
     public AjaxResponse updatbm(@Validated @RequestBody  Bumenbiao bm){
         boolean isxgok = buMenservice.updatebm(bm);
         return AjaxResponse.success(isxgok);
+    }
+    @GetMapping("/inidfindzw")
+    public AjaxResponse inidfindzw(int id,int ym){
+        Map inidfindzw = buMenservice.inidfindzw(id, ym);
+        return AjaxResponse.success(inidfindzw);
     }
 }

@@ -8,6 +8,7 @@ import com.trkj.renliziyuangl.pojo.Zhiweibiao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,5 +23,30 @@ public class ZhiWeiServiceImpl implements ZhiWeiService {
         map.put("zwlist",bumenbiaoPage.getRecords());
         map.put("zts",bumenbiaoPage.getPages());
         return map;
+    }
+
+    @Override
+    public Map mohufindzw(int ym, String zwname) {
+        Page<Zhiweibiao> page=new Page<>(ym,8);
+        LambdaQueryWrapper<Zhiweibiao> lambdaQueryWrapper=new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.like(Zhiweibiao::getZwmc,zwname).orderByDesc(Zhiweibiao::getZwbh);
+        Page<Zhiweibiao> bumenbiaoPage = zwdao.selectPage(page, lambdaQueryWrapper);
+        Map map=new HashMap();
+        map.put("zwlist",bumenbiaoPage.getRecords());
+        map.put("zys",bumenbiaoPage.getPages());
+        return map;
+    }
+
+    @Override
+    public boolean insertzw(Zhiweibiao zw) {
+        zw.setZwsj(new Date());
+        int insert = zwdao.insert(zw);
+        return insert>0?true:false;
+    }
+
+    @Override
+    public boolean updatezw(Zhiweibiao zw) {
+        int jg = zwdao.updateById(zw);
+        return jg>0?true:false;
     }
 }
