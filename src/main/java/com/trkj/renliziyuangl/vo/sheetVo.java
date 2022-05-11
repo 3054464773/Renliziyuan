@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class sheetVo {
-    private int jvbh;
+    private int jxbh;
     private String jxfs;
     private String jdfs;
+    private String jdjb;
 }

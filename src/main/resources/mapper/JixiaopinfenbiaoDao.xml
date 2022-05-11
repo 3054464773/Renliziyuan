@@ -2,4 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.JixiaopinfenbiaoDao">
 
+    <select id="findAllEmp" resultType="com.trkj.renliziyuangl.vo.empVo">
+        select y.ybh,r.rzname,y.zwbh from rencaizibiao r left join yuangongbiao y on r.rzbh=y.rzbh where y.ygzt=2 or y.ygzt=3
+    </select>
+
+    <select id="findAllEmpByName" resultType="com.trkj.renliziyuangl.vo.empVo">
+        select y.ybh,r.rzname,y.zwbh from rencaizibiao r left join yuangongbiao y on r.rzbh=y.rzbh
+        where r.rzname like "%" #{rzname} "%" and (y.ygzt=2 or y.ygzt=3)
+    </select>
 </mapper>

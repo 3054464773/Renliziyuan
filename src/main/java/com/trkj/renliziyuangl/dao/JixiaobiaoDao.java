@@ -21,13 +21,13 @@ public interface JixiaobiaoDao extends BaseMapper<Jixiaobiao>{
 
     //绩效评分
     public List<gradeVo> findGrade();//查询绩效评分
-    public int updateGrade(Jixiaopinfenbiao grade);//修改绩效评分
-    public int updateScore(sheetVo grade);//改一张表信息 同时更新另外一张表
+    public int updateGrade(gradeVo grade);//修改绩效评分
+    public int updateScore2(gradeVo grade);//改评分定级信息 更新月报
     public gradeVo findGradeById(int jbh);//根据编号查单条数据详情
     public int deleteGrade(int jxbh);
     public List<gradeVo> findGradeByName(String rzname);
 
     //绩效定级
-    public List<scoreVo> findAllScore();
-
+    public List<scoreVo> findAllScore();//查询公司所有员工的绩效月报
+    public List<scoreVo> findAllScoreByBmbh(int bmbh);//根据部门编号查询某个部门的绩效月报
 }

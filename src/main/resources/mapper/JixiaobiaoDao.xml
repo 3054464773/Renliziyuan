@@ -48,7 +48,7 @@
 
 <!--        查询绩效评分-->
         <select id="findGrade" resultType="com.trkj.renliziyuangl.vo.gradeVo">
-            select j.jmc,j.jnr,p.jxbh,p.jbh,p.ybh,p.jxsj,p.jxfs,d.jdjb,r.rzname
+            select j.jmc,j.jnr,p.jxbh,p.jbh,p.ybh,p.jxsj,p.jxfs,d.jdjb,d.jdfs,r.rzname
             from jixiaobiao j inner join jixiaopinfenbiao p on j.jbh=p.jbh
                               inner join yuangongbiao y  on y.ybh=p.ybh
                               inner join rencaizibiao r on r.rzbh=y.rzbh
@@ -77,21 +77,27 @@
             where jxbh=#{jxbh};
         </update>
 
-        <update id="updateScore">
-            update jixiaopinfenbiao as p,jixiaodinjibiao as d
+        <update id="updateScore2">
+            update jixiaodinjibiao
             <set>
-                <if test="p.jxfs !=null">
-                    d.jdfs=p.jxfs
+                <if test="jdjb != null">
+                    jdjb=#{jdjb},
+                </if>
+                <if test="jdfs !=null">
+                    jdfs=#{jdfs}
                 </if>
             </set>
-                where p.jxbh=d.jxbh
+            where jxbh=#{jxbh};
         </update>
 
 <!--        根据编号查单条数据-->
         <select id="findGradeById"  resultType="com.trkj.renliziyuangl.vo.gradeVo">
-            select j.jmc,j.jnr,p.jxbh,p.jbh,p.ybh,p.jxsj,p.jxfs
-            from jixiaobiao j inner join jixiaopinfenbiao p
-            on j.jbh=p.jbh where p.jxbh=#{jxbh}
+            select j.jmc,j.jnr,p.jxbh,p.jbh,p.ybh,p.jxsj,p.jxfs,d.jdjb,d.jdfs
+            from jixiaobiao j inner join jixiaopinfenbiao p on j.jbh=p.jbh
+                              inner join yuangongbiao y  on y.ybh=p.ybh
+                              inner join rencaizibiao r on r.rzbh=y.rzbh
+                              inner join jixiaodinjibiao d on d.jxbh=p.jxbh
+                              where p.jxbh=#{jxbh}
         </select>
 
 <!--        根据编号删除评分记录-->
@@ -99,10 +105,20 @@
             delete from jixiaopinfenbiao where jxbh=#{jxbh}
         </delete>
 <!--        月报统计-->
-        <select id="findAllScore" resultType="com.trkj.renliziyuangl.vo.scoreVo">
+        <select id="findAllScoreByBmbh" resultType="com.trkj.renliziyuangl.vo.scoreVo">
             select d.jdjb,count(p.ybh) as empCount from jixiaodinjibiao d inner join jixiaopinfenbiao p on d.jxbh=p.jxbh
-            where (DATE_FORMAT(jxsj,'%Y-%m'))='2022-05' and (p.ybh=1 or p.ybh=2 or p.ybh=3 or p.ybh=4 or p.ybh=5 )group by d.jdjb
+                                                                          inner join jixiaobiao j on p.jbh=j.jbh
+                                                                          inner join zhiweibiao z	on j.zwbh=z.zwbh
+                                                                          where (DATE_FORMAT(jxsj,'%Y-%m'))='2022-05'
+                                                                          and (p.ybh=1 or p.ybh=2 or p.ybh=3 or p.ybh=4 or p.ybh=5 or p.ybh=6 or p.ybh=7
+                                                                          or p.ybh=8 or p.ybh=9 or p.ybh=10 or p.ybh=11 or p.ybh=12 or p.ybh=13 or p.ybh=14)
+                                                                          and z.bmbh=#{bmbh} group by d.jdjb order by p.jxfs desc
         </select>
 
+        <select id="findAllScore" resultType="com.trkj.renliziyuangl.vo.scoreVo">
+            select d.jdjb,count(p.ybh) as empCount from jixiaodinjibiao d inner join jixiaopinfenbiao p on d.jxbh=p.jxbh
+            where (DATE_FORMAT(jxsj,'%Y-%m'))='2022-05' and (p.ybh=1 or p.ybh=2 or p.ybh=3 or p.ybh=4 or p.ybh=5 or p.ybh=6
+            or p.ybh=7 or p.ybh=8 or p.ybh=9 or p.ybh=10 or p.ybh=11 or p.ybh=12 or p.ybh=13 or p.ybh=14)group by d.jdjb order by p.jxfs desc
+        </select>
 
 </mapper>
