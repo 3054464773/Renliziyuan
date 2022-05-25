@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.ZhiweibiaoDao">
+<select id="zhiwei" resultType="com.trkj.renliziyuangl.pojo.Zhiweibiao">
+    SELECT zwbh,zwmc FROM zhiweibiao
+</select>
 
 </mapper>
