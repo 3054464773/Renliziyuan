@@ -1,12 +1,12 @@
 package com.trkj.renliziyuangl.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.trkj.renliziyuangl.dao.BancibiaoDao;
 import com.trkj.renliziyuangl.dao.SbzjbDao;
 import com.trkj.renliziyuangl.dao.ShebaofananbiaoDao;
-import com.trkj.renliziyuangl.pojo.Bancibiao;
-import com.trkj.renliziyuangl.pojo.Sbzjb;
-import com.trkj.renliziyuangl.pojo.Shebaofananbiao;
-import com.trkj.renliziyuangl.pojo.Shebaojishubiao;
+import com.trkj.renliziyuangl.dao.YuangongbiaoDao;
+import com.trkj.renliziyuangl.pojo.*;
 import com.trkj.renliziyuangl.vo.canbaoryVo;
 import com.trkj.renliziyuangl.vo.ShebaofaVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +18,11 @@ public class shebaosystemServiceImpl implements shebaosystemService {
     @Autowired
     private BancibiaoDao bcdao;
     @Autowired
-    private ShebaofananbiaoDao sbfadao;
+    private ShebaofananbiaoDao sbfadao;//社保方案表dao
     @Autowired
-    private SbzjbDao sbdao;
+    private SbzjbDao sbdao;//社保中间表dao
+    @Autowired
+    private YuangongbiaoDao ygbd;//员工表dao
 
     /*查询班次表信息*/
     @Override
@@ -31,11 +33,14 @@ public class shebaosystemServiceImpl implements shebaosystemService {
 
     /*查询社保方案*/
     @Override
-    public List cxsbfa(Shebaofananbiao sbfa) {
-        List cxshebaofangan = sbfadao.cxshebaofangan(sbfa);
-        return cxshebaofangan;
+    public PageInfo<Shebaofananbiao> cxsbfa(int pageNum, int PageSize) {
+        PageHelper.startPage(pageNum, PageSize);
+        Shebaofananbiao sbfa=new Shebaofananbiao();
+        List<Shebaofananbiao> shebaofananbiaos = sbfadao.cxshebaofangan(sbfa);
+        PageInfo<Shebaofananbiao> pageInfo=new PageInfo<>(shebaofananbiaos);
+        System.out.println(pageInfo);
+        return pageInfo;
     }
-
     /*查询所有社保方案(具体)*/
     @Override
     public List<ShebaofaVo> selectsbfa(int sbbh) {
@@ -61,6 +66,7 @@ public class shebaosystemServiceImpl implements shebaosystemService {
         sb.setSbmc(sbvo.getSbmc());
         int insert = sbfadao.insert(sb);
         System.out.println(sb.toString()+"11111111111111111111111");
+        System.out.println(sbvo.getQbsj());
         List qbsj = sbvo.getQbsj();
         for (Object o : qbsj) {
             Sbzjb sb2=new Sbzjb();
@@ -79,8 +85,80 @@ public class shebaosystemServiceImpl implements shebaosystemService {
 
     /*查询参保人员信息*/
     @Override
-    public List cxcbry(canbaoryVo cbryvo) {
-        return sbfadao.cxcanbaorenyuan(cbryvo);
+    public PageInfo<canbaoryVo> cxcbry(int pageNum, int PageSize) {
+        PageHelper.startPage(pageNum, PageSize);
+        canbaoryVo vo=new canbaoryVo();
+        List cxcanbaorenyuan = sbfadao.cxcanbaorenyuan(vo);
+        PageInfo<canbaoryVo> pageInfo=new PageInfo<>(cxcanbaorenyuan);
+        System.out.println(pageInfo);
+        return pageInfo;
     }
+
+    /*查询社保缴费信息*/
+    @Override
+    public PageInfo<canbaoryVo> cxsbjf(int pageNum, int PageSize) {
+        PageHelper.startPage(pageNum, PageSize);
+        canbaoryVo vo=new canbaoryVo();
+        List cxshebaojiaofei = sbfadao.cxshebaojiaofei(vo);
+        PageInfo<canbaoryVo> pageInfo=new PageInfo<>(cxshebaojiaofei);
+        System.out.println(pageInfo);
+        return pageInfo;
+    }
+
+    @Override//社保状态
+    public int updatesbzt(Shebaofananbiao sbfab) {
+        return sbfadao.xgzt(sbfab);
+    }
+
+    /*通过员工姓名模糊查询其员工信息（参保人员）*/
+    @Override
+    public List<canbaoryVo> cxygbyname(String rzname) {
+        return sbfadao.cxygByname(rzname);
+    }
+
+    /*通过员工姓名模糊查询其员工信息（社保缴费）*/
+    @Override
+    public List<canbaoryVo> cxygbyname1(String rzname) {
+        return sbfadao.cxygByname1(rzname);
+    }
+
+    /*根据员工id查询员工信息*/
+    @Override
+    public canbaoryVo cxygxx(int ybh) {
+        return sbfadao.cxygxxbyid(ybh);
+    }
+
+    /*查询社保状态为启用状态的方案*/
+    @Override
+    public List cxsbfaByzt(Shebaofananbiao fab) {
+        return sbfadao.cxsbfabyzt(fab);
+    }
+
+    //给正式员工（员工状态为3）未参保的人员设置社保方案
+    @Override
+    public int updateygsb(Yuangongbiao ygb) {
+        int update=sbfadao.xgygsbxx(ygb);
+        return update;
+    }
+
+    //修改社保方案
+    @Override
+    public int updatesbfa(ShebaofaVo favo) {
+        Shebaofananbiao fab=new Shebaofananbiao();
+        fab.setSbbh(favo.getSbbh());
+        fab.setSbmc(favo.getSbmc());
+        sbfadao.xgsbfacbzt(fab);
+        System.out.println("fab:"+fab);
+        int[] sbjslistss = favo.getSbjslistss();
+        Sbzjb zjb=new Sbzjb();
+        sbdao.deleteById(favo.getSbbh());
+        for(int o:sbjslistss){
+            zjb.setSbbh(favo.getSbbh());
+            zjb.setSbjsbh(Integer.parseInt(o+""));
+            sbdao.insert(zjb);
+        }
+        return 1;
+    }
+
 
 }

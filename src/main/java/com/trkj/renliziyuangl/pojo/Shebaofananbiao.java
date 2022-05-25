@@ -21,5 +21,7 @@ public class Shebaofananbiao implements Serializable {
 
     private String sbmc;
 
+    private int sbzt;
+
     private static final long serialVersionUID = 1L;
 }
