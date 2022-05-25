@@ -2,4 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.TongzhibiaoDao">
 
+    <select id="inygidfindbmid" resultType="java.lang.Integer">
+        SELECT	b.bmbh FROM yuangongbiao y INNER JOIN zhiweibiao z on y.zwbh=z.zwbh INNER JOIN bumenbiao b on z.bmbh=b.bmbh WHERE y.ybh=#{ygid}
+    </select>
+    <select id="inygidfindtz" resultType="com.trkj.renliziyuangl.pojo.Tongzhibiao">
+        SELECT t.*,r.rzname,b.bmmc FROM yuangongbiao y INNER JOIN tongzhibiao t on y.ybh=t.ybh INNER JOIN rencaizibiao r
+            on y.rzbh=r.rzbh INNER JOIN bumenbiao b on t.bmbh=b.bmbh where 1=1
+                <if test="pdtj!=1">
+                  and  y.ybh=#{ygid}
+                </if>
+                and
+                (
+                t.tzsj like #{sstj} or t.tzbt like #{sstj} or r.rzname like #{sstj} or b.bmmc like #{sstj}
+                )
+                ORDER BY t.tzbh DESC
+    </select>
 </mapper>
