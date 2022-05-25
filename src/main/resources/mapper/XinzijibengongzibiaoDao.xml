@@ -2,4 +2,54 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.XinzijibengongzibiaoDao">
 
+    <select id="findAllBasePay" resultType="com.trkj.renliziyuangl.vo.basePay">
+        select r.rzname,z.zwmc,b.bmmc,y.ygzt,x.xzjbgz from xinzijibengongzibiao x
+                                              inner join zhiweibiao z on x.zwbh=z.zwbh
+                                              inner join yuangongbiao y on y.zwbh=z.zwbh
+                                              inner join rencaizibiao r on r.rzbh=y.rzbh
+                                              inner join bumenbiao b on b.bmbh=z.bmbh
+                                              where x.zwbh=z.zwbh and x.xzjbgz!=0
+                                              order by xzjbbh desc
+    </select>
+
+    <select id="findAllBasePayByName" resultType="com.trkj.renliziyuangl.vo.basePay">
+        select r.rzname,z.zwmc,b.bmmc,y.ygzt,x.xzjbgz from xinzijibengongzibiao x
+                                              inner join zhiweibiao z on x.zwbh=z.zwbh
+                                              inner join yuangongbiao y on y.zwbh=z.zwbh
+                                              inner join rencaizibiao r on r.rzbh=y.rzbh
+                                              inner join bumenbiao b on b.bmbh=z.bmbh
+                                              where x.zwbh=z.zwbh and r.rzname like "%" #{rzname} "%"
+    </select>
+
+    <select id="findAllPositionSalary" resultType="com.trkj.renliziyuangl.vo.job">
+        select x.xzjbbh,z.zwmc,b.bmmc,x.xzjbgz from xinzijibengongzibiao x
+                                       inner join zhiweibiao z on x.zwbh=z.zwbh
+                                       inner join bumenbiao b on b.bmbh=z.bmbh
+                                       where x.zwbh=z.zwbh and x.xzjbgz=0
+    </select>
+
+    <select id="findAllPositionSalaryByZwmc" resultType="com.trkj.renliziyuangl.vo.job">
+        select x.xzjbbh,z.zwmc,b.bmmc,x.xzjbgz from xinzijibengongzibiao x
+                                        inner join zhiweibiao z on x.zwbh=z.zwbh
+                                        inner join bumenbiao b on b.bmbh=z.bmbh
+                                        where x.zwbh=z.zwbh and x.xzjbgz=0 and z.zwmc like "%" #{zwmc} "%"
+    </select>
+
+    <select id="selectPositionSalaryByXzjbbh" resultType="com.trkj.renliziyuangl.vo.job">
+        select x.xzjbbh,z.zwmc,b.bmmc,x.xzjbgz from xinzijibengongzibiao x
+                                                        inner join zhiweibiao z on x.zwbh=z.zwbh
+                                                        inner join bumenbiao b on b.bmbh=z.bmbh
+                                                        where x.xzjbbh=#{xzjbbh}
+    </select>
+
+    <update id="updatePositionSalaryByXzjbbh">
+        update xinzijibengongzibiao
+        <set>
+            <if test="xzjbgz != null ">
+                xzjbgz=#{xzjbgz},
+            </if>
+        </set>
+            where xzjbbh=#{xzjbbh};
+    </update>
+
 </mapper>

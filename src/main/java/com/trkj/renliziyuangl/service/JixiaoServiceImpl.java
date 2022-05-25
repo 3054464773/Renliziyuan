@@ -10,9 +10,7 @@ import com.trkj.renliziyuangl.exception.CustomError;
 import com.trkj.renliziyuangl.exception.CustomErrorType;
 import com.trkj.renliziyuangl.pojo.Jixiaobiao;
 import com.trkj.renliziyuangl.pojo.Jixiaopinfenbiao;
-import com.trkj.renliziyuangl.vo.gradeVo;
-import com.trkj.renliziyuangl.vo.scoreVo;
-import com.trkj.renliziyuangl.vo.sheetVo;
+import com.trkj.renliziyuangl.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -91,6 +89,39 @@ public class JixiaoServiceImpl implements JixiaoService {
         PageInfo<gradeVo> pageInfo=new PageInfo<>(list);
 
         return pageInfo;
+    }
+
+    //查询未评分的员工
+    @Override
+    public PageInfo<grade2Vo> findGrade2(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<grade2Vo> list=dao.findGrade2();
+        PageInfo<grade2Vo> pageInfo=new PageInfo<>(list);
+        return pageInfo;
+    }
+
+    @Override
+    public PageInfo<grade2Vo> findGrade2ByName(int pageNum, int pageSize, String rzname) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<grade2Vo> list=dao.findGrade2ByName(rzname);
+        PageInfo info=new PageInfo<>(list);
+        return info;
+    }
+
+    @Override
+    public grade2Vo findGradeByJxbh(int jxbh) {
+        return dao.findGradeByJxbh(jxbh);
+    }
+
+    @Override
+    public grade2Vo updataGradePf(grade2Vo vo) {
+        vo.setJxsj(new Date());
+        int count=dao.updataGradePf(vo);
+        int count2=dao.updataGradeDj(vo);
+        if (count==0 || count2==0){
+            throw new CustomError(CustomErrorType.SYSTEM_ERROR,"数据更新异常");
+        }
+        return vo;
     }
 
     //修改绩效评分
