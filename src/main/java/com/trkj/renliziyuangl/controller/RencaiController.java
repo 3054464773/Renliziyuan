@@ -5,8 +5,11 @@ import com.trkj.renliziyuangl.pojo.Rencaibiao;
 import com.trkj.renliziyuangl.service.RencaiService;
 import com.trkj.renliziyuangl.vo.AjaxResponse;
 import com.trkj.renliziyuangl.vo.interviewVo;
+import com.trkj.renliziyuangl.vo.rencaiVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -33,4 +36,9 @@ public class RencaiController {
         System.out.println("66666"+rid);
         return AjaxResponse.success(rencaiService.xiugaiztt(rid));
     }
+    //双表添加
+//    @PostMapping("insertttt")
+//    public AjaxResponse insertttt(@RequestBody rencaiVo rencaiVo){
+//        return AjaxResponse.success(rencaiService.insersyygg(rencaiVo));
+//    }
 }

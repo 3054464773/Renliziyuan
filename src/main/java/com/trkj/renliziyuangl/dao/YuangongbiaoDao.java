@@ -3,6 +3,7 @@ package com.trkj.renliziyuangl.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.trkj.renliziyuangl.pojo.Yuangongbiao;
 import com.trkj.renliziyuangl.vo.UsersXinZiVo;
+import com.trkj.renliziyuangl.vo.ZpVo;
 import com.trkj.renliziyuangl.vo.usersssVo;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -32,5 +33,4 @@ public interface YuangongbiaoDao extends BaseMapper<Yuangongbiao> {
     public int xiugairuzhi(int ybh);
     //员工离职
     public List<usersssVo> finduserslz();
-
 }

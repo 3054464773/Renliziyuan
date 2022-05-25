@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -48,5 +49,10 @@ public class ZhiWeiServiceImpl implements ZhiWeiService {
     public boolean updatezw(Zhiweibiao zw) {
         int jg = zwdao.updateById(zw);
         return jg>0?true:false;
+    }
+
+    @Override
+    public List<Zhiweibiao> zhiwei() {
+        return zwdao.zhiwei();
     }
 }

@@ -8,4 +8,5 @@
                                                                                                                      ON b.rzbh=a.rzbh INNER JOIN xingzijilubiao c  on c.ybh=a.ybh
         WHERE b.rzname like "%" #{rzname} "%"
     </select>
+
 </mapper>

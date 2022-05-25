@@ -28,18 +28,15 @@
         from yuangongbiao
     </select>
         <select id="finduserssss" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
-            SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,c.rsj,b.rzgzjl,a.ygzt,b.rzbh FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
-                                                                                                                      INNER JOIN rencaibiao c on a.rzbh=c.rzbh where ygzt!=5 and ygzt!=1 and ygzt!=4
+            SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,b.rzbh FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh where ygzt!=5 and ygzt!=1 and ygzt!=4
     </select>
 <!--员工黑名单-->
     <select id="findusershmd" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
-        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,c.rsj,b.rzgzjl,a.ygzt,b.rzbh FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
-                                                                                                                  INNER JOIN rencaibiao c on a.rzbh=c.rzbh where ygzt=5
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,b.rzbh FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh where ygzt=5
     </select>
     <!--员工离职-->
     <select id="finduserslz" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
-        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,c.rsj,b.rzgzjl,a.ygzt,b.rzbh FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
-                                                                                                                         INNER JOIN rencaibiao c on a.rzbh=c.rzbh where ygzt=4
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,b.rzbh FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh where ygzt=4
     </select>
 <!--    薪资查询-->
     <select id="findxinzi" resultType="com.trkj.renliziyuangl.vo.UsersXinZiVo" >
@@ -47,8 +44,7 @@
                                                                                                               ON b.rzbh=a.rzbh INNER JOIN xingzijilubiao c  on c.ybh=a.ybh
     </select>
     <select id="findwdg" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
-        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,c.rsj,b.rzgzjl,a.ygzt,b.rzbh FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
-                                                                                                                         INNER JOIN rencaibiao c on a.rzbh=c.rzbh where ygzt=1
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,b.rzbh FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh where ygzt=1
     </select>
     <update id="updateUser">
         update yuangongbiao

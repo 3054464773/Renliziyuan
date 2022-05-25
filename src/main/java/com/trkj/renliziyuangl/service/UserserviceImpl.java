@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.trkj.renliziyuangl.dao.YuangongbiaoDao;
 import com.trkj.renliziyuangl.pojo.Yuangongbiao;
 import com.trkj.renliziyuangl.vo.UsersXinZiVo;
+import com.trkj.renliziyuangl.vo.ZpVo;
 import com.trkj.renliziyuangl.vo.usersssVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,6 +101,16 @@ public class UserserviceImpl implements Userservice {
     public int xiugairuzhi(int ybh) {
         System.out.println("55555555"+ybh);
     return   userDao.xiugairuzhi(ybh);
+    }
+//通过面试入职的员工
+    @Override
+    public int rzyg(ZpVo zpVo) {
+        Yuangongbiao a=new Yuangongbiao();
+        a.setRzbh(zpVo.getRzbh());
+        a.setZwbh(zpVo.getZwbh());
+        a.setYgzt(1);
+        int count=userDao.insert(a);
+        return 1;
     }
 
 

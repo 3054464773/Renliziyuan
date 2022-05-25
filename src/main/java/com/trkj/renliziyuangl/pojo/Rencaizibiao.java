@@ -3,6 +3,7 @@ package com.trkj.renliziyuangl.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -12,8 +13,8 @@ import lombok.Data;
  * @author 
  */
 @Data
-public class Rencaizibiao implements Serializable {
-@TableId
+public class Rencaizibiao<Longblob> implements Serializable {
+@TableId(value = "rzbh",type = IdType.AUTO)
     private int rzbh;
 
     private String rzname;
@@ -39,6 +40,7 @@ public class Rencaizibiao implements Serializable {
     private String rzmz;
 
     private String rzzzmm;
+      private  int img;
 
     private static final long serialVersionUID = 1L;
 }

@@ -2,7 +2,7 @@ package com.trkj.renliziyuangl.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.trkj.renliziyuangl.pojo.Rencaizibiao;
-import com.trkj.renliziyuangl.vo.rencaiVo;
+import com.trkj.renliziyuangl.vo.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,11 +10,24 @@ import java.util.List;
 @Mapper
 public interface RencaizibiaoDao extends BaseMapper<Rencaizibiao> {
     public List<Rencaizibiao> selectRecruit();
+    //预约面试
     public List<rencaiVo> selectMs();
+   //没有的第一次面试
     public List<rencaiVo> selectMss();
-    public List<rencaiVo> selectMsss();
-
+    //第一次面试
+    public List<ZpVo> selectMsss();
+//根据id查询
     public Rencaizibiao selectid(int rzbh);
+    //修改
     public int updataRecruit(Rencaizibiao rencaizibiao);
+    //新增
     public int insertRecruit(Rencaizibiao rencaizibiao);
+    //查询面试记录
+    public List<MianshijiluVo> mianshijilu();
+    //查询绩效记录
+    public List<JixiaojiluVo> jixiaojilu();
+    //查询考勤记录
+    public List<KaoqinjiluVo> kaoqin();
+    //查询出差记录
+    public List<Chuchaivo> chuchaijjll();
 }

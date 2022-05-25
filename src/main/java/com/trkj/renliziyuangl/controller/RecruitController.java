@@ -4,8 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.trkj.renliziyuangl.pojo.Rencaizibiao;
 
 import com.trkj.renliziyuangl.service.RecruitService;
-import com.trkj.renliziyuangl.vo.AjaxResponse;
-import com.trkj.renliziyuangl.vo.rencaiVo;
+import com.trkj.renliziyuangl.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -74,7 +73,33 @@ public class RecruitController {
     //分页查询
     @GetMapping("/selectMsss")
     public AjaxResponse selectMsss(int pageNum, int pageSize){
-        PageInfo<rencaiVo> info=recruitService.selectMsss(pageNum,pageSize);
+        PageInfo<ZpVo> info=recruitService.selectMsss(pageNum,pageSize);
+        return AjaxResponse.success(info);
+    }
+    //双表添加
+    @PostMapping("inserttttt")
+    public AjaxResponse inserttttt(@RequestBody rencaiVo rencaiVo){
+        return AjaxResponse.success(recruitService.insersyygg(rencaiVo));
+    }
+    @GetMapping("/mianshijilu")
+    public AjaxResponse mianshijilu(int pageNum, int pageSize){
+        PageInfo<MianshijiluVo> info=recruitService.miianshi(pageNum,pageSize);
+        return AjaxResponse.success(info);
+    }
+    @GetMapping("/jixiaojilu")
+    public AjaxResponse jixiaojilu(int pageNum, int pageSize){
+        PageInfo<JixiaojiluVo> info=recruitService.jixiao(pageNum,pageSize);
+        return AjaxResponse.success(info);
+    }
+    @GetMapping("/kaoqinjilu")
+    public AjaxResponse kaoqinjilu(int pageNum, int pageSize){
+        PageInfo<KaoqinjiluVo> info=recruitService.kaoqin(pageNum,pageSize);
+        System.out.println("aaaaaaa========="+info);
+        return AjaxResponse.success(info);
+    }
+    @GetMapping("/chuchaijilu")
+    public AjaxResponse chuchaijilu(int pageNum, int pageSize){
+        PageInfo<Chuchaivo> info=recruitService.chuchaijjll(pageNum,pageSize);
         return AjaxResponse.success(info);
     }
 }
