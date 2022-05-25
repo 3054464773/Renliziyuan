@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.ShenghebiaoDao">
 
+    <select id="findallshenhe" resultType="com.trkj.renliziyuangl.pojo.Shenghebiao">
+        SELECT s.*,j.jsmc FROM shenghebiao s INNER JOIN jiaosebiao j on s.jsbh=j.jsbh where  1=1
+        <if test="shname!=''">
+         and  s.shbmc like #{shname}
+        </if>
+        order by s.shbid DESC
+    </select>
 </mapper>

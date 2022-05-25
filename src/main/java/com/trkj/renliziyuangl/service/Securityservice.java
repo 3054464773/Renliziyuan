@@ -31,9 +31,7 @@ public class Securityservice implements UserDetailsService {
             throw  new CustomError(CustomErrorType.USER_INPUT_ERROR,"用户或密码错误！");
         }
         //查看角色
-//        List<String> qxlist = dao.qxlist(userb.getUid());
-        List<String> qxlist=new ArrayList<>();
-        qxlist.add("a");
+        List<String> qxlist = dao.chaxunquanxina(yhb.getYbh());
         return new LoginUser(yhb,qxlist);
     }
 }

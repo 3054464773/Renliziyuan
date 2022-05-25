@@ -4,10 +4,15 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.renliziyuangl.dao.QuanxianbiaoDao;
+import com.trkj.renliziyuangl.dao.YuangongbiaoDao;
+import com.trkj.renliziyuangl.pojo.LoginUser;
 import com.trkj.renliziyuangl.pojo.Quanxianbiao;
+import com.trkj.renliziyuangl.untli.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +21,8 @@ import java.util.Map;
 public class QuanxianserviceImpl implements Quanxianservice {
     @Autowired
     private QuanxianbiaoDao qxdao;
+
+
     //查询所以权限
     @Override
     public Map findallquanxian(int ym) {
@@ -93,6 +100,7 @@ public class QuanxianserviceImpl implements Quanxianservice {
 
             qxdao.deletejiaoseqx(jsid,i);
         }
+
         return true;
     }
 }

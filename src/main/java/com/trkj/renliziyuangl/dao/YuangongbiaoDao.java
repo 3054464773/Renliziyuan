@@ -33,4 +33,7 @@ public interface YuangongbiaoDao extends BaseMapper<Yuangongbiao> {
     public int xiugairuzhi(int ybh);
     //员工离职
     public List<usersssVo> finduserslz();
+
+    //查询员工权限
+    List<String> chaxunquanxina(int ygid);
 }
