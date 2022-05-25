@@ -1,14 +1,9 @@
 package com.trkj.renliziyuangl.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 import com.trkj.renliziyuangl.pojo.Jixiaobiao;
-import com.trkj.renliziyuangl.pojo.Jixiaopinfenbiao;
 import com.trkj.renliziyuangl.service.JixiaoService;
-import com.trkj.renliziyuangl.vo.AjaxResponse;
-import com.trkj.renliziyuangl.vo.gradeVo;
-import com.trkj.renliziyuangl.vo.scoreVo;
-import com.trkj.renliziyuangl.vo.sheetVo;
+import com.trkj.renliziyuangl.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,6 +53,26 @@ public class JixiaoController {
     public AjaxResponse findGrade(int pageNum,int pageSize){
         PageInfo<gradeVo> info=service.findGrade(pageNum,pageSize);
         return AjaxResponse.success(info);
+    }
+
+    @GetMapping("/findGrade2")
+    public AjaxResponse findGrade2(int pageNum,int pageSize){
+        return AjaxResponse.success(service.findGrade2(pageNum,pageSize));
+    }
+
+    @GetMapping("/findGrade2ByName")
+    public AjaxResponse findGrade2ByName(int pageNum,int pageSize,String rzname){
+        return AjaxResponse.success(service.findGrade2ByName(pageNum,pageSize,rzname));
+    }
+
+    @GetMapping("/findGradeByJxbh")
+    private AjaxResponse findGradeByJxbh(int jxbh){
+        return AjaxResponse.success(service.findGradeByJxbh(jxbh));
+    }
+
+    @PutMapping("/updataGradePf")
+    public AjaxResponse updataGradePf(@RequestBody grade2Vo vo){
+        return AjaxResponse.success(service.updataGradePf(vo));
     }
 
     @PutMapping("/updateGrade")

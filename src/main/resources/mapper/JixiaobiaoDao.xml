@@ -16,7 +16,7 @@
 <!--        查询全部绩效名称-->
         <select id="findJixiao" resultMap="JixiaoMap">
             select <include refid="jixiaoCol"/>
-            from jixiaobiao
+            from jixiaobiao order by jbh desc
         </select>
 <!--        添加绩效信息-->
         <insert id="insert" >
@@ -53,8 +53,72 @@
                               inner join yuangongbiao y  on y.ybh=p.ybh
                               inner join rencaizibiao r on r.rzbh=y.rzbh
                               inner join jixiaodinjibiao d on d.jxbh=p.jxbh
-                              order by jxbh asc
+                              where p.jxfs!=0
+                              order by jxbh desc
         </select>
+
+<!--        查询未评分的员工-->
+        <select id="findGrade2" resultType="com.trkj.renliziyuangl.vo.grade2Vo">
+            select p.jxbh,d.jdbh,j.jmc,j.jnr,p.jbh,p.ybh,r.rzname,b.bmmc
+            from jixiaobiao j inner join jixiaopinfenbiao p on j.jbh=p.jbh
+                              inner join yuangongbiao y  on y.ybh=p.ybh
+                              inner join rencaizibiao r on r.rzbh=y.rzbh
+                              inner join jixiaodinjibiao d on d.jxbh=p.jxbh
+                              inner join zhiweibiao z on y.zwbh=z.zwbh
+                              inner join bumenbiao b on z.bmbh=b.bmbh
+                              where p.jxfs=0
+                              group by r.rzname
+        </select>
+<!--        根据名称查询未评分的员工-->
+        <select id="findGrade2ByName" resultType="com.trkj.renliziyuangl.vo.grade2Vo">
+            select p.jxbh,d.jdbh,j.jmc,j.jnr,p.jbh,p.ybh,r.rzname,b.bmmc
+            from jixiaobiao j inner join jixiaopinfenbiao p on j.jbh=p.jbh
+                              inner join yuangongbiao y  on y.ybh=p.ybh
+                              inner join rencaizibiao r on r.rzbh=y.rzbh
+                              inner join jixiaodinjibiao d on d.jxbh=p.jxbh
+                              inner join zhiweibiao z on y.zwbh=z.zwbh
+                              inner join bumenbiao b on z.bmbh=b.bmbh
+                              where p.jxfs=0 and r.rzname like "%" #{rzname} "%"
+                              group by r.rzname
+        </select>
+
+    <select id="findGradeByJxbh" resultType="com.trkj.renliziyuangl.vo.grade2Vo">
+        select p.jxbh,d.jdbh,j.jmc,j.jnr,p.jbh,p.ybh,r.rzname,b.bmmc
+        from jixiaobiao j inner join jixiaopinfenbiao p on j.jbh=p.jbh
+                          inner join yuangongbiao y  on y.ybh=p.ybh
+                          inner join rencaizibiao r on r.rzbh=y.rzbh
+                          inner join jixiaodinjibiao d on d.jxbh=p.jxbh
+                          inner join zhiweibiao z on y.zwbh=z.zwbh
+                          inner join bumenbiao b on z.bmbh=b.bmbh
+                          where p.jxfs=0 and p.jxbh=#{jxbh}
+                          group by r.rzname
+    </select>
+    
+        <update id="updataGradePf">
+            update jixiaopinfenbiao
+                <set>
+                    <if test="jxsj != null ">
+                        jxsj=#{jxsj},
+                    </if>
+                    <if test="jxfs != null">
+                        jxfs=#{jxfs}
+                    </if>
+
+                </set>
+            where jxbh=#{jxbh};
+        </update>
+        <update id="updataGradeDj">
+            update jixiaodinjibiao
+                <set>
+                    <if test="jdjb !=null">
+                        jdjb=#{jdjb},
+                    </if>
+                    <if test="jdfs !=null">
+                        jdfs=#{jdfs}
+                    </if>
+                </set>
+            where jxbh=#{jxbh}
+        </update>
 
 <!--        条件查询  根据名称查-->
         <select id="findGradeByName" resultType="com.trkj.renliziyuangl.vo.gradeVo">
@@ -108,6 +172,8 @@
         <select id="findAllScoreByBmbh" resultType="com.trkj.renliziyuangl.vo.scoreVo">
             select d.jdjb,count(p.ybh) as empCount from jixiaodinjibiao d inner join jixiaopinfenbiao p on d.jxbh=p.jxbh
                                                                           inner join jixiaobiao j on p.jbh=j.jbh
+                                                                          inner join yuangongbiao y  on y.ybh=p.ybh
+                                                                          inner join rencaizibiao r on r.rzbh=y.rzbh
                                                                           inner join zhiweibiao z	on j.zwbh=z.zwbh
                                                                           where (DATE_FORMAT(jxsj,'%Y-%m'))='2022-05'
                                                                           and (p.ybh=1 or p.ybh=2 or p.ybh=3 or p.ybh=4 or p.ybh=5 or p.ybh=6 or p.ybh=7
@@ -117,6 +183,8 @@
 
         <select id="findAllScore" resultType="com.trkj.renliziyuangl.vo.scoreVo">
             select d.jdjb,count(p.ybh) as empCount from jixiaodinjibiao d inner join jixiaopinfenbiao p on d.jxbh=p.jxbh
+            inner join jixiaobiao j on p.jbh=j.jbh    inner join zhiweibiao z	on j.zwbh=z.zwbh
+            inner join yuangongbiao y  on y.ybh=p.ybh inner join rencaizibiao r on r.rzbh=y.rzbh
             where (DATE_FORMAT(jxsj,'%Y-%m'))='2022-05' and (p.ybh=1 or p.ybh=2 or p.ybh=3 or p.ybh=4 or p.ybh=5 or p.ybh=6
             or p.ybh=7 or p.ybh=8 or p.ybh=9 or p.ybh=10 or p.ybh=11 or p.ybh=12 or p.ybh=13 or p.ybh=14)group by d.jdjb order by p.jxfs desc
         </select>

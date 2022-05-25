@@ -2,4 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.XinziyaosuxiangbiaoDao">
 
+<select id="findAllSalaryElement" resultType="com.trkj.renliziyuangl.pojo.Xinziyaosuxiangbiao">
+    select * from xinziyaosuxiangbiao order by xzysbh desc
+</select>
+
+<insert id="insertSalaryElement" >
+    insert into xinziyaosuxiangbiao(xzysmc,xzysje) values (#{xzysmc},#{xzysje})
+</insert>
+
+<select id="findSalaryElementByYsbh" resultType="com.trkj.renliziyuangl.pojo.Xinziyaosuxiangbiao">
+    select xzysbh,xzysmc,xzysje from xinziyaosuxiangbiao where xzysbh=#{xzysbh}
+</select>
+
+<update id="updateSalaryElement">
+    update xinziyaosuxiangbiao
+    <set>
+        <if test="xzysmc != null">
+            xzysmc=#{xzysmc},
+        </if>
+        <if test="xzysje !=null">
+            xzysje=#{xzysje}
+        </if>
+    </set>
+        where xzysbh=#{xzysbh}
+</update>
+
+
+<select id="findSalaryElementByYsmc" resultType="com.trkj.renliziyuangl.pojo.Xinziyaosuxiangbiao">
+    select * from xinziyaosuxiangbiao where xzysmc like "%" #{xzysmc} "%" order by xzysbh desc
+</select>
+
+
+<delete id="deleteSalaryElementByYsbh">
+    delete  from xinziyaosuxiangbiao where xzysbh=#{xzysbh}
+</delete>
+
 </mapper>
