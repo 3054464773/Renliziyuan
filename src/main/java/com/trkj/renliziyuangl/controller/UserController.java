@@ -6,6 +6,7 @@ import com.trkj.renliziyuangl.service.Userservice;
 import com.trkj.renliziyuangl.vo.AjaxResponse;
 
 import com.trkj.renliziyuangl.vo.UsersXinZiVo;
+import com.trkj.renliziyuangl.vo.ZpVo;
 import com.trkj.renliziyuangl.vo.usersssVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -90,5 +91,11 @@ public class UserController {
     public AjaxResponse finduserslz(int pageNum,int pageSize){
         PageInfo<usersssVo> info=userservice.finduserslz(pageNum,pageSize);
         return  AjaxResponse.success(info);
+    }
+    //通过面试入职的员工
+    @PostMapping("/ruzhiyg")
+    public AjaxResponse ruzhiyg(@RequestBody ZpVo zpVo){
+        System.out.println("入职员工成功"+zpVo);
+        return AjaxResponse.success(userservice.rzyg(zpVo));
     }
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.renliziyuangl.dao.Mohukaoq">
+    <!--    考勤记录-->
+    <select id="mohukaoqin" resultType="com.trkj.renliziyuangl.vo.KaoqinjiluVo">
+        select d.ybh,a.rzname,a.rzsex,a.rzdz,a.rzmz,a.rzzzmm,p.kqsbdksj,p.kqsbzt,p.kqxbdksj,p.kqxbzt,p.xzsj
+        from rencaizibiao a INNER JOIN rencaibiao b on a.rzbh=b.rzbh
+                            INNER JOIN yuangongbiao d on d.rzbh=b.rzbh
+                            INNER JOIN kaoqinjilubiao p on  p.ybh=d.ybh
+                             WHERE a.rzname like "%" #{rzname} "%"
+    </select>
+
+
+</mapper>

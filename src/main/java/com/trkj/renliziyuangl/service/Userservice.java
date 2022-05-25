@@ -3,6 +3,7 @@ package com.trkj.renliziyuangl.service;
 import com.github.pagehelper.PageInfo;
 import com.trkj.renliziyuangl.pojo.Yuangongbiao;
 import com.trkj.renliziyuangl.vo.UsersXinZiVo;
+import com.trkj.renliziyuangl.vo.ZpVo;
 import com.trkj.renliziyuangl.vo.usersssVo;
 
 import java.util.Map;
@@ -33,4 +34,6 @@ public interface Userservice {
 
   //修改员工状态
     public int xiugairuzhi(int ybh);
+    //通过面试添加员工
+    public int rzyg(ZpVo zpVo);
 }

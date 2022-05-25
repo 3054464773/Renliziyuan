@@ -2,4 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.KaoqinjilubiaoDao">
 
+    <select id="findkaoqin" resultType="com.trkj.renliziyuangl.pojo.Kaoqinjilubiao">
+
+        SELECT k.*,r.rzname,b.bmmc from yuangongbiao y INNER JOIN kaoqinjilubiao k on y.ybh=k.ybh
+                                                       INNER JOIN zhiweibiao z ON y.zwbh=z.zwbh
+                                                       INNER JOIN bumenbiao b on z.bmbh=b.bmbh
+                                                       INNER JOIN rencaizibiao r on y.rzbh=r.rzbh
+        where 1=1
+        <if test="rzname!=''">
+                and r.rzname like #{rzname}
+        </if>
+
+        <if test="bmmc!=''">
+            and b.bmmc like #{bmmc}
+        </if>
+
+        <if test="xzsj!='' and 'null'!=xzsj ">
+            and k.xzsj=#{xzsj}
+        </if>
+
+        <if test="dkzt!=0">
+            and k.kqsbzt=#{dkzt} or k.kqxbzt=#{dkzt}
+        </if>
+
+        ORDER BY k.kqjlbh DESC
+    </select>
 </mapper>

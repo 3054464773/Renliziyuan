@@ -32,4 +32,8 @@ public class ZhiWeiController {
         boolean isxgok = zwservice.updatezw(zw);
         return AjaxResponse.success(isxgok);
     }
+    @GetMapping("/zhiweiw")
+    public AjaxResponse zhiweiw(){
+        return AjaxResponse.success(zwservice.zhiwei());
+    }
 }

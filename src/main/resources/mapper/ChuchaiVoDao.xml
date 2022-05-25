@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.renliziyuangl.vo.Chuchaivo">
+    <select id="chuchaijjll">
+        select a.rzname,a.rzsex,d.ybh,c.ccfd,c.cmdd,c.ckssj,c.cyjsj,c.csjsj,c.czt,c.cccnr
+        from rencaizibiao a INNER JOIN rencaibiao b on a.rzbh=b.rzbh
+                            INNER JOIN yuangongbiao d on d.rzbh=b.rzbh
+                            INNER JOIN shenhejilubiao k on d.ybh=k.ybh
+                            INNER JOIN chuchaibiao c on  k.shjlbh=c.shjlbh
+    </select>
+
+</mapper>

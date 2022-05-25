@@ -2,4 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.GonggaobiaoDao">
 
+    <select id="findallgg" resultType="com.trkj.renliziyuangl.pojo.Gonggaobiao">
+        SELECT g.*,r.rzname FROM yuangongbiao y INNER JOIN gonggaobiao g
+                                                           on y.ybh=g.ybh INNER JOIN rencaizibiao r on y.rzbh=r.rzbh  where 1=1
+                and(
+                g.ggsj like #{cxtj} or g.ggbt like #{cxtj} or r.rzname like #{cxtj}
+                )
+        ORDER BY g.ggbh DESC
+
+    </select>
 </mapper>

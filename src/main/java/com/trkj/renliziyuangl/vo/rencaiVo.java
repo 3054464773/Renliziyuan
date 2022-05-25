@@ -11,7 +11,7 @@ import lombok.Data;
  * @author
  */
 @Data
-public class rencaiVo{
+public class rencaiVo<Longblob> {
     @TableId
     private int rzbh;
 
@@ -38,7 +38,12 @@ public class rencaiVo{
     private String rzmz;
 
     private String rzzzmm;
-
+      private  int img;
       private  int rzt;
+      private Date rsj;
+      private String rsf;
       private int rid;
+      private int zwbh;
+      private int ybh;
+
 }
