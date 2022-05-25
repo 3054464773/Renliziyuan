@@ -50,6 +50,10 @@
         SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,c.rsj,b.rzgzjl,a.ygzt,b.rzbh FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
                                                                                                                          INNER JOIN rencaibiao c on a.rzbh=c.rzbh where ygzt=1
     </select>
+    <select id="chaxunquanxina" resultType="java.lang.String">
+        SELECT j.jkey from yuangongbiao y INNER JOIN userandrole u on y.ybh=u.ybh INNER JOIN jiaosebiao j on j.jsbh=u.jsbh where y.ybh=#{ygid}
+
+    </select>
     <update id="updateUser">
         update yuangongbiao
         <set>

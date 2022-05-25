@@ -9,6 +9,7 @@ import lombok.Data;
  */
 @Data
 public class Shebaojishubiao implements Serializable {
+
     private int sbjsbh;
 
     private int shjlbh;

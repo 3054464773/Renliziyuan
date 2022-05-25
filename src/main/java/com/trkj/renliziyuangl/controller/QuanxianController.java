@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -46,13 +47,13 @@ public class QuanxianController {
         return AjaxResponse.success(map);
     }
     @GetMapping("/insertjiaoseqx")
-    public AjaxResponse insertjiaoseqx( int jsid,int [] qxs){
+    public AjaxResponse insertjiaoseqx( int jsid, int [] qxs){
 
         Boolean jg = qxservice.insertjiaoseqx(jsid, qxs);
         return AjaxResponse.success(jg);
     }
     @GetMapping("/deletejiaoseqx")
-    public AjaxResponse deletejiaoseqx( int jsid,int [] qxs){
+    public AjaxResponse deletejiaoseqx(int jsid,int [] qxs){
         System.out.println("进来了");
         Boolean jg = qxservice.deletejiaoseqx(jsid, qxs);
         return AjaxResponse.success(jg);

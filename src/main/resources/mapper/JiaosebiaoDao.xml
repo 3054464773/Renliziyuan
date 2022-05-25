@@ -1,5 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.JiaosebiaoDao">
+    <resultMap id="map1" type="com.trkj.renliziyuangl.vo.Fenpeiyhjs">
+        <result property="ybh" column="ybh"></result>
+        <result property="rzname" column="rzname"></result>
+        <result property="zwmc" column="zwmc"></result>
+        <collection property="jslist" ofType="com.trkj.renliziyuangl.pojo.Jiaosebiao">
+                <result property="jsmc" column="jsmc"/>
+                <result property="jsbh" column="jsbh"/>
+        </collection>
+    </resultMap>
+    <select id="findallygjs" resultMap="map1"  >
+        SELECT y.ybh,r.rzname,z.zwmc,j.jsmc,j.jsbh from yuangongbiao y
+            INNER JOIN userandrole u on y.ybh=u.ybh INNER JOIN jiaosebiao
+                j on j.jsbh=u.jsbh INNER JOIN rencaizibiao r on y.rzbh=r.rzbh INNER JOIN
+            zhiweibiao z on y.zwbh=z.zwbh where y.ygzt in  (2,3)
+    </select>
+    <resultMap id="map2" type="com.trkj.renliziyuangl.vo.Jiaoseandquanxianvo">
+        <result property="jsbh" column="jsbh"/>
+        <result property="jsmc" column="jsmc"/>
+        <collection property="qxmc" javaType="java.util.List" ofType="java.lang.String">
+            <result column="qxmc"/>
+        </collection>
+    </resultMap>
+    <select id="findalljs" resultMap="map2">
 
+        SELECT j.jsbh,j.jsmc,j3.qxmc from jiaosebiao j INNER  JOIN  jiaosequanxianbiao j2
+            on j.jsbh=j2.jsbh INNER JOIN  quanxianbiao j3 on j3.qxbh=j2.qxbh WHERE j.jsbh not  in
+        <foreach  collection="array" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    <select id="mohufindallygjs" resultMap="map1">
+
+        SELECT y.ybh,r.rzname,z.zwmc,j.jsmc,j.jsbh from yuangongbiao y
+                                                            INNER JOIN userandrole u on y.ybh=u.ybh INNER JOIN jiaosebiao
+            j on j.jsbh=u.jsbh INNER JOIN rencaizibiao r on y.rzbh=r.rzbh INNER JOIN
+                                                        zhiweibiao z on y.zwbh=z.zwbh where y.ygzt in  (2,3)
+                           and (r.rzname like #{cxtj} or z.zwmc LIKE #{cxtj} or j.jsmc like #{cxtj})
+    </select>
 </mapper>
