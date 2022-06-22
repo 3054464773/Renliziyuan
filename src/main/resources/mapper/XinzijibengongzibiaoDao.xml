@@ -3,22 +3,19 @@
 <mapper namespace="com.trkj.renliziyuangl.dao.XinzijibengongzibiaoDao">
 
     <select id="findAllBasePay" resultType="com.trkj.renliziyuangl.vo.basePay">
-        select r.rzname,z.zwmc,b.bmmc,y.ygzt,x.xzjbgz from xinzijibengongzibiao x
+        select z.zwmc,b.bmmc,x.xzjbgz from xinzijibengongzibiao x
                                               inner join zhiweibiao z on x.zwbh=z.zwbh
-                                              inner join yuangongbiao y on y.zwbh=z.zwbh
-                                              inner join rencaizibiao r on r.rzbh=y.rzbh
                                               inner join bumenbiao b on b.bmbh=z.bmbh
                                               where x.zwbh=z.zwbh and x.xzjbgz!=0
                                               order by xzjbbh desc
     </select>
 
     <select id="findAllBasePayByName" resultType="com.trkj.renliziyuangl.vo.basePay">
-        select r.rzname,z.zwmc,b.bmmc,y.ygzt,x.xzjbgz from xinzijibengongzibiao x
+        select z.zwmc,b.bmmc,x.xzjbgz from xinzijibengongzibiao x
                                               inner join zhiweibiao z on x.zwbh=z.zwbh
-                                              inner join yuangongbiao y on y.zwbh=z.zwbh
-                                              inner join rencaizibiao r on r.rzbh=y.rzbh
                                               inner join bumenbiao b on b.bmbh=z.bmbh
-                                              where x.zwbh=z.zwbh and r.rzname like "%" #{rzname} "%"
+                                              where x.zwbh=z.zwbh and x.xzjbgz!=0 and z.zwmc like "%" #{zwmc} "%"
+                                              order by xzjbbh desc
     </select>
 
     <select id="findAllPositionSalary" resultType="com.trkj.renliziyuangl.vo.job">
@@ -26,6 +23,7 @@
                                        inner join zhiweibiao z on x.zwbh=z.zwbh
                                        inner join bumenbiao b on b.bmbh=z.bmbh
                                        where x.zwbh=z.zwbh and x.xzjbgz=0
+                                       order by xzjbbh desc
     </select>
 
     <select id="findAllPositionSalaryByZwmc" resultType="com.trkj.renliziyuangl.vo.job">
@@ -33,6 +31,7 @@
                                         inner join zhiweibiao z on x.zwbh=z.zwbh
                                         inner join bumenbiao b on b.bmbh=z.bmbh
                                         where x.zwbh=z.zwbh and x.xzjbgz=0 and z.zwmc like "%" #{zwmc} "%"
+                                        order by xzjbbh desc
     </select>
 
     <select id="selectPositionSalaryByXzjbbh" resultType="com.trkj.renliziyuangl.vo.job">

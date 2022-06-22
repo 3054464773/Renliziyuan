@@ -18,6 +18,7 @@ public interface JixiaobiaoDao extends BaseMapper<Jixiaobiao>{
 
     //绩效评分
     public List<gradeVo> findGrade();//查询绩效评分
+    List<gradeVo> findGradeByJxsj(String jxsj);
     public List<grade2Vo> findGrade2();//查询未评分的员工
     public List<grade2Vo> findGrade2ByName(String rzname);//根据名称查询未评分的员工
     public grade2Vo findGradeByJxbh(int jxbh);//拿评分编号
@@ -32,4 +33,5 @@ public interface JixiaobiaoDao extends BaseMapper<Jixiaobiao>{
     //绩效定级
     public List<scoreVo> findAllScore();//查询公司所有员工的绩效月报
     public List<scoreVo> findAllScoreByBmbh(int bmbh);//根据部门编号查询某个部门的绩效月报
+    List<scoreVo> findAllScoreByJxsj(String jxsj);
 }

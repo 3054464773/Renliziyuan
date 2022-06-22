@@ -91,6 +91,19 @@ public class JixiaoServiceImpl implements JixiaoService {
         return pageInfo;
     }
 
+    @Override
+    public PageInfo<gradeVo> findGradeByJxsj(int pageNum, int pageSize, String jxsj) {
+        if(jxsj==null){
+            PageHelper.startPage(pageNum,pageSize);
+            List<gradeVo> list=dao.findGrade();
+            return new PageInfo<>(list);
+        }else
+            PageHelper.startPage(pageNum,pageSize);
+            List<gradeVo> list=dao.findGradeByJxsj(jxsj);
+            PageInfo<gradeVo> info=new PageInfo<>(list);
+            return info;
+    }
+
     //查询未评分的员工
     @Override
     public PageInfo<grade2Vo> findGrade2(int pageNum, int pageSize) {
@@ -170,6 +183,11 @@ public class JixiaoServiceImpl implements JixiaoService {
 
         return dao.findAllScoreByBmbh(bmbh);
 
+    }
+
+    @Override
+    public List<scoreVo> findAllScoreByJxsj(String jxsj) {
+        return dao.findAllScoreByJxsj(jxsj);
     }
 
 }

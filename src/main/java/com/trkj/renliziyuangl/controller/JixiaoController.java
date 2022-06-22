@@ -55,6 +55,12 @@ public class JixiaoController {
         return AjaxResponse.success(info);
     }
 
+    @GetMapping("/findGradeByJxsj")
+    public AjaxResponse findGradeByJxsj(int pageNum,int pageSize, String jxsj){
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        return AjaxResponse.success(service.findGradeByJxsj(pageNum,pageSize,jxsj));
+    }
+
     @GetMapping("/findGrade2")
     public AjaxResponse findGrade2(int pageNum,int pageSize){
         return AjaxResponse.success(service.findGrade2(pageNum,pageSize));
@@ -131,5 +137,24 @@ public class JixiaoController {
     @GetMapping("/findGradeByName")
     public AjaxResponse findGradeByName(int pageNum,int pageSize,String rzname){
         return AjaxResponse.success(service.findGradeByName(pageNum,pageSize,rzname));
+    }
+
+    @GetMapping("/findAllScoreByJxsj")
+    public AjaxResponse findAllScoreByJxsj(String jxsj){
+        List<scoreVo> echarts=service.findAllScoreByJxsj(jxsj);
+
+        System.out.println(echarts);
+        HashMap<String,Object> res=new HashMap<>();
+        List<String> name=new ArrayList<>();
+        List<Integer> num=new ArrayList<>();
+        for(int i=0;i<echarts.size();i++){
+            name.add(echarts.get(i).getJdjb());
+            num.add(echarts.get(i).getEmpCount());
+            System.out.println(echarts.get(i).getEmpCount()+"===============================");
+        }
+        res.put("name",name);
+        res.put("num",num);
+        System.out.println(res);
+        return AjaxResponse.success(res);
     }
 }
