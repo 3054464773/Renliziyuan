@@ -4,4 +4,7 @@
 <select id="mianshisy" resultType="com.trkj.renliziyuangl.pojo.Mianshijilubiao">
      select mjbh,rid,ybh,mzbh,mjsj,mjzt,mjxcsj from mianshijilubiao
 </select>
+     <update id="xiugaimszt">
+          update mianshijilubiao set mjzt=1 where mjbh=#{mjbh}
+     </update>
 </mapper>

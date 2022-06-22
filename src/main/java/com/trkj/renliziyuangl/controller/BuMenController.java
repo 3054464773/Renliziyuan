@@ -46,4 +46,8 @@ public class BuMenController {
         Map inidfindzw = buMenservice.inidfindzw(id, ym);
         return AjaxResponse.success(inidfindzw);
     }
+    @GetMapping("/suoybumen")
+    public AjaxResponse suoybumen(){
+        return AjaxResponse.success(buMenservice.bumen());
+    }
 }

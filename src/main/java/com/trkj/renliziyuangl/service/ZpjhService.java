@@ -1,8 +1,10 @@
 package com.trkj.renliziyuangl.service;
 
 import com.github.pagehelper.PageInfo;
-import com.trkj.renliziyuangl.pojo.Yuangongbiao;
 import com.trkj.renliziyuangl.pojo.Zhaopingjihuabiao;
+import com.trkj.renliziyuangl.vo.zpjhVo;
+
+import java.util.List;
 
 public interface ZpjhService {
     //分页以及查询
@@ -15,4 +17,6 @@ public interface ZpjhService {
     public Zhaopingjihuabiao idchaxun(int zhb);
     //修改
    public Zhaopingjihuabiao updataZpjh(Zhaopingjihuabiao zhaopingjihuabiao);
+
+    List<zpjhVo> zhaoppxxp();
 }

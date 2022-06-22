@@ -78,4 +78,9 @@ public class BuMenserviceImpl implements BuMenservice {
         map.put("zts",bumenbiaoPage.getPages());
         return map;
     }
+
+    @Override
+    public List<Bumenbiao> bumen() {
+        return bmdao.bumen();
+    }
 }

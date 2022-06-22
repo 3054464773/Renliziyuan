@@ -14,4 +14,5 @@ public interface BuMenservice {
     boolean insertbm(Bumenbiao bm);
     boolean updatebm(Bumenbiao bm);
     Map inidfindzw(int id,int page);
+    List<Bumenbiao> bumen();
 }

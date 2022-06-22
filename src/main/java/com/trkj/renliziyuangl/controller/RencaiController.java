@@ -7,10 +7,7 @@ import com.trkj.renliziyuangl.vo.AjaxResponse;
 import com.trkj.renliziyuangl.vo.interviewVo;
 import com.trkj.renliziyuangl.vo.rencaiVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RencaiController {
@@ -26,8 +23,8 @@ public class RencaiController {
         PageInfo<Rencaibiao> info=rencaiService.selecdrencai(pageNum,pageSize);
         return AjaxResponse.success(info);
     }
-    @GetMapping ("/xgmszt")
-    public AjaxResponse xgmszt(int rid){
+    @GetMapping ("/xgmszt/{rid}")
+    public AjaxResponse xgmszt(@PathVariable("rid") int rid){
         System.out.println("66666"+rid);
         return AjaxResponse.success(rencaiService.xiugaizt(rid));
     }

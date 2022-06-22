@@ -9,5 +9,6 @@ import java.util.List;
 @Mapper
 public interface MianshijilubiaoDao extends BaseMapper<Mianshijilubiao> {
     public List<Mianshijilubiao> mianshisy();
+    public int xiugaimszt(int mjbh);
 
 }

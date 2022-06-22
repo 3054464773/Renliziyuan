@@ -15,17 +15,38 @@
         <result column="rzhyzk" property="rzhyzk"/>
         <result column="rzmz" property="rzmz"/>
         <result column="rzzzmm" property="rzzzmm"/>
+        <result column="gryx" property="gryx"/>
+        <result column="byxy" property="byxy"/>
+        <result column="zymc" property="zymc"/>
     </resultMap>
     <sql id="RecruitCol">
-        rzbh,rzname,rzsex,rzcsrq,rzage,rzxl,rzsfz,rzphone,rzdz,rzgzjl,rzhyzk,rzmz,rzzzmm
+        rzbh,rzname,rzsex,rzcsrq,rzage,rzxl,rzsfz,rzphone,rzdz,rzgzjl,rzhyzk,rzmz,rzzzmm,gryx,byxy,zymc
     </sql>
     <select id="selectRecruit"  resultMap="RecruitMap">
         select <include refid="RecruitCol"/>
         from rencaizibiao
     </select>
     <select id="selectMs" resultType="com.trkj.renliziyuangl.vo.rencaiVo">
-        select a.rzbh,a.rzname,a.rzsex,a.rzcsrq,a.rzage,a.rzxl,a.rzsfz,a.rzphone,b.zwbh,a.rzdz,a.rzgzjl,a.rzhyzk,a.rzmz,a.rzzzmm,b.rzt,b.rid
-        from rencaizibiao a INNER JOIN rencaibiao b on a.rzbh=b.rzbh  where b.rzt=1
+        select *
+        from rencaizibiao a INNER JOIN rencaibiao b on a.rzbh=b.rzbh
+                            INNER JOIN zhiweibiao c on c.zwbh=b.zwbh
+                            INNER  JOIN  bumenbiao bm on c.bmbh=bm.bmbh
+
+        where b.rzt=1
+    </select>
+<!--    //面试官-->
+    <select id="mianshiguan" resultType="com.trkj.renliziyuangl.vo.usersssVo">
+        select a.ybh,b.rzname from yuangongbiao  a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                                                   INNER JOIN rencaibiao o on a.zwbh=o.zwbh
+
+        where  o.rid=#{rid}   and   a.ygzt=3
+    </select>
+    <select id="mianshiguaneee" resultType="com.trkj.renliziyuangl.vo.usersssVo">
+
+        select a.ybh,b.rzname from yuangongbiao  a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+
+
+        where    a.ygzt=3
     </select>
 <!--    <select id="selectMss" resultType="com.trkj.renliziyuangl.vo.rencaiVo">-->
 <!--        select a.rzbh,a.rzname,a.rzsex,a.rzcsrq,a.rzage,a.rzxl,a.rzsfz,a.rzphone,a.rzdz,a.rzgzjl,a.rzhyzk,a.rzmz,a.rzzzmm,b.rzt,b.rid-->
@@ -44,7 +65,10 @@
             rencaibiao r INNER JOIN rencaizibiao rz on r.rzbh=rz.rzbh
                          INNER JOIN mianshiguizhanbiao m on m.zwbh=r.zwbh
                          INNER JOIN mianshiguizhanzibiao mz on mz.mbh=m.mbh
+                         INNER JOIN zhiweibiao zw on r.zwbh=zw.zwbh
+                         INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh
                          INNER JOIN mianshijilubiao mj on r.rid = mj.rid  where r.rzt=2 and mj.mjzt=3 and mz.mzbh=mj.mzbh
+
     </select>
 <!--    面试二-->
 <!--    <select id="selectMsss" resultType="com.trkj.renliziyuangl.vo.ZpVo">-->
@@ -54,7 +78,7 @@
 <!--    </select>-->
 <!--    查询所有-->
     <select id="selectid" parameterType="int" resultMap="RecruitMap">
-        select <include refid="RecruitCol"/> from rencaizibiao where rzbh=#{rzbh}
+        select * from rencaizibiao where rzbh=#{rzbh}
     </select>
     <update id="updataRecruit"  >
         update rencaizibiao
@@ -98,7 +122,33 @@
     <if test="rzzzmm !=null">
           rzzzmm=#{rzzzmm},
     </if>
-   </set>
+         <if test="gryx !=null">
+             gryx=#{gryx},
+         </if>
+         <if test="byxy !=null">
+             byxy=#{byxy},
+         </if>
+         <if test="zymc !=null">
+             zymc=#{zymc},
+         </if>
+
+
+         <if test="rxsj !=null">
+             rxsj=#{rxsj},
+         </if>
+         <if test="byssj !=null">
+             byssj=#{byssj},
+         </if>
+         <if test="yijixk !=null">
+             yijixk=#{yijixk},
+         </if>
+
+         <if test="xxxz !=null">
+             xxxz=#{xxxz},
+         </if>
+
+
+     </set>
     where rzbh=#{rzbh}
     </update>
 
@@ -117,21 +167,22 @@
         select d.ybh,a.rzname,a.rzsex,p.kqsbdksj,p.kqsbzt,p.kqxbdksj,p.kqxbzt,p.xzsj,a.rzbh
         from rencaizibiao a INNER JOIN rencaibiao b on a.rzbh=b.rzbh
                             INNER JOIN yuangongbiao d on d.rzbh=b.rzbh
-                            INNER JOIN kaoqinjilubiao p on  p.ybh=d.ybh
+                            INNER JOIN kaoqinjilubiao p on  p.ybh=d.ybh  where d.ybh=#{ybh}  order by ybh desc
     </select>
 <!--    面试记录-->
     <select id="mianshijilu" resultType="com.trkj.renliziyuangl.vo.MianshijiluVo">
-        select a.rzname,a.rzsex,c.mjsj,c.mjzt,b.rid
+        select a.rzname,a.rzsex,c.mjsj,c.mjzt,b.rid,m.ybh
         from rencaizibiao a INNER JOIN rencaibiao b on a.rzbh=b.rzbh
+                            INNER  JOIN  yuangongbiao m on a.rzbh=m.rzbh
+                            INNER JOIN mianshijilubiao c on b.rid=c.rid where m.ybh=#{ybh}  order by ybh desc
 
-                            INNER JOIN mianshijilubiao c on b.rid=c.rid
     </select>
 <!--    绩效记录-->
     <select id="jixiaojilu" resultType="com.trkj.renliziyuangl.vo.JixiaojiluVo">
         select d.ybh,a.rzname,a.rzsex,p.jnr,p.jmc,a.rzbh
         from rencaizibiao a INNER JOIN rencaibiao b on a.rzbh=b.rzbh
                             INNER JOIN yuangongbiao d on d.rzbh=b.rzbh
-                            INNER JOIN  jixiaobiao  p on p.zwbh=d.zwbh
+                            INNER JOIN  jixiaobiao  p on p.zwbh=d.zwbh where d.ybh=#{ybh}  order by ybh desc
     </select>
 <!--    出差记录-->
     <select id="chuchaijjll" resultType="com.trkj.renliziyuangl.vo.Chuchaivo">
@@ -139,7 +190,7 @@
         from rencaizibiao a INNER JOIN rencaibiao b on a.rzbh=b.rzbh
                             INNER JOIN yuangongbiao d on d.rzbh=b.rzbh
                             INNER JOIN shenhejilubiao k on d.ybh=k.ybh
-                            INNER JOIN chuchaibiao c on  k.shjlbh=c.shjlbh
+                            INNER JOIN chuchaibiao c on  k.shjlbh=c.shjlbh where d.ybh=#{ybh}  order by ybh desc
     </select>
 
 </mapper>

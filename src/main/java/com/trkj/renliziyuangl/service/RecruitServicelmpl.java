@@ -6,11 +6,15 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.renliziyuangl.dao.RencaibiaoDao;
 import com.trkj.renliziyuangl.dao.RencaizibiaoDao;
+import com.trkj.renliziyuangl.pojo.LoginUser;
 import com.trkj.renliziyuangl.pojo.Rencaibiao;
 import com.trkj.renliziyuangl.pojo.Rencaizibiao;
 
+import com.trkj.renliziyuangl.pojo.Yuangongbiao;
 import com.trkj.renliziyuangl.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -57,7 +61,7 @@ public class RecruitServicelmpl implements RecruitService {
        recruitDao.insertRecruit(rencaizibiao);
         return rencaizibiao;
     }
-
+//分页模糊查询
     @Override
     public Map mohuRencaizibiao(int ym,String rzname) {
         Page<Rencaizibiao> page=new Page<>(ym,4);
@@ -100,6 +104,45 @@ public class RecruitServicelmpl implements RecruitService {
 //双表添加
     @Override
     public int insersyygg(rencaiVo rencaiVo) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        Yuangongbiao yhb = loginUser.getYhb();
+        Rencaizibiao a=new Rencaizibiao();
+        a.setRxsj(rencaiVo.getRxsj());
+        a.setByssj(rencaiVo.getByssj());
+        a.setYijixk(rencaiVo.getYijixk());
+        a.setXxxz(rencaiVo.getXxxz());
+        a.setGryx(rencaiVo.getGryx());
+        a.setByxy(rencaiVo.getByxy());
+        a.setZymc(rencaiVo.getZymc());
+        a.setRzbh(rencaiVo.getRzbh());
+        a.setRzname(rencaiVo.getRzname());
+        a.setRzsex(rencaiVo.getRzsex());
+        a.setRzage(rencaiVo.getRzage());
+        a.setRzsfz(rencaiVo.getRzsfz());
+        a.setRzphone(rencaiVo.getRzphone());
+        a.setRzdz(rencaiVo.getRzdz());
+        a.setRzmz(rencaiVo.getRzmz());
+        a.setRzxl(rencaiVo.getRzxl());
+        a.setRzcsrq(rencaiVo.getRzcsrq());
+        a.setRzgzjl(rencaiVo.getRzgzjl());
+        a.setRzhyzk(rencaiVo.getRzhyzk());
+        a.setRzzzmm(rencaiVo.getRzzzmm());
+        a.setImg(rencaiVo.getImg());
+        int inset1=recruitDao.insert(a);
+        Rencaibiao rencaibiao=new Rencaibiao();
+        rencaibiao.setRid(rencaiVo.getRid());
+        rencaibiao.setRzt(1);
+        rencaibiao.setRsj(new Date());
+        rencaibiao.setZwbh(rencaiVo.getZwbh());
+        rencaibiao.setYbh(yhb.getYbh());
+        rencaibiao.setRzbh(a.getRzbh());
+        int inset2=rencaibiaoDao.insert(rencaibiao);
+        return 1;
+    }
+
+    @Override
+    public List<rencaiVo>  daoru(rencaiVo rencaiVo) {
         Rencaizibiao a=new Rencaizibiao();
         a.setRzbh(rencaiVo.getRzbh());
         a.setRzname(rencaiVo.getRzname());
@@ -125,42 +168,49 @@ public class RecruitServicelmpl implements RecruitService {
         rencaibiao.setYbh(rencaiVo.getYbh());
         rencaibiao.setRzbh(a.getRzbh());
         int inset2=rencaibiaoDao.insert(rencaibiao);
-        return 1;
+        return null;
     }
 
     @Override
-    public PageInfo<MianshijiluVo> miianshi(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
-        List<MianshijiluVo> list=recruitDao.mianshijilu();
-        PageInfo<MianshijiluVo> recruitPageInfo = new PageInfo<>(list);
-        System.out.println(recruitPageInfo);
-        return recruitPageInfo;
+    public List<MianshijiluVo> miianshi(int ybh) {
+
+        List<MianshijiluVo> list=recruitDao.mianshijilu(ybh);
+
+        return list;
     }
 
     @Override
-    public PageInfo<JixiaojiluVo> jixiao(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
-        List<JixiaojiluVo> list=recruitDao.jixiaojilu();
-        PageInfo<JixiaojiluVo> recruitPageInfo = new PageInfo<>(list);
-        System.out.println(recruitPageInfo);
-        return recruitPageInfo;
+    public List<JixiaojiluVo> jixiao(int ybh) {
+
+        List<JixiaojiluVo> list=recruitDao.jixiaojilu(ybh);
+
+        return list;
 
     }
 
     @Override
-    public PageInfo<KaoqinjiluVo> kaoqin(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
-        List<KaoqinjiluVo> list=recruitDao.kaoqin();
-        PageInfo<KaoqinjiluVo> recruitPageInfo = new PageInfo<>(list);
-        System.out.println(recruitPageInfo);
-        return recruitPageInfo;
+    public List<KaoqinjiluVo> kaoqin(int ybh) {
+
+        List<KaoqinjiluVo> list=recruitDao.kaoqin(ybh);
+
+        return list;
     }
 //出差记录
     @Override
-    public PageInfo<Chuchaivo> chuchaijjll(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
-        List<Chuchaivo> list=recruitDao.chuchaijjll();
-        PageInfo<Chuchaivo> pageInfo=new PageInfo<>(list);
-        return pageInfo;
+    public List<Chuchaivo> chuchaijjll(int ybh) {
+        List<Chuchaivo> list=recruitDao.chuchaijjll(ybh);
+        return list;
     }
+
+    @Override
+    public List<rencaiVo> mianshiguan(int rid) {
+
+        return recruitDao.mianshiguan(rid);
+    }
+    @Override
+    public List<rencaiVo> mianshiguaneee() {
+
+        return recruitDao.mianshiguaneee();
+    }
+
 }

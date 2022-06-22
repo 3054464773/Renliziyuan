@@ -13,8 +13,8 @@ public class MOhujianliController {
     @Autowired
     public MohuJianliService mohuJianliService;
     @GetMapping("/mohujianli")
-    public AjaxResponse mohujianli(String rzname){
-        List<rencaiVo> RO=mohuJianliService.mohujianli(rzname);
-        return AjaxResponse.success(RO);
+    public AjaxResponse mohujianli(int pageNum,int pageSize,String rzname){
+
+        return AjaxResponse.success(mohuJianliService.mohujianli(pageNum,pageSize,rzname));
     }
 }

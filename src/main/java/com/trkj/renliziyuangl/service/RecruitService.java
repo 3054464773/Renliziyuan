@@ -6,6 +6,7 @@ import com.trkj.renliziyuangl.pojo.Rencaizibiao;
 import com.trkj.renliziyuangl.vo.*;
 
 
+import java.util.List;
 import java.util.Map;
 
 public interface RecruitService {
@@ -20,13 +21,19 @@ public interface RecruitService {
     public PageInfo<ZpVo> selectMsss(int pageNum, int pageSize);
     //双表添加
     public int insersyygg(rencaiVo rencaiVo);
-    //面试记录
-    public PageInfo<MianshijiluVo> miianshi(int pageNum, int pageSize);
+    //导入
+    public List<rencaiVo> daoru(rencaiVo rencaiVo);
+     //面试记录
+    public List<MianshijiluVo> miianshi(int ybh);
     //绩效记录
-    public PageInfo<JixiaojiluVo> jixiao(int pageNum, int pageSize);
+    public List<JixiaojiluVo> jixiao(int ybh);
     //考勤记录
-    public PageInfo<KaoqinjiluVo> kaoqin(int pageNum, int pageSize);
+    public List<KaoqinjiluVo> kaoqin(int ybh);
     //出差记录
-    public PageInfo<Chuchaivo> chuchaijjll(int pageNum,int pageSize);
+    public List<Chuchaivo> chuchaijjll(int ybh);
+    //面试官
+    public List<rencaiVo> mianshiguan(int rid);
+    public List<rencaiVo> mianshiguaneee();
+
 
 }
