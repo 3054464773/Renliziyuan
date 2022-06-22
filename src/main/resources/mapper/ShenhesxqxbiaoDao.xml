@@ -5,4 +5,7 @@
     <select id="findsxqx" resultType="com.trkj.renliziyuangl.pojo.Shenhesxqxbiao">
         SELECT sx.*,j.jsmc FROM shenghebiao s INNER JOIN shenhesxqxbiao sx  on s.shbid=sx.shbid INNER JOIN jiaosebiao j on sx.jsbh=j.jsbh where s.shbid=#{shbid}
     </select>
+    <select id="inshidfandjs" resultType="com.trkj.renliziyuangl.pojo.Jiaosebiao">
+        SELECT j.* from shenghebiao s INNER JOIN shenhesxqxbiao sh on s.shbid = sh.shbid INNER JOIN jiaosebiao j on sh.jsbh=j.jsbh  where s.shbid=#{id}
+    </select>
 </mapper>

@@ -1,6 +1,8 @@
 package com.trkj.renliziyuangl.pojo;
 
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 /**
@@ -9,6 +11,7 @@ import lombok.Data;
  */
 @Data
 public class Qianduanbiao implements Serializable {
+    @TableId
     private int qdbid;
 
     private String qdlydz;

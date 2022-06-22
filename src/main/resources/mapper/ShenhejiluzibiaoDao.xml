@@ -2,4 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.ShenhejiluzibiaoDao">
 
+    <select id="findshenhegz" resultType="com.trkj.renliziyuangl.pojo.Shenhejiluzibiao">
+        SELECT s3.* from shenghebiao s INNER JOIN  shenhesxqxbiao s2 on s.shbid=s2.shbid
+                                              INNER JOIN shenhejiluzibiao s3 on s2.shsxid=s3.shsxid
+                                              INNER JOIN shenhejilubiao s4 on s3.shjlbh=s4.shjlbh
+                                              INNER JOIN jiaosebiao j on s2.jsbh = j.jsbh
+        where s3.shjlzzt=1
+        <if test="js!=''">
+          and  j.jkey=#{js}
+        </if>
+
+    </select>
 </mapper>

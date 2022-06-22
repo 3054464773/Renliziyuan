@@ -21,5 +21,8 @@ public class Shenhesxqxbiao implements Serializable {
     @TableField(exist = false)
     private String jsmc;
 
+    @TableField(exist = false)
+    private int[] jsbhh;
+
     private static final long serialVersionUID = 1L;
 }
