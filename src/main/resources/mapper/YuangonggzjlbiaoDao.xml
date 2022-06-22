@@ -1,5 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.YuangonggzjlbiaoDao">
+    <!-- 查询员工通讯录-->
+    <select id="selectygphone" resultType="com.trkj.renliziyuangl.vo.YgPhoneVo">
+        select ygb.ybh,rczb.rzname,rczb.rzphone from yuangongbiao ygb
+            inner join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+    </select>
+
+    <!--我的日志-->
+    <select id="cxmerizhi" resultType="com.trkj.renliziyuangl.vo.RizhiVo">
+        select rzb.gzrzbh,rczb.rzname,rzb.gzrznr,rzb.gzrzsj from gongzuorizhibiao rzb
+            inner join rencaizibiao rczb on rczb.rzbh=rzb.ybh
+            where rzb.ybh=#{ybh} order by gzrzsj desc
+    </select>
+
+
+    <!--已点评日志-->
+    <select id="cxyidianpingrz" resultType="com.trkj.renliziyuangl.vo.RizhiVo">
+        select rzb.gzrzbh,rczb.rzname,rzb.gzrznr,rzb.gzrzsj,dpb.rzdpnr,dpb.ybh,dpb.rzdpsj from gongzuorizhibiao rzb
+            inner join rizhidianpingbiao dpb on dpb.gzrzbh=rzb.gzrzbh
+            inner join rencaizibiao rczb on rczb.rzbh=rzb.ybh
+            where rzb.ybh=#{ybh} order by gzrzsj desc
+    </select>
+
+    <!--根据员工编号查询该员工的考勤记录-->
+    <select id="cxkaoqinjlByid" resultType="com.trkj.renliziyuangl.pojo.Kaoqinjilubiao">
+        select ygb.ybh,rcb.rzname,bmb.bmmc,kqjlb.kqsbdksj,kqjlb.kqsbzt,kqjlb.kqxbdksj,kqjlb.kqxbzt,kqjlb.xzsj
+            from kaoqinjilubiao kqjlb
+            inner join yuangongbiao ygb on ygb.ybh=kqjlb.ybh
+            inner join rencaizibiao rcb on rcb.rzbh=ygb.rzbh
+            inner join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
+            inner join bumenbiao bmb on bmb.bmbh=zwb.bmbh
+            where ygb.ybh=#{ybh} order by xzsj desc
+    </select>
+
+    <!--根据员工编号查询该员工的绩效记录-->
+    <select id="cxjixiaoByid" resultType="com.trkj.renliziyuangl.vo.gradeVo">
+        select p.ybh,r.rzname,j.jmc,j.jnr,p.jxsj,p.jxfs,d.jdjb
+            from jixiaobiao j
+			inner join jixiaopinfenbiao p on j.jbh=p.jbh
+            inner join yuangongbiao y  on y.ybh=p.ybh
+            inner join rencaizibiao r on r.rzbh=y.rzbh
+            inner join jixiaodinjibiao d on d.jxbh=p.jxbh
+            where p.ybh=#{ybh} order by jxsj desc
+    </select>
+
+    <!--根据员工编号查询该员工的出差记录-->
+    <select id="cxchuchaiByid" resultType="com.trkj.renliziyuangl.pojo.Chuchaibiao">
+        select ygb.ybh,rczb.rzbh,rczb.rzname,rczb.rzsex,ccb.ccfd,ccb.cmdd,ccb.ckssj,ccb.cyjsj,ccb.csjsj,ccb.cccnr,ccb.czt
+			from rencaizibiao rczb
+			INNER JOIN rencaibiao rcb on rczb.rzbh=rcb.rzbh
+            INNER JOIN yuangongbiao ygb on ygb.rzbh=rcb.rzbh
+            INNER JOIN shenhejilubiao shjlb on ygb.ybh=shjlb.ybh
+            INNER JOIN chuchaibiao ccb on  shjlb.shjlbh=ccb.shjlbh where ygb.ybh=#{ybh} order by ckssj desc
+    </select>
+
+    <!--根据员工id查询员工薪资记录-->
+    <select id="cxxinziByid" resultType="com.trkj.renliziyuangl.pojo.Xingzijilubiao">
+        select ybh,xzjljbgz,xzjlsb,szjlqj,szjlze,szjlsh,szjlsj from xingzijilubiao
+            where ybh=#{ybh} order by szjlsj desc
+    </select>
+
+    <!--查询通知-->
+    <select id="cxtongzhi" resultType="com.trkj.renliziyuangl.pojo.Tongzhibiao">
+        select tzb.tzbh,rczb.rzname,tzb.tzbt,tzb.tznr,tzb.tzsj,tzb.tzyds
+            from tongzhibiao tzb
+            inner join yuangongbiao ygb on ygb.ybh=tzb.ybh
+            inner join rencaizibiao rczb on rczb.rzbh=ygb.rzbh
+            order by tzsj desc
+    </select>
+
+    <!--查询公告-->
+    <select id="cxgonggao" resultType="com.trkj.renliziyuangl.pojo.Gonggaobiao">
+        select ggb.ggbh,rczb.rzname,ggb.ggbt,ggb.ggnr,ggb.ggsj,ggb.ggyds from gonggaobiao ggb
+            inner join yuangongbiao ygb on ygb.ybh=ggb.ybh
+            inner join rencaizibiao rczb on rczb.rzbh=ygb.rzbh
+            order by ggsj desc
+    </select>
+
+    <!--根据员工id查询员工个人资料-->
+    <select id="cxyuangonggerenziliao" resultType="com.trkj.renliziyuangl.vo.canbaoryVo">
+        select ygb.ybh,rczb.rzname,ygb.sbbh,ygb.ygzt,bmb.bmmc,
+            rczb.rzsex,rczb.rzcsrq,rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
+            from yuangongbiao ygb
+            inner join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+            inner join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
+            inner join bumenbiao bmb on bmb.bmbh=zwb.bmbh
+            where ygb.ybh =#{ybh}
+    </select>
+
+    <!--修改员工个人资料-->
+    <update id="updategrzl">
+        update rencaizibiao
+            set rzname=#{rzname},rzsex=#{rzsex},rzcsrq=#{rzcsrq},rzage=#{rzage},rzxl=#{rzxl},rzsfz=#{rzsfz},
+            rzphone=#{rzphone},rzdz=#{rzdz},rzgzjl=#{rzgzjl},rzhyzk=#{rzhyzk},rzmz=#{rzmz},rzzzmm=#{rzzzmm}
+            where rzbh=#{rzbh}
+    </update>
+
+    <!--根据员工编号查询员工班次情况-->
+    <select id="cxbancibyid" resultType="com.trkj.renliziyuangl.pojo.Bancibiao">
+        select ygb.ybh,rczb.rzname,ygb.ygzt,bmb.bmmc,bcb.bcbh,bcb.bcmc,bcb.bckssj,bcb.bcjssj
+            from bancibiao bcb
+            inner join yuangongbiao ygb on ygb.bcbh=bcb.bcbh
+            inner join rencaizibiao rczb on rczb.rzbh=ygb.rzbh
+            inner join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
+            inner join bumenbiao bmb on bmb.bmbh=zwb.bmbh
+            where ygb.ybh=#{ybh}
+    </select>
+
+    <!--根据员工id和当前日期查询考勤记录-->
+    <select id="cxkqjlByIdandDate" resultType="com.trkj.renliziyuangl.pojo.Kaoqinjilubiao">
+        select * from kaoqinjilubiao where ybh=#{ybh} and xzsj=DATE(CURDATE())
+    </select>
 
 </mapper>

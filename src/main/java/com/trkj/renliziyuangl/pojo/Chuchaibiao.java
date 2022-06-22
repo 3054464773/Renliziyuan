@@ -2,6 +2,8 @@ package com.trkj.renliziyuangl.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -19,11 +21,11 @@ public class Chuchaibiao implements Serializable {
     private String ccfd;
 
     private String cmdd;
-
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date ckssj;
-
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date cyjsj;
-
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date csjsj;
 
     private int czt;

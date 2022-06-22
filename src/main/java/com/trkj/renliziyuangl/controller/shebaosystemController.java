@@ -1,5 +1,6 @@
 package com.trkj.renliziyuangl.controller;
 
+import com.trkj.renliziyuangl.pojo.Bumenbiao;
 import com.trkj.renliziyuangl.pojo.Shebaofananbiao;
 import com.trkj.renliziyuangl.pojo.Shebaojishubiao;
 import com.trkj.renliziyuangl.pojo.Yuangongbiao;
@@ -60,10 +61,16 @@ public class shebaosystemController {
         return AjaxResponse.success(sbservice.deletesbfa(sbbh));
     }
 
-    //查询参保人员信息
-    @GetMapping("/selectcbryxx")
-    public AjaxResponse selectcbryxx(int pageNum,int pageSize){
-        return AjaxResponse.success(sbservice.cxcbry(pageNum, pageSize));
+    //查询参保人员信息--实习员工
+    @GetMapping("/selectcbryxxSx")
+    public AjaxResponse selectcbryxxSx(int pageNum,int pageSize){
+        return AjaxResponse.success(sbservice.cxcbrySx(pageNum, pageSize));
+    }
+
+    //查询参保人员信息--正式员工
+    @GetMapping("/selectcbryxxZs")
+    public AjaxResponse selectcbryxxZs(int pageNum,int pageSize){
+        return AjaxResponse.success(sbservice.cxcbryZs(pageNum, pageSize));
     }
 
     //查询社保缴费信息
@@ -78,7 +85,13 @@ public class shebaosystemController {
         return AjaxResponse.success(sbservice.updatesbzt(fab));
     }
 
-    //通过员工姓名模糊查询其员工信息（参保人员）
+    //通过员工姓名模糊查询其员工信息（参保人员）--实习员工
+    @GetMapping("/selectygBynamesx")
+    public AjaxResponse selectygBynamesx(String rzname){
+        return AjaxResponse.success(sbservice.cxygbynamesx(rzname));
+    }
+
+    //通过员工姓名模糊查询其员工信息（参保人员）--正式员工
     @GetMapping("/selectygByname")
     public AjaxResponse selectygByname(String rzname){
         return AjaxResponse.success(sbservice.cxygbyname(rzname));
@@ -114,5 +127,41 @@ public class shebaosystemController {
     public  AjaxResponse xgsbfa(@RequestBody ShebaofaVo favo){
         System.out.println("社保方案："+favo);
         return AjaxResponse.success(sbservice.updatesbfa(favo));
+    }
+
+    //查询部门表信息
+    @GetMapping("/selectdept")
+    public AjaxResponse selectdept(){
+        return AjaxResponse.success(sbservice.cxdept());
+    }
+
+    //根据部门id查询员工信息（社保缴费）
+    @GetMapping("/selectygbybhid")
+    public AjaxResponse selectygbybhid(int bmbh){
+        return AjaxResponse.success(sbservice.findygxxBybmbh(bmbh));
+    }
+
+    //根据部门id查询员工信息（未参保人员缴费--实习员工（ygzt=2））
+    @GetMapping("/selectygbybhid1")
+    public AjaxResponse selectygbybhid1(int bmbh){
+        return AjaxResponse.success(sbservice.findygxxBybmbh1(bmbh));
+    }
+
+    //根据部门id查询员工信息（未参保人员缴费--正式员工（ygzt=3））
+    @GetMapping("/selectygbybhid2")
+    public AjaxResponse selectygbybhid2(int bmbh){
+        return AjaxResponse.success(sbservice.findygxxBybmbh2(bmbh));
+    }
+
+    //判断社保基数所被绑定的条数
+    @GetMapping("/pdsbjsCount")
+    public AjaxResponse pdsbjsCount(int sbjsbh){
+        return AjaxResponse.success(sbservice.sbjsCount(sbjsbh));
+    }
+
+    //社保方案判断（删除，修改状态）
+    @GetMapping("/pdsbfaCount")
+    public AjaxResponse pdsbfaCount(int sbbh){
+        return AjaxResponse.success(sbservice.sbfaCount(sbbh));
     }
 }

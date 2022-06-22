@@ -16,23 +16,6 @@
         <result column="sbjnbl" property="sbjnbl"/>
     </resultMap>
 
-    <!--人才信息子表-->
-    <resultMap id="rczbMap" type="com.trkj.renliziyuangl.pojo.Rencaizibiao">
-        <id column="rzbh" property="rzbh"/>
-        <result column="rzname" property="rzname"/>
-        <result column="rzsex" property="rzsex"/>
-        <result column="rzcsrq" property="rzcsrq"/>
-        <result column="rzage" property="rzage"/>
-        <result column="rzxl" property="rzxl"/>
-        <result column="rzsfz" property="rzsfz"/>
-        <result column="rzphone" property="rzphone"/>
-        <result column="rzdz" property="rzdz"/>
-        <result column="rzgzjl" property="rzgzjl"/>
-        <result column="rzhyzk" property="rzhyzk"/>
-        <result column="rzmz" property="rzmz"/>
-        <result column="rzzzmm" property="rzzzmm"/>
-    </resultMap>
-
     <!--查询社保方案-->
     <select id="cxshebaofangan" resultMap="faMap">
         select fab.sbbh,fab.sbmc,fab.sbzt from shebaofananbiao fab where fab.sbzt not in (2) order by sbbh desc
@@ -61,19 +44,6 @@
         select sbjsbh,sbjsje,sbname,sbjnbl from shebaojishubiao
     </select>
 
-
-    <!--修改社保方案信息-->
-    <update id="updatefaxx">
-        update shebaofananbiao
-        <set>
-            <if test="sbmc!=null and sbmc!=''">
-                sbmc=#{sbmc}
-            </if>
-        </set>
-        where sbbh=#{sbbh}
-    </update>
-
-
     <!--删除指定一条社保方案：逻辑删除将社保状态改为2-->
     <update id="deletesbfaxx">
         update shebaofananbiao set sbzt=2
@@ -96,29 +66,68 @@
         </where>
     </select>
 
-    <!--查询参保人员信息——社保方案为空的员工，需要参保，员工状态为3-->
-    <select id="cxcanbaorenyuan" resultType="map">
-        select ygb.ybh,ygb.sbbh,ygb.ygzt,
-            rczb.rzname,rczb.rzsex,rczb.rzcsrq,rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,
-            rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
-        from yuangongbiao ygb inner join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+    <!--查询参保人员信息——社保方案为空的员工，需要参保，员工状态为2，实习员工-->
+    <select id="cxcanbaorenyuanSx" resultType="map">
+        select ygb.ybh,ygb.ygzt,fab.sbmc,bmb.bmmc,
+            rczb.rzname,rczb.rzsex,rczb.rzcsrq,rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
+            from yuangongbiao ygb
+            left join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+            left join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
+            left join bumenbiao bmb on bmb.bmbh=zwb.bmbh
+            left join shebaofananbiao fab on fab.sbbh=ygb.sbbh
+        where ygb.ygzt=2 and ygb.sbbh is null
+    </select>
+
+    <!--查询参保人员信息——社保方案为空的员工，需要参保，员工状态为3，正式员工-->
+    <select id="cxcanbaorenyuanZs" resultType="map">
+        select ygb.ybh,ygb.ygzt,fab.sbmc,bmb.bmmc,
+            rczb.rzname,rczb.rzsex,rczb.rzcsrq,rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
+            from yuangongbiao ygb
+            left join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+            left join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
+            left join bumenbiao bmb on bmb.bmbh=zwb.bmbh
+            left join shebaofananbiao fab on fab.sbbh=ygb.sbbh
         where ygb.ygzt=3 and ygb.sbbh is null
     </select>
 
     <!--查询社保缴费信息，已绑定社保编号的员工-->
     <select id="cxshebaojiaofei" resultType="map">
-        select ygb.ybh,ygb.sbbh,ygb.ygzt,
-            rczb.rzname,rczb.rzsex,rczb.rzcsrq,rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,
-            rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
-        from yuangongbiao ygb inner join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+        select ygb.ybh,ygb.ygzt,fab.sbmc,bmb.bmmc,
+            rczb.rzname,rczb.rzsex,rczb.rzcsrq,rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
+            from yuangongbiao ygb
+            left join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+            left join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
+            left join bumenbiao bmb on bmb.bmbh=zwb.bmbh
+            left join shebaofananbiao fab on fab.sbbh=ygb.sbbh
         where ygb.sbbh is not null order by ygb.ygzt asc
     </select>
 
-    <!--通过员工姓名模糊查询其员工信息（参保人员界面）-->
+    <!--通过员工姓名模糊查询其员工信息（参保人员界面） 实习员工-->
+    <select id="cxygBynamesx" resultType="com.trkj.renliziyuangl.vo.canbaoryVo">
+        select ygb.ybh,ygb.ygzt,fab.sbmc,bmb.bmmc,
+        rczb.rzname,rczb.rzsex,rczb.rzcsrq,rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
+        from yuangongbiao ygb
+        left join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+        left join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
+        left join bumenbiao bmb on bmb.bmbh=zwb.bmbh
+        left join shebaofananbiao fab on fab.sbbh=ygb.sbbh
+        <where>
+            ygb.ygzt=2 and ygb.sbbh is null
+            <if test="rzname!=null and rzname!=''">
+                and rzname like concat('%',#{rzname},'%')
+            </if>
+        </where>
+    </select>
+
+    <!--通过员工姓名模糊查询其员工信息（参保人员界面） 正式员工-->
     <select id="cxygByname" resultType="com.trkj.renliziyuangl.vo.canbaoryVo">
-        select ygb.ybh,ygb.sbbh,ygb.ygzt,
-            rczb.rzname,rczb.rzsex,rczb.rzcsrq,rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
-            from yuangongbiao ygb inner join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+        select ygb.ybh,ygb.ygzt,fab.sbmc,bmb.bmmc,
+        rczb.rzname,rczb.rzsex,rczb.rzcsrq,rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
+        from yuangongbiao ygb
+        left join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+        left join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
+        left join bumenbiao bmb on bmb.bmbh=zwb.bmbh
+        left join shebaofananbiao fab on fab.sbbh=ygb.sbbh
             <where>
                 ygb.ygzt=3 and ygb.sbbh is null
                 <if test="rzname!=null and rzname!=''">
@@ -129,9 +138,13 @@
 
     <!--通过员工姓名模糊查询其员工信息（社保缴费界面）-->
     <select id="cxygByname1" resultType="com.trkj.renliziyuangl.vo.canbaoryVo">
-        select ygb.ybh,ygb.sbbh,ygb.ygzt,
+        select ygb.ybh,ygb.ygzt,fab.sbmc,bmb.bmmc,
         rczb.rzname,rczb.rzsex,rczb.rzcsrq,rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
-        from yuangongbiao ygb inner join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+        from yuangongbiao ygb
+        left join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+        left join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
+        left join bumenbiao bmb on bmb.bmbh=zwb.bmbh
+        left join shebaofananbiao fab on fab.sbbh=ygb.sbbh
         <where>
             ygb.sbbh is not null
             <if test="rzname!=null and rzname!=''">
@@ -143,10 +156,13 @@
 
     <!--根据员工id查询员工信息-->
     <select id="cxygxxbyid" resultType="com.trkj.renliziyuangl.vo.canbaoryVo">
-        select ygb.ybh,ygb.sbbh,ygb.ygzt,
-            rczb.rzname,rczb.rzsex,rczb.rzcsrq,rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,
-            rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
-        from yuangongbiao ygb inner join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+        select ygb.ybh,ygb.ygzt,fab.sbmc,bmb.bmmc,
+        rczb.rzname,rczb.rzsex,rczb.rzcsrq,rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
+        from yuangongbiao ygb
+        left join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+        left join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
+        left join bumenbiao bmb on bmb.bmbh=zwb.bmbh
+        left join shebaofananbiao fab on fab.sbbh=ygb.sbbh
         where ybh=#{ybh}
     </select>
 
@@ -164,4 +180,65 @@
     <update id="xgsbfacbzt">
         update shebaofananbiao set sbmc=#{sbmc} where sbbh=#{sbbh}
     </update>
+
+    <!--根据部门编号查询员工信息(社保缴费界面)-->
+    <select id="findygBybmbh" resultType="com.trkj.renliziyuangl.vo.canbaoryVo">
+        select ygb.ybh,ygb.ygzt,fab.sbmc,bmb.bmmc,rczb.rzname,rczb.rzsex,rczb.rzcsrq,
+        rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
+        from yuangongbiao ygb
+        left join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+        left join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
+        left join bumenbiao bmb on bmb.bmbh=zwb.bmbh
+        left join shebaofananbiao fab on fab.sbbh=ygb.sbbh
+        where ygb.sbbh is not null and bmb.bmbh=#{bmbh}
+    </select>
+
+    <!--根据部门编号查询员工信息(未参保人员界面...实习员工（ygzt=2）)-->
+    <select id="findygBybmbh1" resultType="com.trkj.renliziyuangl.vo.canbaoryVo">
+        select ygb.ybh,ygb.ygzt,fab.sbmc,bmb.bmmc,rczb.rzname,rczb.rzsex,rczb.rzcsrq,
+        rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
+        from yuangongbiao ygb
+        left join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+        left join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
+        left join bumenbiao bmb on bmb.bmbh=zwb.bmbh
+        left join shebaofananbiao fab on fab.sbbh=ygb.sbbh
+        where ygb.sbbh is null and ygb.ygzt=2 and bmb.bmbh=#{bmbh}
+    </select>
+
+    <!--根据部门编号查询员工信息(未参保人员界面...正式员工（ygzt=3）)-->
+    <select id="findygBybmbh2" resultType="com.trkj.renliziyuangl.vo.canbaoryVo">
+        select ygb.ybh,ygb.ygzt,fab.sbmc,bmb.bmmc,rczb.rzname,rczb.rzsex,rczb.rzcsrq,
+        rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
+        from yuangongbiao ygb
+        left join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+        left join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
+        left join bumenbiao bmb on bmb.bmbh=zwb.bmbh
+        left join shebaofananbiao fab on fab.sbbh=ygb.sbbh
+        where ygb.sbbh is null and ygb.ygzt=3 and bmb.bmbh=#{bmbh}
+    </select>
+
+    <!--社保基数删除判断&#45;&#45;判断社保基数所绑定社保方案表的条数（=0显示未绑定，可删除）-->
+    <select id="pdsbjsCount" resultType="java.lang.Integer">
+        select count(jsb.sbjsbh) from shebaojishubiao jsb
+            inner join sbzjb zjb on zjb.sbjsbh=jsb.sbjsbh
+            inner join shebaofananbiao fab on zjb.sbbh=fab.sbbh
+            where jsb.sbjsbh=#{sbjsbh}
+    </select>
+
+    <!--社保方案判断（删除，修改状态）-->
+    <select id="pdsbfaCount" resultType="java.lang.Integer">
+        select count(fab.sbbh) from shebaofananbiao fab
+            inner join yuangongbiao ygb on ygb.sbbh=fab.sbbh
+            where fab.sbbh=#{sbbh}
+    </select>
+
+   <!-- 根据条件模糊查询纳税信息-->
+    <select id="mohucxnsxx" resultType="com.trkj.renliziyuangl.pojo.Nashuibiao">
+        select nsbbh,nszdjne,nszgjne,nsjnbl from nashuibiao
+        <where>
+            <if test="nsjnbl!=null and nsjnbl!=''">
+                nsjnbl like concat('%',#{nsjnbl},'%')
+            </if>
+        </where>
+    </select>
 </mapper>
