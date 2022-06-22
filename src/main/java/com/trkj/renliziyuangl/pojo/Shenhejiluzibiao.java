@@ -2,6 +2,8 @@ package com.trkj.renliziyuangl.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 /**
@@ -10,6 +12,7 @@ import lombok.Data;
  */
 @Data
 public class Shenhejiluzibiao implements Serializable {
+    @TableId
     private int shjlzbbh;
 
     private int shsxid;
