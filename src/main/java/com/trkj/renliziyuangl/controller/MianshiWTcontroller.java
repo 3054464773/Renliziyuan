@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -26,19 +27,39 @@ public class MianshiWTcontroller {
         System.out.println(mbh);
         return AjaxResponse.success(mianshiwentiService.deleteById(mbh)) ;
     }
+    @PostMapping("/sahnchumianshiwenti/{mzbh}")
+    public AjaxResponse shanchuwenti(@PathVariable("mzbh") int mzbh){
+            return  AjaxResponse.success(mianshiwentiService.shanchuwenti(mzbh));
+
+    }
     @PutMapping("xiugaigzz")
     public AjaxResponse xiugai(@RequestBody Mianshiguizhanzibiao mianshigzVo){
         return AjaxResponse.success(mianshiwentiService.xiugaigzz(mianshigzVo));
     }
-    @GetMapping("/mianshiwenti/{zwbh}/{rid}")
-    public AjaxResponse mianshiwenti(@PathVariable("zwbh") int zwbh,@PathVariable("rid")int rid){
+    //预约面试
+    @GetMapping("/mianshiwenti/{zwbh}/{rid}/{ybh}/{mjsj}")
+    public AjaxResponse mianshiwenti(@PathVariable("zwbh") int zwbh,@PathVariable("rid")int rid,@PathVariable("ybh") int ybh, @PathVariable("mjsj")Date mjsj){
         System.out.println(zwbh);
         System.out.println(rid);
-        List<Mianshiguizhanzibiao>  list=mianshiwentiService.mianshiwenti(zwbh,rid);
+        System.out.println(ybh);
+        System.out.println(mjsj);
+        List<Mianshiguizhanzibiao>  list=mianshiwentiService.mianshiwenti(zwbh,rid,ybh,mjsj);
         return AjaxResponse.success(list) ;
     }
+    //添加面试问题
     @PostMapping("/tianjiawt")
     public AjaxResponse tianjiawt(@RequestBody Mianshiguizhanzibiao mianshiguizhanzibiao){
             return AjaxResponse.success(mianshiwentiService.insertmz(mianshiguizhanzibiao));
+    }
+    //复试
+    @GetMapping("/fushi/{mzbh}/{rid}/{ybh}/{mjsj}/{mjbh}/{mspj}")
+    public AjaxResponse fushi(@PathVariable("mzbh") int mzbh,@PathVariable("rid")int rid,@PathVariable("ybh") int msyg, @PathVariable("mjsj")Date mjsj,@PathVariable("mjbh")int mjbh,@PathVariable("mspj")String mspj){
+        System.out.println(mzbh);
+        System.out.println(rid);
+        System.out.println(msyg);
+        System.out.println(mjsj);
+        System.out.println(mjbh);
+        System.out.println("面试评价"+mspj);
+        return AjaxResponse.success(mianshiwentiService.mianshiwentitt(mzbh,rid,mjsj,msyg,mjbh,mspj));
     }
 }

@@ -76,30 +76,51 @@ public class RecruitController {
         PageInfo<ZpVo> info=recruitService.selectMsss(pageNum,pageSize);
         return AjaxResponse.success(info);
     }
+    //导入
+    @PostMapping("daoru")
+    public AjaxResponse daoru(@RequestBody rencaiVo rencaiVo){
+        List<rencaiVo> list=recruitService.daoru(rencaiVo);
+        return AjaxResponse.success(list);
+    }
     //双表添加
     @PostMapping("inserttttt")
     public AjaxResponse inserttttt(@RequestBody rencaiVo rencaiVo){
+        System.out.println("传过来了"+rencaiVo);
         return AjaxResponse.success(recruitService.insersyygg(rencaiVo));
     }
-    @GetMapping("/mianshijilu")
-    public AjaxResponse mianshijilu(int pageNum, int pageSize){
-        PageInfo<MianshijiluVo> info=recruitService.miianshi(pageNum,pageSize);
-        return AjaxResponse.success(info);
+//    @PostMapping("inserttttt")
+//    public AjaxResponse inserttttt(@RequestBody rencaiVo rencaiVo){
+//
+//        System.out.println("传过来了"+rencaiVo);
+//        return AjaxResponse.success(recruitService.insersyygg(rencaiVo));
+//    }
+//
+    @GetMapping("/mianshijilu/{ybh}")
+    public AjaxResponse mianshijilu(@PathVariable("ybh") int ybh){
+        return AjaxResponse.success(recruitService.miianshi(ybh));
     }
-    @GetMapping("/jixiaojilu")
-    public AjaxResponse jixiaojilu(int pageNum, int pageSize){
-        PageInfo<JixiaojiluVo> info=recruitService.jixiao(pageNum,pageSize);
-        return AjaxResponse.success(info);
+    @GetMapping("/jixiaojilu/{ybh}")
+    public AjaxResponse jixiaojilu(@PathVariable("ybh") int ybh){
+
+        return AjaxResponse.success(recruitService.jixiao(ybh));
     }
-    @GetMapping("/kaoqinjilu")
-    public AjaxResponse kaoqinjilu(int pageNum, int pageSize){
-        PageInfo<KaoqinjiluVo> info=recruitService.kaoqin(pageNum,pageSize);
-        System.out.println("aaaaaaa========="+info);
-        return AjaxResponse.success(info);
+    @GetMapping("/kaoqinjilu/{ybh}")
+    public AjaxResponse kaoqinjilu(@PathVariable("ybh") int ybh){
+        return AjaxResponse.success(recruitService.kaoqin(ybh));
     }
-    @GetMapping("/chuchaijilu")
-    public AjaxResponse chuchaijilu(int pageNum, int pageSize){
-        PageInfo<Chuchaivo> info=recruitService.chuchaijjll(pageNum,pageSize);
-        return AjaxResponse.success(info);
+    @GetMapping("/chuchaijilu/{ybh}")
+    public AjaxResponse chuchaijilu(@PathVariable("ybh") int ybh){
+        return AjaxResponse.success(recruitService.chuchaijjll(ybh));
     }
+    //面试官
+    @GetMapping("/mianshiguan/{rid}")
+    public AjaxResponse mianshiguan(@PathVariable int rid){
+        return AjaxResponse.success(recruitService.mianshiguan(rid));
+    }
+    @GetMapping("/mianshiguaneee")
+    public AjaxResponse mianshiguaneee(){
+        return AjaxResponse.success(recruitService.mianshiguaneee());
+    }
+
+
 }

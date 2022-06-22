@@ -1,5 +1,6 @@
 package com.trkj.renliziyuangl.service;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.trkj.renliziyuangl.dao.MianshiguizhanbiaoDao;
 import com.trkj.renliziyuangl.dao.MianshiguizhanzibiaoDao;
 import com.trkj.renliziyuangl.dao.MianshijilubiaoDao;
@@ -8,6 +9,7 @@ import com.trkj.renliziyuangl.pojo.Mianshijilubiao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,38 +40,52 @@ public class MianshiwentiServicelmpl implements MianshiwentiService{
         return mianshiguizhanzibiao;
     }
 //预约面试，面试记录，面试问题
-    @Override
-    public List<Mianshiguizhanzibiao> mianshiwenti(int zwbh,int rid) {
-        List<Mianshiguizhanzibiao> b=mianshiguizhanzibiaoDao.mianshiwenti(zwbh,rid);
-        Mianshijilubiao a=new Mianshijilubiao();
-        Mianshiguizhanzibiao c=new Mianshiguizhanzibiao();
-        Integer p=b.get(0).getMzbh();
-        a.setRid(rid);
-        a.setMzbh(p);
-        a.setMjsj(new Date());
-        a.setMjzt(3);
-        int l=mianshijilubiaoDao.insert(a);
-        return  null;
-    }
+//    @Override
+//    public List<Mianshiguizhanzibiao> mianshiwenti(int zwbh,int rid, int ybh, Date mjsj) {
+//        List<Mianshiguizhanzibiao> b=mianshiguizhanzibiaoDao.mianshiwenti(zwbh,rid);
+//        Mianshijilubiao a=new Mianshijilubiao();
+//        Mianshiguizhanzibiao c=new Mianshiguizhanzibiao();
+//        Integer p=b.get(0).getMzbh();
+//        a.setRid(rid);
+//        a.setMzbh(p);
+//        a.setYbh(ybh);
+//        a.setMjsj(mjsj);
+//        a.setMjzt(3);
+//        int l=mianshijilubiaoDao.insert(a);
+//        return  null;
+//    }
+//第一次面试
+@Override
+public List<Mianshiguizhanzibiao> mianshiwenti(int zwbh,int rid, int ybh, Date mjsj) {
+    List<Mianshiguizhanzibiao> b=mianshiguizhanzibiaoDao.mianshiwenti(zwbh,rid);
+    Mianshijilubiao a=new Mianshijilubiao();
+    Mianshiguizhanzibiao c=new Mianshiguizhanzibiao();
+    Integer p=b.get(0).getMzbh();
+    a.setRid(rid);
+    a.setMzbh(p);
+    a.setYbh(ybh);
+    a.setMjsj(mjsj);
+    a.setMjzt(3);
+    int l=mianshijilubiaoDao.insert(a);
+    return  null;
+}
     //判断面试
     @Override
-    public List<Mianshiguizhanzibiao> mianshiwentitt(int zwbh,int rid) {
-        List<Mianshiguizhanzibiao> b=mianshiguizhanzibiaoDao.mianshiwenti(zwbh,rid);
-       List<Mianshijilubiao> x=mianshijilubiaoDao.mianshisy();
-            for (int i=0;i<b.size();i++){
-                for (int j=0;j<x.size();j++){
-                    if (b.get(i).getMzbh()==x.get(j).getMzbh()){
+    public Mianshijilubiao mianshiwentitt(int mzbh, int rid, Date mjsj, int msyg,int mjbh,String mspj) {
                         Mianshijilubiao a=new Mianshijilubiao();
-                        Integer ll=b.get(i+1).getMzbh();
+                        a.setMzbh(mzbh);
                         a.setRid(rid);
-                        a.setMzbh(ll);
-                        a.setMjsj(new Date());
+                        a.setYbh(msyg);
+                        a.setMzbh(mzbh);
+                        a.setMjsj(mjsj);
                         a.setMjzt(3);
                         int ccc=mianshijilubiaoDao.insert(a);
-                    }
-                }
+        UpdateWrapper<Mianshijilubiao> updateWrapper=new UpdateWrapper();
+               updateWrapper.eq("mjbh",mjbh);
+               updateWrapper.set("mjxcsj",mjsj);
+               updateWrapper.set("mspj",mspj);
+               int bbb=mianshijilubiaoDao.update(null,updateWrapper);
 
-            }
         return  null;
     }
 
@@ -82,6 +98,11 @@ public class MianshiwentiServicelmpl implements MianshiwentiService{
         a.setMzwt(mianshiguizhanzibiao.getMzwt());
         int b=mianshiguizhanzibiaoDao.insert(a);
         return mianshiguizhanzibiao;
+    }
+
+    @Override
+    public int shanchuwenti(int mzbh) {
+        return mianshiguizhanzibiaoDao.deleteById(mzbh);
     }
 
 

@@ -1,5 +1,7 @@
 package com.trkj.renliziyuangl.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.trkj.renliziyuangl.dao.MohudiyicimsDao;
 import com.trkj.renliziyuangl.vo.ZpVo;
 import com.trkj.renliziyuangl.vo.usersssVo;
@@ -12,9 +14,11 @@ public class MohudicimianshiServcelmpl implements MohudicimianshiServce{
     @Autowired
     public MohudiyicimsDao mohuchaxunygg;
     @Override
-    public List<ZpVo> mohudiyici(String rzname) {
-        List<ZpVo> ZpVo=mohuchaxunygg.mohudiyici(rzname);
-        System.out.println("2222222222222Service");
-        return ZpVo;
+    public PageInfo<ZpVo> mohudiyici(int pageNum,int pageSize,String rzname) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<ZpVo> list=mohuchaxunygg.mohudiyici(rzname);
+        System.out.println("传过来了"+list);
+        PageInfo info=new PageInfo<>(list);
+        return info;
     }
 }

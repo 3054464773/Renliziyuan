@@ -36,4 +36,8 @@ public class ZhiWeiController {
     public AjaxResponse zhiweiw(){
         return AjaxResponse.success(zwservice.zhiwei());
     }
+//    @GetMapping("/zhiweiwqc")
+//    public AjaxResponse zhiweiwqc(){
+//        return AjaxResponse.success(zwservice.zhiweiqc());
+//    }
 }

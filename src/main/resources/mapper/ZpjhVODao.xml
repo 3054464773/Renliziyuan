@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.renliziyuangl.dao.ZpjhVoDao">
+    <select id="bumenzpjh" resultType="com.trkj.renliziyuangl.vo.zpjhVo">
+    select a.zbh,a.shjlbh,a.shbid,b.zwmc,a.zrs,a.zmc,bm.bmmc from zhaopingjihuabiao a
+    INNER JOIN zhiweibiao b on  a.zwbh=b.zwbh
+    INNER JOIN bumenbiao bm on bm.bmbh=b.bmbh where bm.bmmc like #{bmmc} order by zbh desc
+    </select>
+<!--招聘计划模糊查询-->
+    <select id="mohuzpjh" resultType="com.trkj.renliziyuangl.vo.zpjhVo">
+        select a.zbh,a.shjlbh,a.shbid,b.zwmc,a.zrs,a.zmc,bm.bmmc from zhaopingjihuabiao a
+                                                                          INNER JOIN zhiweibiao b on  a.zwbh=b.zwbh
+                                                                          INNER JOIN bumenbiao bm on bm.bmbh=b.bmbh where a.zmc like "%" #{zmc} "%"
+    </select>
+    <select id="zhaoppxxp" resultType="com.trkj.renliziyuangl.vo.zpjhVo">
+        SELECT a.zwbh,b.zwmc from zhaopingjihuabiao a
+                                      INNER JOIN zhiweibiao b on a.zwbh=b.zwbh
+    </select>
+</mapper>

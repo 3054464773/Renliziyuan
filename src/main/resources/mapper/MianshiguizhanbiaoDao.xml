@@ -5,11 +5,14 @@
 
     </sql>
 <select id="mianshiguizhang" resultType="com.trkj.renliziyuangl.pojo.Mianshiguizhanbiao">
-    SELECT mbh,ybh,zwbh,mmc from mianshiguizhanbiao
-
+    SELECT a.mbh,a.ybh,b.zwmc,a.mmc,p.bmmc from mianshiguizhanbiao a
+                                                    INNER JOIN zhiweibiao b on b.zwbh=a.zwbh
+                                                    INNER JOIN bumenbiao p on p.bmbh=b.bmbh
+    order by mbh desc
 </select>
+
     <select id="guizhangzhiwei" resultType="com.trkj.renliziyuangl.pojo.Mianshiguizhanbiao">
-        SELECT zwbh,mmc from mianshiguizhanbiao
+        SELECT zwbh,mmc from mianshiguizhanbiao order by ybh desc
 
     </select>
 

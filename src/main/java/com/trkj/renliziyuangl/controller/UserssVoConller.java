@@ -1,5 +1,6 @@
 package com.trkj.renliziyuangl.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.trkj.renliziyuangl.service.UsersVoService;
 import com.trkj.renliziyuangl.vo.AjaxResponse;
 import com.trkj.renliziyuangl.vo.usersssVo;
@@ -15,31 +16,35 @@ public class UserssVoConller {
     @Autowired
     private UsersVoService usersVoService;
     @GetMapping("/mohuRenyygg")
-    public AjaxResponse mohuRenyygg(String rzname){
+    public AjaxResponse mohuRenyygg(int pageNum, int pageSize, String rzname,String rzsex){
         System.out.println("1111111111111"+rzname);
-        List<usersssVo> usersssVo=usersVoService.mohuchaxunygg(rzname);
-
-        return AjaxResponse.success(usersssVo);
+        return AjaxResponse.success(usersVoService.mohuchaxunygg(pageNum,pageSize,rzname,rzsex));
 
     }
     @GetMapping("/mohuchaxunyghmd")
-    public AjaxResponse mohuchaxunyghmd(String rzname){
+    public AjaxResponse mohuchaxunyghmd(int pageNum, int pageSize, String rzname,String rzsex){
         System.out.println("1111111111111"+rzname);
-        List<usersssVo> usersssVo=usersVoService.mohuchaxunyghmd(rzname);
-        return AjaxResponse.success(usersssVo);
+
+        return AjaxResponse.success(usersVoService.mohuchaxunyghmd(pageNum,pageSize,rzname,rzsex));
     }
     @GetMapping("/mohuchaxunyglz")
-    public AjaxResponse mohuchaxunyglz(String rzname){
+    public AjaxResponse mohuchaxunyglz(int pageNum, int pageSize, String rzname,String rzsex){
         System.out.println("1111111111111"+rzname);
-        List<usersssVo> usersssVo=usersVoService.mohuchaxunyglz(rzname);
-
-        return AjaxResponse.success(usersssVo);
+        return AjaxResponse.success(usersVoService.mohuchaxunyglz(pageNum,pageSize,rzname,rzsex));
 
     }
     @GetMapping("/mohuchaxunygwbd")
-    public AjaxResponse mohuchaxunygwbd(String rzname){
+    public AjaxResponse mohuchaxunygwbd(int pageNum, int pageSize, String rzname,String rzsex){
         System.out.println("1111111111111"+rzname);
-        List<usersssVo> usersssVo=usersVoService.mohuchaxunygwbd(rzname);
-        return AjaxResponse.success(usersssVo);
+
+        return AjaxResponse.success(  usersVoService.mohuchaxunygwbd(pageNum,pageSize,rzname,rzsex));
     }
+    @GetMapping("/mohuchaxunygsx")
+    public AjaxResponse mohuchaxunygsx(int pageNum, int pageSize, String rzname,String rzsex){
+        System.out.println("1111111111111"+rzname);
+        System.out.println("1111111111111"+rzsex);
+
+        return AjaxResponse.success(  usersVoService.mohuchaxunygsx(pageNum,pageSize,rzname,rzsex));
+    }
+
 }

@@ -19,4 +19,8 @@ public class usersssVo {
     private String rzhyzk;
     private String rzzzmm;
     private int rzbh;
+    private String bmmc;
+    private String zwmc;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date ygrzsj;
 }

@@ -1,17 +1,11 @@
-package com.trkj.renliziyuangl.pojo;
-
-import java.io.Serializable;
+package com.trkj.renliziyuangl.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
-/**
- * mianshiguizhanbiao
- * @author 
- */
 @Data
-public class Mianshiguizhanbiao implements Serializable {
+public class GuizhanVo {
     @TableId(value = "mbh",type = IdType.AUTO)
     private int mbh;
 
@@ -23,6 +17,4 @@ public class Mianshiguizhanbiao implements Serializable {
 
     private String zwmc;
     private String bmmc;
-
-    private static final long serialVersionUID = 1L;
 }

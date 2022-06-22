@@ -20,6 +20,7 @@ public class Zhaopingjihuabiao implements Serializable {
     private int zrs;
 
     private String zmc;
-
+    private String zwmc;
+ private String bmmc;
     private static final long serialVersionUID = 1L;
 }

@@ -13,8 +13,7 @@ public class MohuDicController {
     @Autowired
     public MohudicimianshiServce mohudicimianshiServce;
     @GetMapping("mohudiyci")
-    public AjaxResponse mohudiyici(String rzname){
-        List<ZpVo> zp=mohudicimianshiServce.mohudiyici(rzname);
-        return AjaxResponse.success(zp);
+    public AjaxResponse mohudiyici(int pageNum,int pageSize,String rzname){
+        return AjaxResponse.success(mohudicimianshiServce.mohudiyici(pageNum,pageSize,rzname));
     }
 }

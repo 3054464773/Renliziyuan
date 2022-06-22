@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.renliziyuangl.dao.MohuGuizhanVoDao">
+    <select id="mohuchaxunguiz" resultType="com.trkj.renliziyuangl.vo.GuizhanVo">
+        SELECT a.mbh,a.ybh,b.zwmc,a.mmc,p.bmmc from mianshiguizhanbiao a
+                                                        INNER JOIN zhiweibiao b on b.zwbh=a.zwbh
+                                                        INNER JOIN bumenbiao p on p.bmbh=b.bmbh
+                                                         WHERE a.mmc  like "%" #{mmc} "%"
+
+    </select>
+    <select id="bumenguiz" resultType="com.trkj.renliziyuangl.vo.GuizhanVo">
+        SELECT a.mbh,a.ybh,b.zwmc,a.mmc,p.bmmc from mianshiguizhanbiao a
+                                                        INNER JOIN zhiweibiao b on b.zwbh=a.zwbh
+                                                        INNER JOIN bumenbiao p on p.bmbh=b.bmbh
+        WHERE p.bmmc  like "%" #{bmmc} "%"
+
+    </select>
+
+</mapper>

@@ -35,4 +35,8 @@ public class ZpjhCotroller {
     public AjaxResponse xiugai(@RequestBody Zhaopingjihuabiao zhaopingjihuabiao){
         return AjaxResponse.success(zpjhService.updataZpjh(zhaopingjihuabiao));
     }
+    @GetMapping("/zhaoppp")
+    public  AjaxResponse zhaoppp(){
+        return AjaxResponse.success(zpjhService.zhaoppxxp());
+    }
 }

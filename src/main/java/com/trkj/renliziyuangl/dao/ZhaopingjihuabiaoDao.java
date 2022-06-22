@@ -2,6 +2,7 @@ package com.trkj.renliziyuangl.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.trkj.renliziyuangl.pojo.Zhaopingjihuabiao;
+import com.trkj.renliziyuangl.vo.zpjhVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,4 +17,5 @@ public interface ZhaopingjihuabiaoDao extends BaseMapper<Zhaopingjihuabiao> {
     public Zhaopingjihuabiao findZpjhById(int zbh);
     //修改
     public int updateZpjh(Zhaopingjihuabiao zhaopingjihuabiao);
+
 }

@@ -25,9 +25,9 @@ public class rencaiVo<Longblob> {
 
     private String rzxl;
 
-    private int rzsfz;
+    private String rzsfz;
 
-    private int rzphone;
+    private String rzphone;
 
     private String rzdz;
 
@@ -45,5 +45,17 @@ public class rencaiVo<Longblob> {
       private int rid;
       private int zwbh;
       private int ybh;
+      private String zwmc;
+      private String bmmc;
+    private  String gryx;
+    private String byxy;
+    private String zymc;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date rxsj;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date byssj;
+    private String yijixk;
+    private String xxxz;
+    private static final long serialVersionUID = 1L;
 
 }

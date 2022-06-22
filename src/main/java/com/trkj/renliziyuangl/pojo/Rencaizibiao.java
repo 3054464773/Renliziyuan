@@ -27,9 +27,9 @@ public class Rencaizibiao<Longblob> implements Serializable {
 
     private String rzxl;
 
-    private int rzsfz;
+    private String rzsfz;
 
-    private int rzphone;
+    private String rzphone;
 
     private String rzdz;
 
@@ -41,6 +41,15 @@ public class Rencaizibiao<Longblob> implements Serializable {
 
     private String rzzzmm;
       private  int img;
+      private  String gryx;
+      private String byxy;
+      private String zymc;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date rxsj;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date byssj;
+    private String yijixk;
+    private String xxxz;
 
     private static final long serialVersionUID = 1L;
 }

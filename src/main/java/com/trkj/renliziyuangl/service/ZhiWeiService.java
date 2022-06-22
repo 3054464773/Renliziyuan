@@ -12,4 +12,5 @@ public interface ZhiWeiService {
     boolean insertzw(Zhiweibiao zw);
     boolean updatezw(Zhiweibiao zw);
     List<Zhiweibiao> zhiwei();
+//    List<Zhiweibiao> zhiweiqc();
 }

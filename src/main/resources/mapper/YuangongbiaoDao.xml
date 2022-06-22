@@ -11,12 +11,14 @@
         <result column="ygzt" property="ygzt"/>
         <result column="yzh" property="yzh"/>
         <result column="ymm" property="ymm"/>
+        <result column="ygrzsj" property="ygrzsj"/>
+
     </resultMap>
     <select id="byidfindYgname" resultType="java.lang.String">
         SELECT  r.rzname FROM yuangongbiao y INNER JOIN rencaizibiao r on y.rzbh = r.rzbh  WHERE y.ybh =#{yid}
     </select>
     <sql id="userCol">
-        ybh,ygzt,bcbh,rzbh,zwbh,sbbh,yzh,ymm
+        ybh,ygzt,bcbh,rzbh,zwbh,sbbh,yzh,ymm,ygrzsj
     </sql>
     <select id="findUserById" parameterType="int" resultMap="UserMap">
         select  <include refid="userCol"/>
@@ -28,23 +30,99 @@
         from yuangongbiao
     </select>
         <select id="finduserssss" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
-            SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,b.rzbh FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh where ygzt!=5 and ygzt!=1 and ygzt!=4
+            SELECT *
+            FROM yuangongbiao a
+                     INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                     INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                     INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh
+                       where ygzt=3
+            order by ybh desc
+    </select>
+    <select id="findusersx" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
+        SELECT *
+        FROM yuangongbiao a
+                 INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                 INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                 INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh
+        where ygzt=2
+        order by ybh desc
+    </select>
+<!--    根据部门查询-->
+    <select id="bumenchauxn" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,bm.bmmc,zw.zwmc,a.ygrzsj
+        FROM yuangongbiao a
+                 INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                 INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                 INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh where bm.bmmc like #{bmmc} and ygzt=3
+        order by ybh desc
     </select>
 <!--员工黑名单-->
     <select id="findusershmd" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
-        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,b.rzbh FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh where ygzt=5
+        SELECT *
+        FROM yuangongbiao a
+                 INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                 INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                 INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh
+        where ygzt=5
+        order by ybh desc
+    </select>
+    <select id="bumenchauxnhmd" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,bm.bmmc,zw.zwmc,a.ygrzsj
+        FROM yuangongbiao a
+                 INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                 INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                 INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh
+                                 where bm.bmmc like #{bmmc} and  ygzt=5
+        order by ybh desc
     </select>
     <!--员工离职-->
     <select id="finduserslz" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
-        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,b.rzbh FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh where ygzt=4
+        SELECT *
+        FROM yuangongbiao a
+                 INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                 INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                 INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh where ygzt=4
+        order by ybh desc
+    </select>
+    <select id="bumenchauxnlz" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,bm.bmmc,zw.zwmc,a.ygrzsj
+        FROM yuangongbiao a
+                 INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                 INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                 INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh where bm.bmmc like #{bmmc} and  ygzt=4
+        order by ybh desc
     </select>
 <!--    薪资查询-->
     <select id="findxinzi" resultType="com.trkj.renliziyuangl.vo.UsersXinZiVo" >
-        SELECT a.ybh,b.rzname,a.zwbh,c.xzjljbgz,c.xzjlsb,c.szjlze,c.szjlsj,b.rzbh FROM  yuangongbiao a    INNER JOIN rencaizibiao b
-                                                                                                              ON b.rzbh=a.rzbh INNER JOIN xingzijilubiao c  on c.ybh=a.ybh
+        SELECT a.ybh,b.rzname,z.zwmc,x.xzjbgz,b.rzbh,a.ygrzsj,bm.bmmc FROM  yuangongbiao a    INNER JOIN rencaizibiao b
+                                                                                                         ON b.rzbh=a.rzbh
+                                                                                              INNER JOIN zhiweibiao z on z.zwbh=a.zwbh
+                                                                                              INNER JOIN xinzijibengongzibiao x  on x.zwbh=z.zwbh
+                                                                                              INNER JOIN  bumenbiao bm on bm.bmbh=z.bmbh
+       where a.ybh=#{ybh}  order by ybh desc
+
     </select>
     <select id="findwdg" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
-        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,b.rzbh FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh where ygzt=1
+        SELECT *
+        FROM yuangongbiao a
+                 INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                 INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                 INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh where ygzt=1
+        order by ybh desc
+    </select>
+    <select id="bumenchauxwbd" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,bm.bmmc,zw.zwmc,a.ygrzsj
+        FROM yuangongbiao a
+                 INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                 INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                 INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh where bm.bmmc like #{bmmc} and  ygzt=1 order by ybh desc
+    </select>
+    <select id="bumenchauxsx" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,bm.bmmc,zw.zwmc,a.ygrzsj
+        FROM yuangongbiao a
+                 INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                 INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                 INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh where bm.bmmc like #{bmmc} and  ygzt=2 order by ybh desc
     </select>
     <select id="chaxunquanxina" resultType="java.lang.String">
         SELECT j.jkey from yuangongbiao y INNER JOIN userandrole u on y.ybh=u.ybh INNER JOIN jiaosebiao j on j.jsbh=u.jsbh where y.ybh=#{ygid}
@@ -88,6 +166,39 @@
         insert  into yuangongbiao (ybh,bcbh,rzbh,zwbh,sbbh,ygzt,yzh,ymm) values (#{ybh},#{bcbh},#{rzbh},#{zwbh},#{sbbh},#{ygzt},#{yzh},#{ymm})
     </insert>
     <update id="xiugairuzhi">
-        UPDATE yuangongbiao set ygzt=3 where ybh=#{ybh}
+        UPDATE yuangongbiao set ygzt=2 where ybh=#{ybh}
     </update>
+<!--    根据入职时间查询-->
+    <select id="ruzhishijian" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,bm.bmmc,zw.zwmc,a.ygrzsj
+        FROM yuangongbiao a
+                 INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                 INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                 INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh where  a.ygrzsj>=#{ygrzsj} and ygzt=3  order by ybh desc
+
+    </select>
+    <select id="ruzhishijianhmd" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,bm.bmmc,zw.zwmc,a.ygrzsj
+        FROM yuangongbiao a
+                 INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                 INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                 INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh where a.ygrzsj>=#{ygrzsj} and ygzt=5   order by ybh desc
+
+    </select>
+    <select id="ruzhishijianlz" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,bm.bmmc,zw.zwmc,a.ygrzsj
+        FROM yuangongbiao a
+                 INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                 INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                 INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh where a.ygrzsj>=#{ygrzsj} and ygzt=4  order by ybh desc
+
+    </select>
+    <select id="ruzhishijiansx" resultType="com.trkj.renliziyuangl.vo.usersssVo" >
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,bm.bmmc,zw.zwmc,a.ygrzsj
+        FROM yuangongbiao a
+                 INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                 INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                 INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh where a.ygrzsj>=#{ygrzsj} and ygzt=2  order by ybh desc
+
+    </select>
 </mapper>

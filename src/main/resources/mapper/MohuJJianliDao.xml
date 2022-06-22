@@ -5,7 +5,7 @@
 
         <select id="mohujianli" resultType="com.trkj.renliziyuangl.vo.rencaiVo">
             select a.rzbh,a.rzname,a.rzsex,a.rzcsrq,a.rzage,a.rzxl,a.rzsfz,a.rzphone,b.zwbh,a.rzdz,a.rzgzjl,a.rzhyzk,a.rzmz,a.rzzzmm,b.rzt,b.rid
-            from rencaizibiao a INNER JOIN rencaibiao b on a.rzbh=b.rzbh  WHERE a.rzname like "%" #{rzname} "%" and b.rzt=1
+            from rencaizibiao a INNER JOIN rencaibiao b on a.rzbh=b.rzbh  WHERE a.rzname like "%" #{rzname} "%" and b.rzt=1 order by rzbh desc
         </select>
 
 

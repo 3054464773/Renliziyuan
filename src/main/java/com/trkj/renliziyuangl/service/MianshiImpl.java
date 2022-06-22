@@ -1,5 +1,8 @@
 package com.trkj.renliziyuangl.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.trkj.renliziyuangl.dao.MianshijilubiaoDao;
 import com.trkj.renliziyuangl.pojo.Mianshiguizhanzibiao;
 import com.trkj.renliziyuangl.pojo.Mianshijilubiao;
@@ -14,19 +17,14 @@ public class MianshiImpl implements Mianshi {
     @Autowired
     private MianshijilubiaoDao mianshijilubiaoDao;
 
-    //面试记录
+    //入职修改当次面试状态
     @Override
-    public int msjl(ZpVo zpvo) {
-        Mianshiguizhanzibiao b=new Mianshiguizhanzibiao();
-        Mianshijilubiao a=new Mianshijilubiao();
-
-        a.setRid(zpvo.getRid());
-        a.setYbh(zpvo.getYbh());
-        a.setMzbh(zpvo.getMzbh());
-        a.setMjsj(new Date());
-        a.setMjzt(1);
-        int count= mianshijilubiaoDao.insert(a);
-        return 1;
+    public int msjl(int  mjbh) {
+        UpdateWrapper<Mianshijilubiao> wrapper=new UpdateWrapper();
+        wrapper.eq("mjbh",mjbh);
+        wrapper.set("mjzt",1);
+        int ppp=mianshijilubiaoDao.update(null,wrapper);
+        return ppp;
     }
 
     @Override
@@ -53,5 +51,10 @@ public class MianshiImpl implements Mianshi {
        a.setMjzt(3);
        int l=mianshijilubiaoDao.insert(a);
         return 1;
+    }
+
+    @Override
+    public int xiugaimszt(int mjbh) {
+        return mianshijilubiaoDao.xiugaimszt(mjbh);
     }
 }

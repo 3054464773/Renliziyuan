@@ -101,7 +101,7 @@ public class JixiaoServiceImpl implements JixiaoService {
     }
 
     @Override
-    public PageInfo<grade2Vo> findGrade2ByName(int pageNum, int pageSize, String rzname) {
+    public PageInfo<grade2Vo> findGrade2ByName(int pageNum,int pageSize,String rzname) {
         PageHelper.startPage(pageNum,pageSize);
         List<grade2Vo> list=dao.findGrade2ByName(rzname);
         PageInfo info=new PageInfo<>(list);

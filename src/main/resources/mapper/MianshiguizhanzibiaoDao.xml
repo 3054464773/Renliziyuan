@@ -4,16 +4,17 @@
 <select id="mianshizi" resultType="com.trkj.renliziyuangl.pojo.Mianshiguizhanzibiao">
     SELECT mbh,mzbh,ybh,mzwt FROM mianshiguizhanzibiao  where mbh=#{mbh}
 </select>
+
 <!--    //面试记录，以及面试问题-->
     <select id="mianshiwenti" resultType="com.trkj.renliziyuangl.pojo.Mianshiguizhanzibiao">
         SELECT mz.* from  mianshiguizhanbiao m INNER JOIN  rencaibiao r on r.zwbh=m.zwbh INNER JOIN mianshiguizhanzibiao mz on m.mbh=mz.mbh
-        WHERE m.zwbh=#{zwbh} and r.rid=#{rid}
+        WHERE m.zwbh=#{zwbh} and r.rid=#{rid}  order by rid desc
 
     </select>
 <!--    //判断面试次数-->
     <select id="mianshiwentit" resultType="com.trkj.renliziyuangl.pojo.Mianshiguizhanzibiao">
         SELECT mz.* from  mianshiguizhanbiao m INNER JOIN  rencaibiao r on r.zwbh=m.zwbh INNER JOIN mianshiguizhanzibiao mz on m.mbh=mz.mbh
-        WHERE m.zwbh=#{zwbh} and r.rid=#{rid}
+        WHERE m.zwbh=#{zwbh} and r.rid=#{rid} order by ybh desc
 
     </select>
 

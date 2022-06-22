@@ -3,16 +3,19 @@ package com.trkj.renliziyuangl.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.trkj.renliziyuangl.dao.ZhaopingjihuabiaoDao;
+import com.trkj.renliziyuangl.dao.ZpjhVoDao;
 import com.trkj.renliziyuangl.pojo.Zhaopingjihuabiao;
+import com.trkj.renliziyuangl.vo.zpjhVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 @Service
 public class ZpjhServiceImpl implements ZpjhService{
     @Autowired
     private ZhaopingjihuabiaoDao zhaopingjihuabiaoDao;
+    @Autowired
+    private ZpjhVoDao zpjhVoDao;
     @Override
     public PageInfo<Zhaopingjihuabiao> findszpjh(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
@@ -45,4 +48,12 @@ public class ZpjhServiceImpl implements ZpjhService{
         return zhaopingjihuabiao;
 
     }
+
+
+
+    @Override
+    public List<zpjhVo> zhaoppxxp() {
+        return zpjhVoDao.zhaoppxxp();
+    }
+
 }

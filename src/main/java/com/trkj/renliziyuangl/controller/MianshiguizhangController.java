@@ -20,10 +20,15 @@ public class MianshiguizhangController {
         return AjaxResponse.success(pageInfo);
 
     }
+//    @GetMapping("/mohuguizhan")
+//    public AjaxResponse mohuguizhan(int page,String rzname){
+//        System.out.println(rzname);
+//        return AjaxResponse.success(mianshiguizhangService.mohuguizhan(page,rzname));
+//    }
     @GetMapping("/mohuguizhan")
-    public AjaxResponse mohuguizhan(int page,String rzname){
-        System.out.println(rzname);
-        return AjaxResponse.success(mianshiguizhangService.mohuguizhan(page,rzname));
+    public AjaxResponse mohuguizhan(int pageNum, int pageSize, String mmc){
+
+        return AjaxResponse.success(mianshiguizhangService.mohuchaxunguiz(pageNum,pageSize,mmc));
     }
     @PostMapping("insertmsgz")
     public AjaxResponse insert(@RequestBody MianshigzVo mianshigzVo){
@@ -33,4 +38,19 @@ public class MianshiguizhangController {
     public AjaxResponse guizhangzhiwei(){
         return  AjaxResponse.success(mianshiguizhangService.guizhangzhiwei());
   }
+    @GetMapping("/bumenguiz")
+    public AjaxResponse bumenguiz(int pageNum, int pageSize, String bmmc){
+
+        return AjaxResponse.success(mianshiguizhangService.bumenguiz(pageNum,pageSize,bmmc));
+    }
+    @GetMapping("/bumenzpjh")
+    public AjaxResponse bumenzpjh(int pageNum, int pageSize, String bmmc){
+
+        return AjaxResponse.success(mianshiguizhangService.bumenzpjh(pageNum,pageSize,bmmc));
+    }
+    @GetMapping("/mohuzpjh")
+    public AjaxResponse mohuzpjh(int pageNum, int pageSize,String zmc){
+        System.out.println("传过来了"+zmc);
+        return AjaxResponse.success(mianshiguizhangService.mohuzpjh(pageNum,pageSize,zmc));
+    }
 }

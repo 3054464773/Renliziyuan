@@ -3,20 +3,39 @@
 <mapper namespace="com.trkj.renliziyuangl.dao.UsersssDao">
 
     <select id="mohuchaxunygg" resultType="com.trkj.renliziyuangl.vo.usersssVo">
-        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,c.rsj,b.rzgzjl,a.ygzt FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
-                                                                                                                  INNER JOIN rencaibiao c on a.rzbh=c.rzbh WHERE b.rzname like "%" #{rzname} "%" and  ygzt!=5 and ygzt!=1 and ygzt!=4
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,bm.bmmc,zw.zwmc,a.ygrzsj
+        FROM yuangongbiao a
+                 INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                 INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                 INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh  WHERE b.rzname  like "%" #{rzname} "%" and b.rzsex like "%" #{rzsex} "%" and  ygzt=3  order by ybh desc
     </select>
     <select id="mohuchaxunyghmd" resultType="com.trkj.renliziyuangl.vo.usersssVo">
-        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,c.rsj,b.rzgzjl,a.ygzt FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
-                                                                                                                  INNER JOIN rencaibiao c on a.rzbh=c.rzbh WHERE b.rzname like "%" #{rzname} "%" and  ygzt='5'
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,bm.bmmc,zw.zwmc,a.ygrzsj
+        FROM yuangongbiao a
+                 INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                 INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                 INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh  WHERE b.rzname  like "%" #{rzname} "%" and b.rzsex like "%" #{rzsex} "%" and  ygzt='5'  order by ybh desc
     </select>
 
     <select id="mohuchaxunygwbd" resultType="com.trkj.renliziyuangl.vo.usersssVo">
-        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,c.rsj,b.rzgzjl,a.ygzt FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
-                                                                                                                  INNER JOIN rencaibiao c on a.rzbh=c.rzbh WHERE b.rzname like "%" #{rzname} "%" and  ygzt='1'
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,bm.bmmc,zw.zwmc,a.ygrzsj
+        FROM yuangongbiao a
+                 INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                 INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                 INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh  WHERE b.rzname  like "%" #{rzname} "%" and b.rzsex like "%" #{rzsex} "%" and  ygzt='1'  order by ybh desc
     </select>
     <select id="mohuchaxunyglz" resultType="com.trkj.renliziyuangl.vo.usersssVo">
-        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,c.rsj,b.rzgzjl,a.ygzt FROM yuangongbiao a INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
-                                                                                                                  INNER JOIN rencaibiao c on a.rzbh=c.rzbh WHERE b.rzname like "%" #{rzname} "%" and  ygzt='4'
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,bm.bmmc,zw.zwmc,a.ygrzsj
+        FROM yuangongbiao a
+                 INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                 INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                 INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh  WHERE b.rzname  like "%" #{rzname} "%" and b.rzsex like "%" #{rzsex} "%" and  ygzt='4' order by ybh desc
+    </select>
+    <select id="mohuchaxunygsx" resultType="com.trkj.renliziyuangl.vo.usersssVo">
+        SELECT a.ybh,b.rzname,b.rzsex,b.rzcsrq,b.rzhyzk,b.rzzzmm,b.rzxl,b.rzgzjl,a.ygzt,bm.bmmc,zw.zwmc,a.ygrzsj
+        FROM yuangongbiao a
+                 INNER JOIN rencaizibiao b on a.rzbh=b.rzbh
+                 INNER JOIN zhiweibiao zw on zw.zwbh=a.zwbh
+                 INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh WHERE b.rzname  like "%" #{rzname} "%" and b.rzsex like "%" #{rzsex} "%" and  ygzt='2'  order by ybh desc
     </select>
 </mapper>

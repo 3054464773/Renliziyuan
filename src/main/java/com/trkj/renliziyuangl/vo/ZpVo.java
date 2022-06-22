@@ -25,9 +25,9 @@ public class ZpVo {
 
     private String rzxl;
 
-    private int rzsfz;
+    private String rzsfz;
 
-    private int rzphone;
+    private String rzphone;
 
     private String rzdz;
 
@@ -51,5 +51,16 @@ public class ZpVo {
     private String zwmc;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date mjsj;
+    private String bmmc;
+    private  String gryx;
+    private String byxy;
+    private String zymc;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date rxsj;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date byssj;
+    private String yijixk;
+    private String xxxz;
+
 
 }

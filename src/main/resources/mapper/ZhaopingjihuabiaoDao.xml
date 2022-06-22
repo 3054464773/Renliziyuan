@@ -8,6 +8,7 @@
         <result column="zwbh" property="zwbh"/>
         <result column="zrs" property="zrs"/>
         <result column="zmc" property="zmc"/>
+
     </resultMap>
     <sql id="zpjh">
         zbh,shjlbh,shbid,zwbh,zrs,zmc
@@ -17,14 +18,16 @@
         from zhaopingjihuabiao where  zbh=#{zbh}
     </select>
 <select id="findszpjh" resultMap="ZpjhMap">
-select <include refid="zpjh"/> from zhaopingjihuabiao
+    select a.zbh,a.shjlbh,a.shbid,b.zwmc,a.zrs,a.zmc,bm.bmmc from zhaopingjihuabiao a
+                                                                      INNER JOIN zhiweibiao b on  a.zwbh=b.zwbh
+                                                                      INNER JOIN bumenbiao bm on bm.bmbh=b.bmbh  order by zbh desc
 </select>
     <delete id="deleteById">
         delete from zhaopingjihuabiao where ZBH=#{zbh}
     </delete>
     <insert id="tianjiazpjh">
         insert into zhaopingjihuabiao(zbh,shjlbh,shbid,zwbh,zrs,zmc)
-        values (#{zbh},#{shjlbh},#{shbid},#{zwbh},#{zrs},#{zmc})
+        values (#{zbh},#{shjlbh},#{shbid},#{zwbh},#{zrs},#{zmc}) order by zbh desc
     </insert>
     <update id="updateZpjh">
         update zhaopingjihuabiao
@@ -52,4 +55,5 @@ select <include refid="zpjh"/> from zhaopingjihuabiao
         where zbh=#{zbh}
 
     </update>
+
 </mapper>
