@@ -2,4 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.XingzijilubiaoDao">
 
+    
+    <select id="selectEmpInfo" resultType="com.trkj.renliziyuangl.vo.SalaryVo">
+        select x1.ybh,x1.xzjlbh, r.rzname,b.bmmc ,x1.xzjljbgz,x1.szjlsj ,
+        x5.xzysmc,x5.xzysje  from xingzijilubiao x1
+        inner join yuangongbiao y on x1.ybh=y.ybh
+        inner join xinzijibengongzibiao x2 on y.zwbh=x2.zwbh
+        inner join rencaizibiao r on y.rzbh=r.rzbh
+        inner join zhiweibiao z on y.zwbh=z.zwbh
+        inner join bumenbiao b on z.bmbh=b.bmbh
+        inner join xinzijiluzibiao x3 on x3.xzjlbh=x1.xzjlbh
+        inner join xinzizhongjianbiao x4 on x4.xzzjbh=x3.xzzjbh
+        inner join xinziyaosuxiangbiao x5 on x5.xzysbh=x4.xzysbh
+        inner join jixiaodinjibiao j on j.jdjb = x5.xzysmc
+        inner join jixiaopinfenbiao p on j.jxbh=p.jxbh and p.ybh=y.ybh
+        where DATE_FORMAT(x1.szjlsj,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
+    </select>
+    
+<!--    <select id="selectEmpKPI" resultType="com.trkj.renliziyuangl.vo.SalaryVo">-->
+<!--        select p.ybh '员工编号',x.xzysmc '要素项名称',x.xzysje '要素项金额' from xinziyaosuxiangbiao x inner join jixiaodinjibiao j on j.jdjb = x.xzysmc-->
+<!--        inner join jixiaopinfenbiao p on j.jxbh=p.jxbh-->
+<!--        inner join yuangongbiao y on p.ybh=y.ybh-->
+<!--    </select>-->
 </mapper>

@@ -35,7 +35,7 @@ public class BanCiServiceImpl implements BanCiService {
         if (bancibiao.getBcissc()==1){
             return 0;
         }else {
-          return   bddao.deleteById(bcid);
+            return   bddao.deleteById(bcid);
         }
     }
 

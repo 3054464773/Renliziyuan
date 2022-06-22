@@ -53,9 +53,21 @@
                               inner join yuangongbiao y  on y.ybh=p.ybh
                               inner join rencaizibiao r on r.rzbh=y.rzbh
                               inner join jixiaodinjibiao d on d.jxbh=p.jxbh
-                              where p.jxfs!=0
+                              where p.jxfs!=0 and DATE_FORMAT(p.jxsj,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
                               order by jxbh desc
         </select>
+
+        <select id="findGradeByJxsj" resultType="com.trkj.renliziyuangl.vo.gradeVo">
+            select j.jmc,j.jnr,p.jxbh,p.jbh,p.ybh,p.jxsj,p.jxfs,d.jdjb,d.jdfs,r.rzname
+            from jixiaobiao j inner join jixiaopinfenbiao p on j.jbh=p.jbh
+                              inner join yuangongbiao y  on y.ybh=p.ybh
+                              inner join rencaizibiao r on r.rzbh=y.rzbh
+                              inner join jixiaodinjibiao d on d.jxbh=p.jxbh
+                              where p.jxfs!=0 and DATE_FORMAT(p.jxsj,'%Y-%m')=#{jxsj}
+                              order by jxbh desc
+        </select>
+<!-- 根据月份查询绩效评分 -->
+
 
 <!--        查询未评分的员工-->
         <select id="findGrade2" resultType="com.trkj.renliziyuangl.vo.grade2Vo">
@@ -175,7 +187,7 @@
                                                                           inner join yuangongbiao y  on y.ybh=p.ybh
                                                                           inner join rencaizibiao r on r.rzbh=y.rzbh
                                                                           inner join zhiweibiao z	on j.zwbh=z.zwbh
-                                                                          where (DATE_FORMAT(jxsj,'%Y-%m'))='2022-05'
+                                                                          where (DATE_FORMAT(p.jxsj,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m'))
                                                                           and (p.ybh=1 or p.ybh=2 or p.ybh=3 or p.ybh=4 or p.ybh=5 or p.ybh=6 or p.ybh=7
                                                                           or p.ybh=8 or p.ybh=9 or p.ybh=10 or p.ybh=11 or p.ybh=12 or p.ybh=13 or p.ybh=14)
                                                                           and z.bmbh=#{bmbh} group by d.jdjb order by p.jxfs desc
@@ -185,7 +197,15 @@
             select d.jdjb,count(p.ybh) as empCount from jixiaodinjibiao d inner join jixiaopinfenbiao p on d.jxbh=p.jxbh
             inner join jixiaobiao j on p.jbh=j.jbh    inner join zhiweibiao z	on j.zwbh=z.zwbh
             inner join yuangongbiao y  on y.ybh=p.ybh inner join rencaizibiao r on r.rzbh=y.rzbh
-            where (DATE_FORMAT(jxsj,'%Y-%m'))='2022-05' and (p.ybh=1 or p.ybh=2 or p.ybh=3 or p.ybh=4 or p.ybh=5 or p.ybh=6
+            where (DATE_FORMAT(p.jxsj,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')) and (p.ybh=1 or p.ybh=2 or p.ybh=3 or p.ybh=4 or p.ybh=5 or p.ybh=6
+            or p.ybh=7 or p.ybh=8 or p.ybh=9 or p.ybh=10 or p.ybh=11 or p.ybh=12 or p.ybh=13 or p.ybh=14)group by d.jdjb order by p.jxfs desc
+        </select>
+
+        <select id="findAllScoreByJxsj" resultType="com.trkj.renliziyuangl.vo.scoreVo">
+            select d.jdjb,count(p.ybh) as empCount from jixiaodinjibiao d inner join jixiaopinfenbiao p on d.jxbh=p.jxbh
+            inner join jixiaobiao j on p.jbh=j.jbh    inner join zhiweibiao z	on j.zwbh=z.zwbh
+            inner join yuangongbiao y  on y.ybh=p.ybh inner join rencaizibiao r on r.rzbh=y.rzbh
+            where (DATE_FORMAT(p.jxsj,'%Y-%m')=#{jxsj}) and (p.ybh=1 or p.ybh=2 or p.ybh=3 or p.ybh=4 or p.ybh=5 or p.ybh=6
             or p.ybh=7 or p.ybh=8 or p.ybh=9 or p.ybh=10 or p.ybh=11 or p.ybh=12 or p.ybh=13 or p.ybh=14)group by d.jdjb order by p.jxfs desc
         </select>
 
