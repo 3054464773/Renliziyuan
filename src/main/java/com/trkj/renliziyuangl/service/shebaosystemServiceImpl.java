@@ -1,11 +1,9 @@
 package com.trkj.renliziyuangl.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.trkj.renliziyuangl.dao.BancibiaoDao;
-import com.trkj.renliziyuangl.dao.SbzjbDao;
-import com.trkj.renliziyuangl.dao.ShebaofananbiaoDao;
-import com.trkj.renliziyuangl.dao.YuangongbiaoDao;
+import com.trkj.renliziyuangl.dao.*;
 import com.trkj.renliziyuangl.pojo.*;
 import com.trkj.renliziyuangl.vo.canbaoryVo;
 import com.trkj.renliziyuangl.vo.ShebaofaVo;
@@ -23,6 +21,8 @@ public class shebaosystemServiceImpl implements shebaosystemService {
     private SbzjbDao sbdao;//社保中间表dao
     @Autowired
     private YuangongbiaoDao ygbd;//员工表dao
+    @Autowired
+    private BumenbiaoDao bmbd;//部门表dao
 
     /*查询班次表信息*/
     @Override
@@ -83,12 +83,23 @@ public class shebaosystemServiceImpl implements shebaosystemService {
         return sbfadao.deletesbfaxx(sbbh);
     }
 
-    /*查询参保人员信息*/
+    /*查询参保人员信息--实习员工*/
     @Override
-    public PageInfo<canbaoryVo> cxcbry(int pageNum, int PageSize) {
+    public PageInfo<canbaoryVo> cxcbrySx(int pageNum, int PageSize) {
         PageHelper.startPage(pageNum, PageSize);
         canbaoryVo vo=new canbaoryVo();
-        List cxcanbaorenyuan = sbfadao.cxcanbaorenyuan(vo);
+        List cxcanbaorenyuan = sbfadao.cxcanbaorenyuanSx(vo);
+        PageInfo<canbaoryVo> pageInfo=new PageInfo<>(cxcanbaorenyuan);
+        System.out.println(pageInfo);
+        return pageInfo;
+    }
+
+    /*查询参保人员信息--正式员工*/
+    @Override
+    public PageInfo<canbaoryVo> cxcbryZs(int pageNum, int PageSize) {
+        PageHelper.startPage(pageNum, PageSize);
+        canbaoryVo vo=new canbaoryVo();
+        List cxcanbaorenyuan = sbfadao.cxcanbaorenyuanZs(vo);
         PageInfo<canbaoryVo> pageInfo=new PageInfo<>(cxcanbaorenyuan);
         System.out.println(pageInfo);
         return pageInfo;
@@ -110,7 +121,13 @@ public class shebaosystemServiceImpl implements shebaosystemService {
         return sbfadao.xgzt(sbfab);
     }
 
-    /*通过员工姓名模糊查询其员工信息（参保人员）*/
+    /*通过员工姓名模糊查询其员工信息（参保人员）--实习员工  */
+    @Override
+    public List<canbaoryVo> cxygbynamesx(String rzname) {
+        return sbfadao.cxygBynamesx(rzname);
+    }
+
+    /*通过员工姓名模糊查询其员工信息（参保人员）--正式员工  */
     @Override
     public List<canbaoryVo> cxygbyname(String rzname) {
         return sbfadao.cxygByname(rzname);
@@ -160,5 +177,41 @@ public class shebaosystemServiceImpl implements shebaosystemService {
         return 1;
     }
 
+    //查询部门表数据信息
+    @Override
+    public List<Bumenbiao> cxdept() {
+        QueryWrapper<Bumenbiao> qw=new QueryWrapper<>();
+        return bmbd.selectList(qw);
+    }
+
+    //根据部门id查询员工信息（社保缴费）
+    @Override
+    public List findygxxBybmbh(int bmbh) {
+        return sbfadao.findygBybmbh(bmbh);
+    }
+
+    //根据部门id查询员工信息（未参保人员缴费--实习员工ygzt=2）
+    @Override
+    public List findygxxBybmbh1(int bmbh) {
+        return sbfadao.findygBybmbh1(bmbh);
+    }
+
+    //根据部门id查询员工信息（未参保人员缴费--正式员工ygzt=3）
+    @Override
+    public List findygxxBybmbh2(int bmbh) {
+        return sbfadao.findygBybmbh2(bmbh);
+    }
+
+    //判断社保基数所被绑定的条数
+    @Override
+    public int sbjsCount(int sbjsbh) {
+        return sbfadao.pdsbjsCount(sbjsbh);
+    }
+
+    //社保方案判断（删除，修改状态）
+    @Override
+    public int sbfaCount(int sbbh) {
+        return sbfadao.pdsbfaCount(sbbh);
+    }
 
 }

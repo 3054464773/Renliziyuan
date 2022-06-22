@@ -3,6 +3,8 @@ package com.trkj.renliziyuangl.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -12,6 +14,7 @@ import lombok.Data;
  */
 @Data
 public class Kaoqinjilubiao implements Serializable {
+    @TableId(value = "kqjlbh",type = IdType.AUTO)
     private int kqjlbh;
 
     private int ybh;
