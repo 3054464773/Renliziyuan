@@ -3,6 +3,46 @@
 <mapper namespace="com.trkj.renliziyuangl.dao.QianduanbiaoDao">
 
     <select id="findallqd" resultType="com.trkj.renliziyuangl.pojo.Qianduanbiao">
-        SELECT * FROM qianduanbiao  q where q.qdcdmc like #{param2} ORDER BY  q.qdbid DESC
+        SELECT * FROM qianduanbiao  q where
+        <if test="param1==''">
+            q.qdfjid != 0
+        </if>
+        <if test="param1!=''">
+            q.qdfjid =#{param1}
+        </if>
+        and q.qdcdmc like #{param3} ORDER BY  q.qdbid DESC
     </select>
+
+    <resultMap id="one" type="com.trkj.renliziyuangl.pojo.Jiaosebiao">
+        <id property="jsbh" column="jsbh"/>
+        <result property="jsmc" column="jsmc"/>
+        <result property="jkey" column="jkey"/>
+        <collection property="qdlist" javaType="java.util.List" ofType="com.trkj.renliziyuangl.pojo.Qianduanbiao">
+            <id property="qdbid" column="qdbid"/>
+            <result property="qdcdmc" column="qdcdmc"/>
+            <result property="qdlydz" column="qdlydz"/>
+            <result property="qdlymc" column="qdlymc"/>
+            <result property="qdzjmc" column="qdzjmc"/>
+        </collection>
+
+    </resultMap>
+
+    <select id="findalljsqds" resultMap="one">
+        SELECT * FROM jiaosebiao j LEFT JOIN jiaoseqianduanbiao j2 on j.jsbh=j2.jsid LEFT JOIN qianduanbiao q on j2.qdid = q.qdbid
+        where  j.jsmc LIKE #{param2}
+
+
+    </select>
+    <select id="findfujiqd" resultType="com.trkj.renliziyuangl.pojo.Qianduanbiao">
+        select * from qianduanbiao q where q.qdfjid = 0
+    </select>
+    <select id="chaxunwfpcd" resultType="com.trkj.renliziyuangl.pojo.Qianduanbiao">
+
+        SELECT * from qianduanbiao q where q.qdbid not in
+        <foreach  collection="array" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        and q.qdfjid !=0
+    </select>
+
 </mapper>

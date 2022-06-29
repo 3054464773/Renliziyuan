@@ -1,7 +1,9 @@
 package com.trkj.renliziyuangl.pojo;
 
 import java.io.Serializable;
+import java.util.List;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
@@ -23,6 +25,7 @@ public class Qianduanbiao implements Serializable {
     private String qdcdmc;
 
     private int qdfjid;
+
 
     private static final long serialVersionUID = 1L;
 }

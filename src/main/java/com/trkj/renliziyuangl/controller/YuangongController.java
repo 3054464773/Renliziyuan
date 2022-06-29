@@ -1,5 +1,6 @@
 package com.trkj.renliziyuangl.controller;
 
+import com.trkj.renliziyuangl.pojo.Qianduanbiao;
 import com.trkj.renliziyuangl.pojo.Yuangongbiao;
 import com.trkj.renliziyuangl.service.Loginservice;
 import com.trkj.renliziyuangl.vo.AjaxResponse;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
