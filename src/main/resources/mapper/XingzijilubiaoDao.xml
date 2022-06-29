@@ -14,8 +14,6 @@
         inner join xinzijiluzibiao x3 on x3.xzjlbh=x1.xzjlbh
         inner join xinzizhongjianbiao x4 on x4.xzzjbh=x3.xzzjbh
         inner join xinziyaosuxiangbiao x5 on x5.xzysbh=x4.xzysbh
-        inner join jixiaodinjibiao j on j.jdjb = x5.xzysmc
-        inner join jixiaopinfenbiao p on j.jxbh=p.jxbh and p.ybh=y.ybh
         where DATE_FORMAT(x1.szjlsj,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
     </select>
 
@@ -70,8 +68,6 @@
                                              inner join xinzijiluzibiao x3 on x3.xzjlbh=x1.xzjlbh
                                              inner join xinzizhongjianbiao x4 on x4.xzzjbh=x3.xzzjbh
                                              inner join xinziyaosuxiangbiao x5 on x5.xzysbh=x4.xzysbh
-                                             inner join jixiaodinjibiao j on j.jdjb = x5.xzysmc
-                                             inner join jixiaopinfenbiao p on j.jxbh=p.jxbh and p.ybh=y.ybh
                                              where (DATE_FORMAT(x1.szjlsj,'%Y-%m')=#{szjlsj})
     </select>
 
@@ -117,8 +113,22 @@
                                              inner join xinzijiluzibiao x3 on x3.xzjlbh=x1.xzjlbh
                                              inner join xinzizhongjianbiao x4 on x4.xzzjbh=x3.xzzjbh
                                              inner join xinziyaosuxiangbiao x5 on x5.xzysbh=x4.xzysbh
-                                             inner join jixiaodinjibiao j on j.jdjb = x5.xzysmc
-                                             inner join jixiaopinfenbiao p on j.jxbh=p.jxbh and p.ybh=y.ybh
                                             where DATE_FORMAT(x1.szjlsj,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m') and b.bmmc like "%" #{bmmc} "%"
     </select>
+
+    <!--    根据员工姓名查询员工工资-->
+    <select id="selectEmpInfoByName" resultType="com.trkj.renliziyuangl.vo.SalaryVo">
+        select x1.ybh,y.sbbh,x1.xzjlbh,x1.szjlsj as xzsj, r.rzname,b.bmmc ,x1.xzjljbgz,x1.szjlsj ,z.zwmc,
+               x5.xzysmc,x5.xzysje  from xingzijilubiao x1
+                                             inner join yuangongbiao y on x1.ybh=y.ybh
+                                             inner join xinzijibengongzibiao x2 on y.zwbh=x2.zwbh
+                                             inner join rencaizibiao r on y.rzbh=r.rzbh
+                                             inner join zhiweibiao z on y.zwbh=z.zwbh
+                                             inner join bumenbiao b on z.bmbh=b.bmbh
+                                             inner join xinzijiluzibiao x3 on x3.xzjlbh=x1.xzjlbh
+                                             inner join xinzizhongjianbiao x4 on x4.xzzjbh=x3.xzzjbh
+                                             inner join xinziyaosuxiangbiao x5 on x5.xzysbh=x4.xzysbh
+        where DATE_FORMAT(x1.szjlsj,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m') and r.rzname like "%" #{rzname} "%"
+    </select>
+
 </mapper>
