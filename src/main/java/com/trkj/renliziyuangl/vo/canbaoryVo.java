@@ -16,8 +16,8 @@ public class canbaoryVo {
     private Date rzcsrq;
     private int rzage;
     private String rzxl;
-    private int rzsfz;
-    private int rzphone;
+    private String rzsfz;
+    private String rzphone;
     private String rzdz;
     private String rzgzjl;
     private String rzhyzk;

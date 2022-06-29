@@ -6,6 +6,6 @@ import com.trkj.renliziyuangl.pojo.Jiaqishenqibiao;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface JiaqishenqibiaoDao extends BaseMapper<Jiaosequanxianbiao> {
+public interface JiaqishenqibiaoDao extends BaseMapper<Jiaqishenqibiao> {
 
 }

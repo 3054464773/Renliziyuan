@@ -17,6 +17,12 @@ public interface YuangonggzjlbiaoDao extends BaseMapper<Yuangonggzjlbiao> {
     //查询员工通讯录
     List selectygphone(YgPhoneVo ygphone);
 
+    //根据部门查询员工通讯录
+    List cxygphonebybm(int bmbh);
+
+    //根据员工姓名模糊查询员工通讯录
+    List mhcxygphonebyname(String rzname);
+
     //查询我的日志
     List<RizhiVo> cxmerizhi(int ybh);
 
@@ -52,4 +58,7 @@ public interface YuangonggzjlbiaoDao extends BaseMapper<Yuangonggzjlbiao> {
 
     //根据员工id查询当天是否有考勤记录
     Kaoqinjilubiao cxkqjlByIdandDate(@Param("ybh") int ybh);
+
+    //查询员工基本信息（ybh）
+    canbaoryVo yuangongxxbyid(int ybh);
 }
