@@ -8,6 +8,7 @@ import com.trkj.renliziyuangl.vo.interviewVo;
 import com.trkj.renliziyuangl.vo.rencaiVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -31,12 +32,12 @@ public class RencaiServiceImpl implements RencaiService{
         PageInfo<Rencaibiao> info=new PageInfo<>(list);
         return info;
     }
-
+    @Transactional
     @Override
     public int xiugaizt(int rid) {
         return rencaibiaoDao.xiugaizt(rid);
     }
-
+    @Transactional
     @Override
     public int xiugaiztt(int rid) {
         return rencaibiaoDao.xiugaiztt(rid);

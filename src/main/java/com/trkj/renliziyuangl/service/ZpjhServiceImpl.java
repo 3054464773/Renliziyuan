@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -32,12 +33,12 @@ public class ZpjhServiceImpl implements ZpjhService{
         PageInfo<zpjhVo> pageInfo=new PageInfo<>(list);
         return  pageInfo;
     }
-
+    @Transactional
     @Override
     public int deleteById(int zhb) {
         return zhaopingjihuabiaoDao.deleteById(zhb);
     }
-
+    @Transactional
     @Override
     public Zhaopingjihuabiao tianjiazpjh(Zhaopingjihuabiao zhaopingjihuabiao) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -73,7 +74,7 @@ public class ZpjhServiceImpl implements ZpjhService{
         Zhaopingjihuabiao zhaopingjihuabiao=zhaopingjihuabiaoDao.findZpjhById(zhb);
         return zhaopingjihuabiao;
     }
-
+    @Transactional
     @Override
     public Zhaopingjihuabiao updataZpjh(Zhaopingjihuabiao zhaopingjihuabiao) {
 

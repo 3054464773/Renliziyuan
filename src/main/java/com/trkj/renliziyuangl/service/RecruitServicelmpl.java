@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -51,6 +52,7 @@ public class RecruitServicelmpl implements RecruitService {
 
 
     //删除
+    @Transactional
     @Override
     public int deleteById(int rzbh) {
         return  recruitDao.deleteById(rzbh);
@@ -105,6 +107,7 @@ public class RecruitServicelmpl implements RecruitService {
         return recruitPageInfo;
     }
 //双表添加
+@Transactional
     @Override
     public int insersyygg(rencaiVo rencaiVo) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -142,7 +145,7 @@ public class RecruitServicelmpl implements RecruitService {
         int inset2=rencaibiaoDao.insert(rencaibiao);
         return 1;
     }
-
+    @Transactional
     @Override
     public List<rencaiVo>  daoru(rencaiVo rencaiVo) {
         Rencaizibiao a=new Rencaizibiao();

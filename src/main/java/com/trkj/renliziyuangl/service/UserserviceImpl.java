@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -57,11 +58,13 @@ public class UserserviceImpl implements Userservice {
     }
 
 //根据id删除
+@Transactional
     @Override
     public int deleteById(int ybh) {
         return   userDao.deleteById(ybh);
     }
 //添加
+@Transactional
     @Override
     public Yuangongbiao insersUsers(Yuangongbiao userVo) {
         userDao.insersUsers(userVo);
@@ -183,6 +186,7 @@ public class UserserviceImpl implements Userservice {
     }
 
     //修改员工入职状态
+    @Transactional
     @Override
     public int xiugairuzhi(int ybh) {
         UpdateWrapper<Yuangongbiao> yg=new UpdateWrapper<>();
@@ -193,6 +197,7 @@ public class UserserviceImpl implements Userservice {
     return   userDao.xiugairuzhi(ybh);
     }
 //通过面试入职的员工
+@Transactional
     @Override
     public int rzyg(ZpVo zpVo) {
         Yuangongbiao a=new Yuangongbiao();

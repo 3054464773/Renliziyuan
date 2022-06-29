@@ -10,6 +10,7 @@ import com.trkj.renliziyuangl.vo.ZpVo;
 import com.trkj.renliziyuangl.vo.rencaiVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 @Service
@@ -18,6 +19,7 @@ public class MianshiImpl implements Mianshi {
     private MianshijilubiaoDao mianshijilubiaoDao;
 
     //入职修改当次面试状态
+    @Transactional
     @Override
     public int msjl(int  mjbh) {
         UpdateWrapper<Mianshijilubiao> wrapper=new UpdateWrapper();
@@ -26,7 +28,7 @@ public class MianshiImpl implements Mianshi {
         int ppp=mianshijilubiaoDao.update(null,wrapper);
         return ppp;
     }
-
+    @Transactional
     @Override
     public int msjlmg(ZpVo zpVo) {
         Mianshiguizhanzibiao b=new Mianshiguizhanzibiao();
@@ -40,7 +42,7 @@ public class MianshiImpl implements Mianshi {
         int count= mianshijilubiaoDao.insert(a);
         return 1;
     }
-
+    @Transactional
     @Override
     public int yymsjl(rencaiVo rencaiVo) {
         Mianshijilubiao a=new Mianshijilubiao();
@@ -52,7 +54,7 @@ public class MianshiImpl implements Mianshi {
        int l=mianshijilubiaoDao.insert(a);
         return 1;
     }
-
+    @Transactional
     @Override
     public int xiugaimszt(int mjbh) {
         return mianshijilubiaoDao.xiugaimszt(mjbh);
