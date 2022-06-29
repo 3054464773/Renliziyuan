@@ -125,7 +125,7 @@
                  INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh where bm.bmmc like #{bmmc} and  ygzt=2 order by ybh desc
     </select>
     <select id="chaxunquanxina" resultType="java.lang.String">
-        SELECT j.jkey from yuangongbiao y INNER JOIN userandrole u on y.ybh=u.ybh INNER JOIN jiaosebiao j on j.jsbh=u.jsbh where y.ybh=#{ygid}
+        SELECT qq.qkey from yuangongbiao y INNER JOIN userandrole u on y.ybh=u.ybh INNER JOIN jiaosebiao j on j.jsbh=u.jsbh INNER JOIN jiaosequanxianbiao jj on jj.jsbh = j.jsbh INNER JOIN quanxianbiao qq on jj.qxbh = qq.qxbh where y.ybh=#{ygid}
 
     </select>
     <update id="updateUser">

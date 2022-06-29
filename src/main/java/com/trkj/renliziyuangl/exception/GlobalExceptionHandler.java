@@ -39,8 +39,7 @@ public class GlobalExceptionHandler {
             return AjaxResponse.error(new CustomError(CustomErrorType.USER_NOQXH_ERROR,"权限不足"));
         }else if(e instanceof MethodArgumentNotValidException){
             return  AjaxResponse.error(new CustomError(CustomErrorType.SYSTEM_ERROR,"输入不合法！"));
-        }
-        else if (e instanceof CustomError){
+        }else if (e instanceof CustomError){
             return  AjaxResponse.error((CustomError) e);
         }
         log.info("系统产生了异常");
