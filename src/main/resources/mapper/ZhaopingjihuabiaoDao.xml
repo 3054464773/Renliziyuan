@@ -20,13 +20,22 @@
         INNER JOIN bumenbiao bm on bm.bmbh=b.bmbh
         where  zbh=#{zbh}
     </select>
-<select id="findszpjh" resultType="com.trkj.renliziyuangl.vo.zpjhVo">
-    select * from zhaopingjihuabiao a
-                                                                      INNER JOIN zhiweibiao b on  a.zwbh=b.zwbh
-                                                                      INNER JOIN bumenbiao bm on bm.bmbh=b.bmbh
-                                                                      INNER JOIN  shenhejiluzibiao sh on a.shjlbh=sh.shjlbh
-    order by zbh desc
-</select>
+<!--<select id="findszpjh" resultType="com.trkj.renliziyuangl.vo.zpjhVo">-->
+<!--    select * from zhaopingjihuabiao a-->
+<!--                                                                      INNER JOIN zhiweibiao b on  a.zwbh=b.zwbh-->
+<!--                                                                      INNER JOIN bumenbiao bm on bm.bmbh=b.bmbh-->
+<!--                                                                      INNER JOIN  shenhejiluzibiao sh on a.shjlbh=sh.shjlbh-->
+
+<!--</select>-->
+    <select id="findszpjh" resultType="com.trkj.renliziyuangl.vo.zpjhVo">
+        select * from zhaopingjihuabiao a
+                          INNER JOIN zhiweibiao b on  a.zwbh=b.zwbh
+                          INNER JOIN bumenbiao bm on bm.bmbh=b.bmbh
+                          INNER JOIN  shenhejilubiao sh on a.shjlbh=sh.shjlbh
+        where sh.shjlzt!=2
+
+    </select>
+
     <delete id="deleteById">
         delete from zhaopingjihuabiao where ZBH=#{zbh}
     </delete>

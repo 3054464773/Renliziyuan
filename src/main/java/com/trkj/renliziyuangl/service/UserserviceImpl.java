@@ -4,14 +4,19 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.trkj.renliziyuangl.dao.ShenhejilubiaoDao;
 import com.trkj.renliziyuangl.dao.YuangongbiaoDao;
 import com.trkj.renliziyuangl.dao.YuangonggzjlbiaoDao;
+import com.trkj.renliziyuangl.pojo.LoginUser;
+import com.trkj.renliziyuangl.pojo.Shenhejilubiao;
 import com.trkj.renliziyuangl.pojo.Yuangongbiao;
 import com.trkj.renliziyuangl.pojo.Yuangonggzjlbiao;
 import com.trkj.renliziyuangl.vo.UsersXinZiVo;
 import com.trkj.renliziyuangl.vo.ZpVo;
 import com.trkj.renliziyuangl.vo.usersssVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -25,6 +30,8 @@ public class UserserviceImpl implements Userservice {
     private YuangongbiaoDao userDao;
     @Autowired
     private YuangonggzjlbiaoDao yyy;
+    @Autowired
+    private ShenhejilubiaoDao shenhejilubiaoDao;
 //根据id查找
     @Override
     public Yuangongbiao findUserById(int ybh) {
@@ -191,7 +198,7 @@ public class UserserviceImpl implements Userservice {
         Yuangongbiao a=new Yuangongbiao();
         a.setRzbh(zpVo.getRzbh());
         a.setZwbh(zpVo.getZwbh());
-        String str= String.valueOf(zpVo.getRzphone());
+        String str= String.valueOf(zpVo.getRzsfz());
         System.out.println("账号没为空"+str);
         a.setYzh(str.substring(str.length()-6));
         a.setYmm("$2a$10$Tt7JJkXbioCxvmIt0.VrT.WVYW40LlYKZ6PSBz3/BC.FvLXCApah2");
@@ -241,8 +248,19 @@ public class UserserviceImpl implements Userservice {
 //员工转正申请
     @Override
     public int zzsq(Yuangonggzjlbiao yuangonggzjlbiao) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        Yuangongbiao yhb = loginUser.getYhb();
+        Shenhejilubiao l=new Shenhejilubiao();
+        l.setShjlbh(yuangonggzjlbiao.getShjlbh());
+        l.setShjlsj(new Date());
+        l.setShjlzt(3);
+        l.setShbid(yuangonggzjlbiao.getShbid());
+        l.setYbh(yhb.getYbh());
+        int p=shenhejilubiaoDao.insert(l);
         Yuangonggzjlbiao a=new Yuangonggzjlbiao();
         a.setShbid(yuangonggzjlbiao.getShbid());
+        a.setShjlbh(l.getShjlbh());
         a.setYbh(yuangonggzjlbiao.getYbh());
         a.setYggzzt(2);
         a.setYggzsj(new Date());

@@ -21,6 +21,7 @@ public class Shenhejilubiao implements Serializable {
     private int shjlzt;
 
     private Date shjlsj;
+    private int shbid;
 
     private int shbid;
 
