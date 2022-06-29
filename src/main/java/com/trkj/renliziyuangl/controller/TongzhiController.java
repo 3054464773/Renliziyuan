@@ -4,6 +4,7 @@ import com.trkj.renliziyuangl.pojo.Tongzhibiao;
 import com.trkj.renliziyuangl.service.TongzhiService;
 import com.trkj.renliziyuangl.vo.AjaxResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,7 @@ public class TongzhiController {
     @Autowired
     private TongzhiService tzservice;
 
-
+    @PreAuthorize("hasAnyAuthority('insertTongzhi')")
     @PostMapping("/insertTongzhi")
     public AjaxResponse insertTongzhi(HttpServletRequest request, @RequestBody Tongzhibiao tongzhibiao){
         int i = tzservice.insertTongzhi(tongzhibiao, request);
