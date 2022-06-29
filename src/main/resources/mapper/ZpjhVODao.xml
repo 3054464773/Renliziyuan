@@ -9,9 +9,11 @@
     </select>
 <!--招聘计划模糊查询-->
     <select id="mohuzpjh" resultType="com.trkj.renliziyuangl.vo.zpjhVo">
-        select a.zbh,a.shjlbh,a.shbid,b.zwmc,a.zrs,a.zmc,bm.bmmc from zhaopingjihuabiao a
-                                                                          INNER JOIN zhiweibiao b on  a.zwbh=b.zwbh
-                                                                          INNER JOIN bumenbiao bm on bm.bmbh=b.bmbh where a.zmc like "%" #{zmc} "%"
+        select * from zhaopingjihuabiao a
+                          INNER JOIN zhiweibiao b on  a.zwbh=b.zwbh
+                          INNER JOIN bumenbiao bm on bm.bmbh=b.bmbh
+                          INNER JOIN  shenhejilubiao sh on a.shjlbh=sh.shjlbh
+         where a.zmc like  #{zmc}  and sh.shjlzt!=2
     </select>
     <select id="zhaoppxxp" resultType="com.trkj.renliziyuangl.vo.zpjhVo">
         SELECT a.zwbh,b.zwmc from zhaopingjihuabiao a

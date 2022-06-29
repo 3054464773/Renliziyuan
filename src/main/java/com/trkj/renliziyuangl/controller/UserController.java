@@ -153,6 +153,7 @@ public class UserController {
     }
     @PostMapping("/zzsq")
     public AjaxResponse zzsq(@RequestBody Yuangonggzjlbiao yuangongbiao){
+        System.out.println("bubuudsadasdjk"+yuangongbiao.getYbh());
         return AjaxResponse.success(userservice.zzsq(yuangongbiao));
     }
 

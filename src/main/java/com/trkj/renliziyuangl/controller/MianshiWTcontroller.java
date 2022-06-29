@@ -52,9 +52,9 @@ public class MianshiWTcontroller {
             return AjaxResponse.success(mianshiwentiService.insertmz(mianshiguizhanzibiao));
     }
     //复试
-    @GetMapping("/fushi/{rid}/{ybh}/{mjsj}/{mjbh}/{mspj}")
-    public AjaxResponse fushi(@PathVariable("rid")int rid,@PathVariable("ybh") int msyg, @PathVariable("mjsj")Date mjsj,@PathVariable("mjbh")int mjbh,@PathVariable("mspj")String mspj){
-
+    @GetMapping("/fushi/{mzbh}/{rid}/{ybh}/{mjsj}/{mjbh}/{mspj}")
+    public AjaxResponse fushi(@PathVariable("mzbh") int mzbh,@PathVariable("rid")int rid,@PathVariable("ybh") int msyg, @PathVariable("mjsj")Date mjsj,@PathVariable("mjbh")int mjbh,@PathVariable("mspj")String mspj){
+        System.out.println(mzbh);
         System.out.println(rid);
         System.out.println(msyg);
         System.out.println(mjsj);

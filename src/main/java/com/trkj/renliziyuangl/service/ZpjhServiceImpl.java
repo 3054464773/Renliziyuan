@@ -45,8 +45,9 @@ public class ZpjhServiceImpl implements ZpjhService{
         Yuangongbiao yhb = loginUser.getYhb();
         Shenhejilubiao l=new Shenhejilubiao();
         l.setShjlbh(zhaopingjihuabiao.getShjlbh());
+        l.setShbid(zhaopingjihuabiao.getShbid());
         l.setShjlsj(new Date());
-        l.setShjlzt(2);
+        l.setShjlzt(3);
         l.setYbh(yhb.getYbh());
         int a=shenhejilubiaoDao.insert(l);
         Zhaopingjihuabiao zhaopingjihuabiao1=new Zhaopingjihuabiao();
@@ -57,13 +58,13 @@ public class ZpjhServiceImpl implements ZpjhService{
         zhaopingjihuabiao1.setZrs(zhaopingjihuabiao.getZrs());
        zhaopingjihuabiaoDao.insert(zhaopingjihuabiao1);
 //        zhaopingjihuabiaoDao.tianjiazpjh(zhaopingjihuabiao);
-        Shenhejiluzibiao shenhejiluzibiao=new Shenhejiluzibiao();
-        shenhejiluzibiao.setShjlbh(l.getShjlbh());
-        shenhejiluzibiao.setYbh(yhb.getYbh());
-        shenhejiluzibiao.setShjlzsj(new Date());
-        shenhejiluzibiao.setShjlzzt(1);
-        shenhejiluzibiao.setShjlzbz(zhaopingjihuabiao.getShjlzbz());
-        int v= shenhejiluzibiaoDao.insert(shenhejiluzibiao);
+//        Shenhejiluzibiao shenhejiluzibiao=new Shenhejiluzibiao();
+//        shenhejiluzibiao.setShjlbh(l.getShjlbh());
+//        shenhejiluzibiao.setYbh(yhb.getYbh());
+//        shenhejiluzibiao.setShjlzsj(new Date());
+//        shenhejiluzibiao.setShjlzzt(1);
+//        shenhejiluzibiao.setShjlzbz(zhaopingjihuabiao.getShjlzbz());
+//        int v= shenhejiluzibiaoDao.insert(shenhejiluzibiao);
         return zhaopingjihuabiao;
     }
 
