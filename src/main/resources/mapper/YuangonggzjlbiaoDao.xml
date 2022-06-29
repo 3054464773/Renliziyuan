@@ -70,7 +70,7 @@
 
     <!--根据员工编号查询该员工的出差记录-->
     <select id="cxchuchaiByid" resultType="com.trkj.renliziyuangl.pojo.Chuchaibiao">
-        select ygb.ybh,rczb.rzbh,rczb.rzname,rczb.rzsex,ccb.ccfd,ccb.cmdd,ccb.ckssj,ccb.cyjsj,ccb.csjsj,ccb.cccnr,ccb.czt
+        select ygb.ybh,rczb.rzbh,rczb.rzname,rczb.rzsex,ccb.ccfd,ccb.cmdd,ccb.ckssj,ccb.cyjsj,ccb.csjsj,ccb.cccnr,ccb.czt,shjlb.shjlzt
 			from rencaizibiao rczb
 			INNER JOIN rencaibiao rcb on rczb.rzbh=rcb.rzbh
             INNER JOIN yuangongbiao ygb on ygb.rzbh=rcb.rzbh

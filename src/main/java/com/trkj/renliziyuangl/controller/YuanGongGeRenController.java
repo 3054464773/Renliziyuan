@@ -118,6 +118,7 @@ public class YuanGongGeRenController {
     //员工申请出差
     @PostMapping("/sqchuchai")
     public AjaxResponse sqchuchai(@RequestBody Chuchaibiao ccb){
+        System.out.println("进来了"+ccb.getShbid());
         return AjaxResponse.success(yggrservice.shenqingchuchai(ccb));
     }
 
