@@ -11,7 +11,7 @@ import java.util.Map;
 
 public interface RecruitService {
     public PageInfo<Rencaizibiao> selectRecruit(int pageNum, int pageSize);
-    public Rencaizibiao selectid(int rzbh);
+    public rencaiVo selectid(int rzbh);
     public Rencaizibiao updataRecruit(Rencaizibiao rzbh);
     public  int deleteById(int rzbh);
     public Rencaizibiao insertRecruit(Rencaizibiao rencaizibiao);

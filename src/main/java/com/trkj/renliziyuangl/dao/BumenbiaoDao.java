@@ -9,5 +9,8 @@ import java.util.List;
 @Mapper
 public interface BumenbiaoDao extends BaseMapper<Bumenbiao> {
     public List<Bumenbiao> bumen();
+    public List<Bumenbiao> bububumen();
+    public List<Bumenbiao> bumenmmm();
+
 
 }

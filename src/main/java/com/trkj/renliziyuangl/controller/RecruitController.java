@@ -24,8 +24,8 @@ public class RecruitController {
     //根据id查询
     @GetMapping("/selectid/{rzbh}")
     public AjaxResponse selectid(@PathVariable("rzbh") int rzbh){
-        Rencaizibiao rencaizibiaos=recruitService.selectid(rzbh);
-        List<Rencaizibiao> list=new ArrayList<>();
+        rencaiVo rencaizibiaos=recruitService.selectid(rzbh);
+        List<rencaiVo> list=new ArrayList<>();
         list.add(rencaizibiaos);
         return AjaxResponse.success(list);
     }

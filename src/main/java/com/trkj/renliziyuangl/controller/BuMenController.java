@@ -50,4 +50,14 @@ public class BuMenController {
     public AjaxResponse suoybumen(){
         return AjaxResponse.success(buMenservice.bumen());
     }
+    @GetMapping("/bububumen")
+    public AjaxResponse bububumen(){
+        return AjaxResponse.success(buMenservice.bububumen());
+    }
+    @GetMapping("/bumenmmm")
+    public AjaxResponse bumenmmm(){
+        return AjaxResponse.success(buMenservice.bumenmmm());
+    }
+
+
 }

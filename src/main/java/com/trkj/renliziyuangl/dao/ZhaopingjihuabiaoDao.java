@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface ZhaopingjihuabiaoDao extends BaseMapper<Zhaopingjihuabiao> {
     //查询所有以及分页
-    public List<Zhaopingjihuabiao> findszpjh();
+    public List<zpjhVo> findszpjh();
    //添加
     public int tianjiazpjh(Zhaopingjihuabiao zhaopingjihuabiao);
     //根据id查询

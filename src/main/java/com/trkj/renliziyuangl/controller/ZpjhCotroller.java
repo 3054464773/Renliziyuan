@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.trkj.renliziyuangl.pojo.Zhaopingjihuabiao;
 import com.trkj.renliziyuangl.service.ZpjhService;
 import com.trkj.renliziyuangl.vo.AjaxResponse;
+import com.trkj.renliziyuangl.vo.zpjhVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class ZpjhCotroller {
     }
     @GetMapping("/findszpjh")
     public AjaxResponse findszpjh(int pageNum,int pageSize){
-        PageInfo<Zhaopingjihuabiao> pageInfo=zpjhService.findszpjh(pageNum,pageSize);
+        PageInfo<zpjhVo> pageInfo=zpjhService.findszpjh(pageNum,pageSize);
         return AjaxResponse.success(pageInfo);
     }
     //添加

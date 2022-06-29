@@ -2,6 +2,7 @@ package com.trkj.renliziyuangl.service;
 
 import com.trkj.renliziyuangl.pojo.Shenghebiao;
 
+import java.util.List;
 import java.util.Map;
 
 public interface ShengsheService {
@@ -10,4 +11,5 @@ public interface ShengsheService {
     int insertshenhe(Shenghebiao sh);
 
     int deleteshenhe(int id);
+    List<Shenghebiao> shenheneir();
 }

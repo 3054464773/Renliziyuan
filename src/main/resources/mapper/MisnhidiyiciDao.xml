@@ -3,11 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.MohudiyicimsDao">
     <select id="mohudiyici" resultType="com.trkj.renliziyuangl.vo.ZpVo">
-        SELECT rz.rzbh,rz.rzname,rz.rzsex,rz.rzcsrq,rz.rzage,rz.rzxl,rz.rzsfz,rz.rzphone,rz.rzmz,rz.rzzzmm,r.rzt,m.zwbh,mz.mbh,mz.mzwt,mz.ybh,m.mmc,r.rid,mz.mzbh,mj.mjsj,mj.mjbh FROM
+        SELECT rz.rzbh,rz.rzname,rz.rzsex,rz.rzcsrq,rz.rzage,rz.rzxl,rz.rzsfz,rz.rzphone,rz.rzmz,rz.byxy,rz.zymc,c.zwmc,rz.rzzzmm,r.rzt,r.rid,mj.mjsj,mj.mjbh FROM
             rencaibiao r INNER JOIN rencaizibiao rz on r.rzbh=rz.rzbh
-                         INNER JOIN mianshiguizhanbiao m on m.zwbh=r.zwbh
-                         INNER JOIN mianshiguizhanzibiao mz on mz.mbh=m.mbh
-                         INNER JOIN mianshijilubiao mj on r.rid = mj.rid  where rz.rzname like "%" #{rzname} "%" and r.rzt=2 and mj.mjzt=3 and mz.mzbh=mj.mzbh
+                inner  join  zhiweibiao c on c.zwbh=r.zwbh
+
+                         INNER JOIN mianshijilubiao mj on r.rid = mj.rid  where rz.rzname like "%" #{rzname} "%" and r.rzt=2 and mj.mjzt=3
     </select>
 
 </mapper>

@@ -61,13 +61,11 @@
 <!--    </select>-->
 <!--    面试二二二-->
     <select id="selectMsss" resultType="com.trkj.renliziyuangl.vo.ZpVo">
-        SELECT * FROM
-            rencaibiao r INNER JOIN rencaizibiao rz on r.rzbh=rz.rzbh
-                         INNER JOIN mianshiguizhanbiao m on m.zwbh=r.zwbh
-                         INNER JOIN mianshiguizhanzibiao mz on mz.mbh=m.mbh
-                         INNER JOIN zhiweibiao zw on r.zwbh=zw.zwbh
-                         INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh
-                         INNER JOIN mianshijilubiao mj on r.rid = mj.rid  where r.rzt=2 and mj.mjzt=3 and mz.mzbh=mj.mzbh
+        SELECT * FROM rencaibiao r INNER JOIN rencaizibiao rz on r.rzbh=rz.rzbh
+                                   INNER JOIN zhiweibiao zw on r.zwbh=zw.zwbh
+                                   INNER JOIN bumenbiao bm on bm.bmbh=zw.bmbh
+                                   INNER JOIN mianshijilubiao mj on r.rid = mj.rid
+        where r.rzt=2 and mj.mjzt=3
 
     </select>
 <!--    面试二-->
@@ -77,8 +75,16 @@
 <!--                            INNER JOIN zhiweibiao k on k.zwbh=b.zwbh where rzt=2-->
 <!--    </select>-->
 <!--    查询所有-->
-    <select id="selectid" parameterType="int" resultMap="RecruitMap">
-        select * from rencaizibiao where rzbh=#{rzbh}
+<!--    <select id="selectid" parameterType="int" resultMap="RecruitMap">-->
+<!--        select * from rencaizibiao where rzbh=#{rzbh}-->
+<!--    </select>-->
+    <select id="selectid" resultType="com.trkj.renliziyuangl.vo.rencaiVo">
+        select *
+        from rencaizibiao a INNER JOIN rencaibiao b on a.rzbh=b.rzbh
+                            INNER JOIN zhiweibiao c on c.zwbh=b.zwbh
+                            INNER  JOIN  bumenbiao bm on c.bmbh=bm.bmbh
+
+        where a.rzbh=#{rzbh}
     </select>
     <update id="updataRecruit"  >
         update rencaizibiao

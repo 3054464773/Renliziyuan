@@ -54,7 +54,6 @@ public class rencaiVo<Longblob> {
     private Date rxsj;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date byssj;
-    private String yijixk;
     private String xxxz;
     private static final long serialVersionUID = 1L;
 

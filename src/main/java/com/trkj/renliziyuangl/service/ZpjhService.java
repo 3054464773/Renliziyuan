@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ZpjhService {
     //分页以及查询
-    public PageInfo<Zhaopingjihuabiao> findszpjh(int pageNum,int pageSize);
+    public PageInfo<zpjhVo> findszpjh(int pageNum,int pageSize);
     //删除
     public int deleteById(int zhb);
     //添加

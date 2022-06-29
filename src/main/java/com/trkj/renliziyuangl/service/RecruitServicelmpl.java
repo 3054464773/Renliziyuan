@@ -1,4 +1,5 @@
 package com.trkj.renliziyuangl.service;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
@@ -35,8 +36,8 @@ public class RecruitServicelmpl implements RecruitService {
     }
 //根据id查询
     @Override
-    public Rencaizibiao selectid(int rzbh) {
-        Rencaizibiao selectid = recruitDao.selectid(rzbh);
+    public rencaiVo selectid(int rzbh) {
+        rencaiVo selectid = recruitDao.selectid(rzbh);
 
         return selectid;
 
@@ -96,9 +97,11 @@ public class RecruitServicelmpl implements RecruitService {
     public PageInfo<ZpVo> selectMsss(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         List<ZpVo> list=recruitDao.selectMsss();
-
+        for (ZpVo zpVo: list) {
+            ZpVo zpVo1 = recruitDao.selZp(zpVo.getRid());
+            zpVo.setMscs(zpVo1.getMscs());
+        }
         PageInfo<ZpVo> recruitPageInfo = new PageInfo<>(list);
-
         return recruitPageInfo;
     }
 //双表添加
@@ -110,7 +113,6 @@ public class RecruitServicelmpl implements RecruitService {
         Rencaizibiao a=new Rencaizibiao();
         a.setRxsj(rencaiVo.getRxsj());
         a.setByssj(rencaiVo.getByssj());
-        a.setYijixk(rencaiVo.getYijixk());
         a.setXxxz(rencaiVo.getXxxz());
         a.setGryx(rencaiVo.getGryx());
         a.setByxy(rencaiVo.getByxy());

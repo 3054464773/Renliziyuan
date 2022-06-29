@@ -22,5 +22,7 @@ public class Zhaopingjihuabiao implements Serializable {
     private String zmc;
     private String zwmc;
  private String bmmc;
+    private String shjlzbz;
+
     private static final long serialVersionUID = 1L;
 }

@@ -9,4 +9,7 @@
         </if>
         order by s.shbid DESC
     </select>
+    <select id="shenheneir" resultType="com.trkj.renliziyuangl.pojo.Shenghebiao">
+        SELECT shbid,shbmc from shenghebiao
+    </select>
 </mapper>

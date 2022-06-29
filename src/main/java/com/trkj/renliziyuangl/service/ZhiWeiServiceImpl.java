@@ -4,17 +4,17 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.renliziyuangl.dao.MianshiguizhanbiaoDao;
+import com.trkj.renliziyuangl.dao.ZhaopingjihuabiaoDao;
 import com.trkj.renliziyuangl.dao.ZhiweibiaoDao;
 import com.trkj.renliziyuangl.pojo.Bumenbiao;
 import com.trkj.renliziyuangl.pojo.Mianshiguizhanbiao;
+import com.trkj.renliziyuangl.pojo.Zhaopingjihuabiao;
 import com.trkj.renliziyuangl.pojo.Zhiweibiao;
+import com.trkj.renliziyuangl.vo.zpjhVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ZhiWeiServiceImpl implements ZhiWeiService {
@@ -22,6 +22,8 @@ public class ZhiWeiServiceImpl implements ZhiWeiService {
     private ZhiweibiaoDao zwdao;
     @Autowired
     private MianshiguizhanbiaoDao msgzDao;
+    @Autowired
+    private ZhaopingjihuabiaoDao zhaopingjihuabiaoDao;
     @Override
     public Map findallzw(int ym) {
         Page<Zhiweibiao> bumenbiaoPage = zwdao.selectPage(new Page<>(ym, 8),  new LambdaQueryWrapper<Zhiweibiao>().orderByDesc(Zhiweibiao::getZwbh));
@@ -61,6 +63,30 @@ public class ZhiWeiServiceImpl implements ZhiWeiService {
 
         return zwdao.zhiwei();
     }
+    @Override
+    public List<Zhiweibiao> zhaopzhiwei(int bmbh) {
+
+        return zwdao.zhaopzhiwei(bmbh);
+    }
+    @Override
+    public List<Zhiweibiao> zhaopjhzhiwei(int bmbh) {
+        System.out.println("进来了！！！！！！");
+        List<zpjhVo> list=zhaopingjihuabiaoDao.findszpjh();
+        List<Zhiweibiao> list1=zwdao.zhaopjhzhiwei(bmbh);
+        for (int i = 0; i < list.size(); i++) {
+            for (int i1 = 0; i1 < list1.size(); i1++) {
+                if (list.get(i).getZwbh()==list1.get(i1).getZwbh()){
+                    list1.remove(i1);
+                }
+            }
+        }
+        return list1;
+    }
+//    @Override
+//    public List<Zhiweibiao> zhaopjhzhiwei(int bmbh) {
+//        return zwdao.zhaopjhzhiwei(bmbh);
+//    }
+
 //
 //    @Override
 //    public List<Zhiweibiao> zhiweiqc() {
