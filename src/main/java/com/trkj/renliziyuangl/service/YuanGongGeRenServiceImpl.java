@@ -264,16 +264,13 @@ public class YuanGongGeRenServiceImpl implements YuanGongGeRenService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         Yuangongbiao yhb = loginUser.getYhb();
-        Shenghebiao shb=new Shenghebiao();
-        shb.setShbmc("出差审核");
-        shenghebiaoDao.insert(shb);
         Shenhejilubiao shjlb=new Shenhejilubiao();
+        shjlb.setShbid(ccb.getShbid());
         shjlb.setYbh(yhb.getYbh());
-        shjlb.setShjlzt(2);
+        shjlb.setShjlzt(3);
         shjlb.setShjlsj(new Date());
         shenhejilubiaoDao.insert(shjlb);
         ccb.setCzt(1);
-        ccb.setShbid(shb.getShbid());
         ccb.setShjlbh(shjlb.getShjlbh());
         int insert = chuchaibiaoDao.insert(ccb);
         return insert;
@@ -301,15 +298,12 @@ public class YuanGongGeRenServiceImpl implements YuanGongGeRenService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         Yuangongbiao yhb = loginUser.getYhb();
-        Shenghebiao shb=new Shenghebiao();
-        shb.setShbmc("排休审核");
-        shenghebiaoDao.insert(shb);
         Shenhejilubiao shjlb=new Shenhejilubiao();
+        shjlb.setShbid(jqsqb.getShbid());
         shjlb.setYbh(yhb.getYbh());
-        shjlb.setShjlzt(2);
+        shjlb.setShjlzt(3);
         shjlb.setShjlsj(new Date());
         shenhejilubiaoDao.insert(shjlb);
-        jqsqb.setShbid(shb.getShbid());
         jqsqb.setShjlbh(shjlb.getShjlbh());
         jiaqishenqibiaoDao.insert(jqsqb);
         return 1;
@@ -321,18 +315,16 @@ public class YuanGongGeRenServiceImpl implements YuanGongGeRenService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         Yuangongbiao yhb = loginUser.getYhb();
-        Shenghebiao shb=new Shenghebiao();
-        shb.setShbmc("转正审核");
-        shenghebiaoDao.insert(shb);
         Shenhejilubiao shjlb=new Shenhejilubiao();
+        shjlb.setShbid(yggzjlb.getShbid());
         shjlb.setYbh(yhb.getYbh());
-        shjlb.setShjlzt(2);
+        shjlb.setShjlzt(3);
         shjlb.setShjlsj(new Date());
         shenhejilubiaoDao.insert(shjlb);
-        yggzjlb.setShbid(shb.getShbid());
         yggzjlb.setShjlbh(shjlb.getShjlbh());
         yggzjlb.setYbh(yhb.getYbh());
         yggzjlb.setYggzzt(2);
+        yggzjlb.setYggzsj(new Date());
         ygdao.insert(yggzjlb);
         return 1;
     }
@@ -343,22 +335,18 @@ public class YuanGongGeRenServiceImpl implements YuanGongGeRenService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         Yuangongbiao yhb = loginUser.getYhb();
-        Shenghebiao shb=new Shenghebiao();
-        shb.setShbmc("离职审核");
-        shenghebiaoDao.insert(shb);
-        Shenhejilubiao shjlb=new Shenhejilubiao();
+        Shenhejilubiao shjlb = new Shenhejilubiao();
+        shjlb.setShbid(yggzjlb.getShbid());
         shjlb.setYbh(yhb.getYbh());
-        shjlb.setShjlzt(2);
+        shjlb.setShjlzt(3);
         shjlb.setShjlsj(new Date());
         shenhejilubiaoDao.insert(shjlb);
-        yggzjlb.setShbid(shb.getShbid());
         yggzjlb.setShjlbh(shjlb.getShjlbh());
         yggzjlb.setYbh(yhb.getYbh());
         yggzjlb.setYggzzt(3);
+        yggzjlb.setYggzsj(new Date());
         ygdao.insert(yggzjlb);
         return 1;
     }
-
-
 
 }

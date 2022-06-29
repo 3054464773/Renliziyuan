@@ -3,6 +3,7 @@ package com.trkj.renliziyuangl.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -31,6 +32,8 @@ public class Chuchaibiao implements Serializable {
     private int czt;
 
     private String cccnr;
+    @TableField(exist = false)
+    private int shjlzt;
 
     private static final long serialVersionUID = 1L;
 }
