@@ -9,6 +9,7 @@ import com.trkj.renliziyuangl.vo.basePay;
 import com.trkj.renliziyuangl.vo.job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -56,6 +57,7 @@ public class SalaryServiceImpl implements SalaryService {
         return dao.selectPositionSalaryByXzjbbh(xzjbbh);
     }
 
+    @Transactional
     @Override
     public job updatePositionSalaryByXzjbbh(job vo) {
         int count=dao.updatePositionSalaryByXzjbbh(vo);

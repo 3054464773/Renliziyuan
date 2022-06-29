@@ -13,6 +13,7 @@ import com.trkj.renliziyuangl.pojo.Jixiaopinfenbiao;
 import com.trkj.renliziyuangl.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -32,6 +33,7 @@ public class JixiaoServiceImpl implements JixiaoService {
     }
 
     //添加绩效名称
+    @Transactional
     @Override
     public Jixiaobiao insertJixiao(Jixiaobiao vo){
         int count=dao.insert(vo);
@@ -43,6 +45,7 @@ public class JixiaoServiceImpl implements JixiaoService {
     }
 
     //修改绩效信息
+    @Transactional
     @Override
     public Jixiaobiao updateJixiao(Jixiaobiao vo) {
         System.out.println("updateJixiao.....................");
@@ -61,6 +64,7 @@ public class JixiaoServiceImpl implements JixiaoService {
     }
 
     //删除绩效名称
+    @Transactional
     @Override
     public int deleteJixiao(int jbh) {
         return dao.deleteJixiao(jbh);
@@ -126,6 +130,7 @@ public class JixiaoServiceImpl implements JixiaoService {
         return dao.findGradeByJxbh(jxbh);
     }
 
+    @Transactional
     @Override
     public grade2Vo updataGradePf(grade2Vo vo) {
         vo.setJxsj(new Date());
@@ -138,6 +143,7 @@ public class JixiaoServiceImpl implements JixiaoService {
     }
 
     //修改绩效评分
+    @Transactional
     @Override
     public gradeVo updateGrade(gradeVo grade) {
         int count=dao.updateGrade(grade);
@@ -158,6 +164,7 @@ public class JixiaoServiceImpl implements JixiaoService {
     }
 
     //根据编号删除评分
+    @Transactional
     @Override
     public int deleteGrade(int jxbh) {
         return dao.deleteGrade(jxbh);

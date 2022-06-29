@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 
 
 @RestController
@@ -28,5 +27,10 @@ public class payrollController {
     @GetMapping("/selectEmpInfoByBmmc")
     public AjaxResponse selectEmpInfoByBmmc(int pageNum,int pageSize,String bmmc){
         return AjaxResponse.success(service.selectEmpInfoByBmmc(pageNum,pageSize,bmmc));
+    }
+
+    @GetMapping("/selectEmpInfoByName")
+    public AjaxResponse selectEmpInfoByName(int pageNum,int pageSize,String rzname){
+     return AjaxResponse.success(service.selectEmpInfoByName(pageNum,pageSize,rzname))   ;
     }
 }

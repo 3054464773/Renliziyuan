@@ -34,7 +34,7 @@ public class payrollServiceImpl implements payrollService {
         for (int i=0;i<list.size();i++){
             //查出勤天数 计算应发工资
             SalaryVo salaryVo=dao.selectEmpYCQTS(list.get(i).getYbh());
-            list.get(i).setKqCount(16);
+            list.get(i).setKqCount(salaryVo.getKqCount());
             if(list.get(i).getKqCount()==22){
                 //根据出勤天数判断是否有全勤奖励
                 list.get(i).setQuanqin(200.00);
@@ -46,13 +46,13 @@ public class payrollServiceImpl implements payrollService {
             //查迟到的天数，扣每天的1/3工资
             SalaryVo vo2=dao.selectEmpYCQTS2(list.get(i).getYbh());
             list.get(i).setKqCount2(vo2.getKqCount2());
-            list.get(i).setChidao(list.get(i).getKqCount2()*(list.get(i).getXzjljbgz()/22/3));
+            list.get(i).setChidao(list.get(i).getKqCount2()*(list.get(i).getXzjljbgz()/22*0.3));
             System.out.println(list.get(i).getKqCount2()+"aaaaaaaaaaaaaaaaaaaaaaaaa");
 
             //查早退 扣每天1/3工资
             SalaryVo vo3=dao.selectEmpYCQTS3(list.get(i).getYbh());
             list.get(i).setKqCount3(vo3.getKqCount3());
-            list.get(i).setZaotui(list.get(i).getXzjljbgz()/22/3*list.get(i).getKqCount3());
+            list.get(i).setZaotui(list.get(i).getXzjljbgz()/22*0.3*list.get(i).getKqCount3());
 
             //查事假
             SalaryVo vo4=dao.AttendanceEmp(list.get(i).getYbh());
@@ -143,7 +143,7 @@ public class payrollServiceImpl implements payrollService {
 
         for (int i=0;i<list.size();i++){
             SalaryVo vo=dao.selectEmpYCQTSByMonth(list.get(i).getYbh(),szjlsj);
-            list.get(i).setKqCount(16);
+            list.get(i).setKqCount(vo.getKqCount());
             if(list.get(i).getKqCount()==22){
                 //根据出勤天数判断是否有全勤奖励
                 list.get(i).setQuanqin(200.00);
@@ -154,13 +154,13 @@ public class payrollServiceImpl implements payrollService {
             //查迟到的天数，扣每天的1/3工资
             SalaryVo vo2=dao.selectEmpYCQTS2ByMonth(list.get(i).getYbh(),szjlsj);
             list.get(i).setKqCount2(vo2.getKqCount2());
-            list.get(i).setChidao(list.get(i).getKqCount2()*(list.get(i).getXzjljbgz()/22/3));
+            list.get(i).setChidao(list.get(i).getKqCount2()*(list.get(i).getXzjljbgz()/22*0.3));
             System.out.println(list.get(i).getYbh()+"aaaaaaaaaaaaaaaaaaaaaaaaa");
 
             //查早退 扣每天1/3工资
             SalaryVo vo3=dao.selectEmpYCQTS3ByMonth(list.get(i).getYbh(),szjlsj);
             list.get(i).setKqCount3(vo3.getKqCount3());
-            list.get(i).setZaotui(list.get(i).getXzjljbgz()/22/3*list.get(i).getKqCount3());
+            list.get(i).setZaotui(list.get(i).getXzjljbgz()/22*0.3*list.get(i).getKqCount3());
 
             //查事假
             SalaryVo vo4=dao.AttendanceEmpByMonth(list.get(i).getYbh(),szjlsj);
@@ -244,7 +244,7 @@ public class payrollServiceImpl implements payrollService {
         for (int i=0;i<list.size();i++){
             //查出勤天数 计算应发工资
             SalaryVo salaryVo=dao.selectEmpYCQTS(list.get(i).getYbh());
-            list.get(i).setKqCount(16);
+            list.get(i).setKqCount(salaryVo.getKqCount());
             if(list.get(i).getKqCount()==22){
                 //根据出勤天数判断是否有全勤奖励
                 list.get(i).setQuanqin(200.00);
@@ -256,13 +256,92 @@ public class payrollServiceImpl implements payrollService {
             //查迟到的天数，扣每天的1/3工资
             SalaryVo vo2=dao.selectEmpYCQTS2(list.get(i).getYbh());
             list.get(i).setKqCount2(vo2.getKqCount2());
-            list.get(i).setChidao(list.get(i).getKqCount2()*(list.get(i).getXzjljbgz()/22/3));
+            list.get(i).setChidao(list.get(i).getKqCount2()*(list.get(i).getXzjljbgz()/22*0.3));
             System.out.println(list.get(i).getKqCount2()+"aaaaaaaaaaaaaaaaaaaaaaaaa");
 
             //查早退 扣每天1/3工资
             SalaryVo vo3=dao.selectEmpYCQTS3(list.get(i).getYbh());
             list.get(i).setKqCount3(vo3.getKqCount3());
-            list.get(i).setZaotui(list.get(i).getXzjljbgz()/22/3*list.get(i).getKqCount3());
+            list.get(i).setZaotui(list.get(i).getXzjljbgz()/22*0.3*list.get(i).getKqCount3());
+
+            //查事假
+            SalaryVo vo4=dao.AttendanceEmp(list.get(i).getYbh());
+            list.get(i).setShijia(vo4.getShijia());
+            list.get(i).setShijiamoney(list.get(i).getXzjljbgz()/22*list.get(i).getShijia());
+
+            //查病假
+            SalaryVo vo5=dao.AttendanceEmp2(list.get(i).getYbh());
+            list.get(i).setBingjia(vo5.getBingjia());
+            list.get(i).setBingjiamoney(list.get(i).getXzjljbgz()/22*list.get(i).getBingjia()*0.2);
+            System.out.println("工资"+list.get(i).getXzjljbgz()/22*list.get(i).getBingjia()*0.2);
+
+            //查社保
+            if(list.get(i).getSbbh()!=0){
+                QueryWrapper<Sbzjb> sbzjbQueryWrapper=new QueryWrapper<>();
+                sbzjbQueryWrapper.eq("sbbh",list.get(i).getSbbh());
+                List<Sbzjb> sbzjbs = sbzjbDao.selectList(sbzjbQueryWrapper);
+                Double a=0.0;
+                if(sbzjbs.size()!=0){
+                    for (Sbzjb s : sbzjbs) {
+                        QueryWrapper<Shebaojishubiao> shebaojishubiaoQueryWrapper=new QueryWrapper<>();
+                        shebaojishubiaoQueryWrapper.eq("sbjsbh",s.getSbjsbh());
+                        Shebaojishubiao shebaojishubiao = shebaojishubiaoDao.selectOne(shebaojishubiaoQueryWrapper);
+                        log.debug("s:{}",shebaojishubiao.getSbjnbl()/100);
+                        log.debug("s1:{}",(shebaojishubiao.getSbjsje()*shebaojishubiao.getSbjnbl()/100));
+                        a=a+(shebaojishubiao.getSbjsje()*shebaojishubiao.getSbjnbl()/100);
+                    }
+                    list.get(i).setSbje(a);
+                }
+            }
+
+            Double b=0.0;
+            b=(list.get(i).getXzjljbgz()/22*list.get(i).getKqCount())+list.get(i).getXzysje()+list.get(i).getQuanqin()-
+                    (list.get(i).getSbje()+list.get(i).getBingjiamoney()+list.get(i).getShijiamoney()+list.get(i).getChidao()+list.get(i).getZaotui());
+            System.out.println(b+"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+            if (b<5000 && b>1){
+                list.get(i).setGeshui(b*0.01);
+                list.get(i).setShifa(b-(b*0.01));
+            }else if(b<8000 && b>5000){
+                list.get(i).setGeshui(b*0.03);
+                list.get(i).setShifa(b-b*0.03);
+            }else if(b<15000 && b>8000){
+                list.get(i).setGeshui(b*0.1);
+                list.get(i).setShifa(b-b*0.1);
+            }
+        }
+        System.out.println(list+"1111111111111111111111111111");
+        PageInfo<SalaryVo> info=new PageInfo<>(list);
+        return info;
+    }
+
+    @Override
+    public PageInfo<SalaryVo> selectEmpInfoByName(int pageNum, int pageSize, String rzname) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<SalaryVo> list=dao.selectEmpInfoByName(rzname);
+        System.out.println(list+"1111111111111111111111111111");
+
+        for (int i=0;i<list.size();i++){
+            //查出勤天数 计算应发工资
+            SalaryVo salaryVo=dao.selectEmpYCQTS(list.get(i).getYbh());
+            list.get(i).setKqCount(salaryVo.getKqCount());
+            if(list.get(i).getKqCount()==22){
+                //根据出勤天数判断是否有全勤奖励
+                list.get(i).setQuanqin(200.00);
+            }else {
+                list.get(i).setQuanqin(0.00);
+            }
+            list.get(i).setYingfa((list.get(i).getXzjljbgz()/22*list.get(i).getKqCount())+list.get(i).getXzysje()+list.get(i).getQuanqin());
+
+            //查迟到的天数，扣每天的1/3工资
+            SalaryVo vo2=dao.selectEmpYCQTS2(list.get(i).getYbh());
+            list.get(i).setKqCount2(vo2.getKqCount2());
+            list.get(i).setChidao(list.get(i).getKqCount2()*(list.get(i).getXzjljbgz()/22*0.3));
+            System.out.println(list.get(i).getKqCount2()+"aaaaaaaaaaaaaaaaaaaaaaaaa");
+
+            //查早退 扣每天1/3工资
+            SalaryVo vo3=dao.selectEmpYCQTS3(list.get(i).getYbh());
+            list.get(i).setKqCount3(vo3.getKqCount3());
+            list.get(i).setZaotui(list.get(i).getXzjljbgz()/22*0.3*list.get(i).getKqCount3());
 
             //查事假
             SalaryVo vo4=dao.AttendanceEmp(list.get(i).getYbh());
