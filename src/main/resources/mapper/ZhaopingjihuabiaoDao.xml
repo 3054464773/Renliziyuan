@@ -27,7 +27,7 @@
     </delete>
     <insert id="tianjiazpjh">
         insert into zhaopingjihuabiao(zbh,shjlbh,shbid,zwbh,zrs,zmc)
-        values (#{zbh},#{shjlbh},#{shbid},#{zwbh},#{zrs},#{zmc}) order by zbh desc
+        values (#{zbh},#{shjlbh},#{shbid},#{zwbh},#{zrs},#{zmc})
     </insert>
     <update id="updateZpjh">
         update zhaopingjihuabiao
