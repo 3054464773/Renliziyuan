@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -65,6 +66,7 @@ public class MianshiguizhangServicelmpl implements MianshiguizhangService{
 //        return map;
 //    }
 //规章子父表添加
+    @Transactional
     @Override
     public int insetmsgz(MianshigzVo mianshigzVo) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

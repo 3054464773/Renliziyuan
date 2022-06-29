@@ -11,7 +11,7 @@
     <select id="zhaopzhiwei" resultType="com.trkj.renliziyuangl.pojo.Zhiweibiao">
         SELECT a.zwmc,a.zwbh from zhiweibiao a INNER JOIN zhaopingjihuabiao b on  b.zwbh=a.zwbh
                                                INNER JOIN   shenhejilubiao  sh on b.shjlbh=sh.shjlbh
-        where sh.shjlzt=2 and a.bmbh=#{bmbh}
+        where sh.shjlzt=1 and a.bmbh=#{bmbh}
     </select>
 
     <select id="zhaopjhzhiwei" resultType="com.trkj.renliziyuangl.pojo.Zhiweibiao">

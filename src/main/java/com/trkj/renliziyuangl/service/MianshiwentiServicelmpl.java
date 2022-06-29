@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.crypto.Data;
 import java.util.ArrayList;
@@ -31,13 +32,14 @@ public class MianshiwentiServicelmpl implements MianshiwentiService{
         return mianshiguizhanzibiaoDao.mianshizi(mbh);
     }
     //删除
+    @Transactional
     @Override
     public int deleteById(int mbh) {
         int b=mianshiguizhanbiaoDao.deleteById(mbh);
         int a=mianshiguizhanzibiaoDao.deleteById(mbh);
         return 1;
     }
-
+    @Transactional
     @Override
     public Mianshiguizhanzibiao xiugaigzz(Mianshiguizhanzibiao mianshiguizhanzibiao) {
          int a=mianshiguizhanzibiaoDao.xiugaigzz(mianshiguizhanzibiao);
@@ -59,6 +61,7 @@ public class MianshiwentiServicelmpl implements MianshiwentiService{
 //        return  null;
 //    }
 //第一次面试
+@Transactional
 @Override
 public List<Mianshiguizhanzibiao> mianshiwenti(int zwbh,int rid, int ybh, Date mjsj) {
     List<Mianshiguizhanzibiao> b=mianshiguizhanzibiaoDao.mianshiwenti(zwbh,rid);
@@ -85,6 +88,7 @@ public List<Mianshiguizhanzibiao> mianshiwenti(int zwbh,int rid, int ybh, Date m
 //    return  null;
 //}
     //判断面试
+@Transactional
     @Override
     public Mianshijilubiao mianshiwentitt(int rid, Date mjsj, int msyg,int mjbh,String mspj) {
                         Mianshijilubiao a=new Mianshijilubiao();
@@ -119,6 +123,7 @@ public List<Mianshiguizhanzibiao> mianshiwenti(int zwbh,int rid, int ybh, Date m
 //
 //        return  null;
 //    }
+@Transactional
     @Override
     public Mianshiguizhanzibiao insertmz(Mianshiguizhanzibiao mianshiguizhanzibiao) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -132,7 +137,7 @@ public List<Mianshiguizhanzibiao> mianshiwenti(int zwbh,int rid, int ybh, Date m
         int b=mianshiguizhanzibiaoDao.insert(a);
         return mianshiguizhanzibiao;
     }
-
+    @Transactional
     @Override
     public int shanchuwenti(int mzbh) {
         return mianshiguizhanzibiaoDao.deleteById(mzbh);

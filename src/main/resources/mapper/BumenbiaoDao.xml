@@ -25,6 +25,6 @@
         select DISTINCT a.bmmc,a.bmbh from bumenbiao a INNER JOIN  zhiweibiao b on b.bmbh=a.bmbh
                                                        INNER JOIN  zhaopingjihuabiao c on c.zwbh=b.zwbh
                                                        INNER JOIN   shenhejilubiao  sh on c.shjlbh=sh.shjlbh
-        where sh.shjlzt=2
+        where sh.shjlzt=1
     </select>
 </mapper>

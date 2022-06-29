@@ -23,7 +23,6 @@ public class Shenhejilubiao implements Serializable {
     private Date shjlsj;
     private int shbid;
 
-    private int shbid;
 
     private static final long serialVersionUID = 1L;
 }
