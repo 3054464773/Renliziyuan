@@ -14,20 +14,25 @@
         zbh,shjlbh,shbid,zwbh,zrs,zmc
     </sql>
     <select id="findZpjhById" parameterType="int" resultMap="ZpjhMap">
-        select  <include refid="zpjh"/>
-        from zhaopingjihuabiao where  zbh=#{zbh}
+        select  a.zbh,a.shjlbh,a.shbid,a.zwbh,a.zrs,a.zmc,b.zwmc,bm.bmmc
+        from zhaopingjihuabiao a
+        inner  join  zhiweibiao b on a.zwbh=b.zwbh
+        INNER JOIN bumenbiao bm on bm.bmbh=b.bmbh
+        where  zbh=#{zbh}
     </select>
-<select id="findszpjh" resultMap="ZpjhMap">
-    select a.zbh,a.shjlbh,a.shbid,b.zwmc,a.zrs,a.zmc,bm.bmmc from zhaopingjihuabiao a
+<select id="findszpjh" resultType="com.trkj.renliziyuangl.vo.zpjhVo">
+    select * from zhaopingjihuabiao a
                                                                       INNER JOIN zhiweibiao b on  a.zwbh=b.zwbh
-                                                                      INNER JOIN bumenbiao bm on bm.bmbh=b.bmbh  order by zbh desc
+                                                                      INNER JOIN bumenbiao bm on bm.bmbh=b.bmbh
+                                                                      INNER JOIN  shenhejiluzibiao sh on a.shjlbh=sh.shjlbh
+    order by zbh desc
 </select>
     <delete id="deleteById">
         delete from zhaopingjihuabiao where ZBH=#{zbh}
     </delete>
     <insert id="tianjiazpjh">
         insert into zhaopingjihuabiao(zbh,shjlbh,shbid,zwbh,zrs,zmc)
-        values (#{zbh},#{shjlbh},#{shbid},#{zwbh},#{zrs},#{zmc}) order by zbh desc
+        values (#{zbh},#{shjlbh},#{shbid},#{zwbh},#{zrs},#{zmc})
     </insert>
     <update id="updateZpjh">
         update zhaopingjihuabiao

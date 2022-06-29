@@ -3,6 +3,20 @@
 <mapper namespace="com.trkj.renliziyuangl.dao.ZhiweibiaoDao">
 <select id="zhiwei" resultType="com.trkj.renliziyuangl.pojo.Zhiweibiao">
     SELECT zwbh,zwmc FROM zhiweibiao
+
 </select>
+<!--    <select id="zhaopzhiwei" resultType="com.trkj.renliziyuangl.pojo.Zhiweibiao">-->
+<!--        SELECT * from zhiweibiao a INNER JOIN zhaopingjihuabiao b on  b.zwbh=a.zwbh where bmbh=#{bmbh}-->
+<!--    </select>-->
+    <select id="zhaopzhiwei" resultType="com.trkj.renliziyuangl.pojo.Zhiweibiao">
+        SELECT a.zwmc,a.zwbh from zhiweibiao a INNER JOIN zhaopingjihuabiao b on  b.zwbh=a.zwbh
+                                               INNER JOIN   shenhejiluzibiao  d on d.shjlbh=b.shjlbh
+        where d.shjlzzt=2 and a.bmbh=#{bmbh}
+    </select>
+
+    <select id="zhaopjhzhiwei" resultType="com.trkj.renliziyuangl.pojo.Zhiweibiao">
+        SELECT * from zhiweibiao where bmbh=#{bmbh}
+    </select>
+
 
 </mapper>

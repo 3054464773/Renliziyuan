@@ -2,13 +2,18 @@ package com.trkj.renliziyuangl.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.trkj.renliziyuangl.dao.ShenhejilubiaoDao;
+import com.trkj.renliziyuangl.dao.ShenhejiluzibiaoDao;
 import com.trkj.renliziyuangl.dao.ZhaopingjihuabiaoDao;
 import com.trkj.renliziyuangl.dao.ZpjhVoDao;
-import com.trkj.renliziyuangl.pojo.Zhaopingjihuabiao;
+import com.trkj.renliziyuangl.pojo.*;
 import com.trkj.renliziyuangl.vo.zpjhVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 @Service
 public class ZpjhServiceImpl implements ZpjhService{
@@ -16,11 +21,15 @@ public class ZpjhServiceImpl implements ZpjhService{
     private ZhaopingjihuabiaoDao zhaopingjihuabiaoDao;
     @Autowired
     private ZpjhVoDao zpjhVoDao;
+    @Autowired
+    private ShenhejilubiaoDao shenhejilubiaoDao;
+    @Autowired
+    private ShenhejiluzibiaoDao shenhejiluzibiaoDao;
     @Override
-    public PageInfo<Zhaopingjihuabiao> findszpjh(int pageNum, int pageSize) {
+    public PageInfo<zpjhVo> findszpjh(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        List<Zhaopingjihuabiao> list=zhaopingjihuabiaoDao.findszpjh();
-        PageInfo<Zhaopingjihuabiao> pageInfo=new PageInfo<>(list);
+        List<zpjhVo> list=zhaopingjihuabiaoDao.findszpjh();
+        PageInfo<zpjhVo> pageInfo=new PageInfo<>(list);
         return  pageInfo;
     }
 
@@ -31,7 +40,30 @@ public class ZpjhServiceImpl implements ZpjhService{
 
     @Override
     public Zhaopingjihuabiao tianjiazpjh(Zhaopingjihuabiao zhaopingjihuabiao) {
-        zhaopingjihuabiaoDao.tianjiazpjh(zhaopingjihuabiao);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        Yuangongbiao yhb = loginUser.getYhb();
+        Shenhejilubiao l=new Shenhejilubiao();
+        l.setShjlbh(zhaopingjihuabiao.getShjlbh());
+        l.setShjlsj(new Date());
+        l.setShjlzt(2);
+        l.setYbh(yhb.getYbh());
+        int a=shenhejilubiaoDao.insert(l);
+        Zhaopingjihuabiao zhaopingjihuabiao1=new Zhaopingjihuabiao();
+        zhaopingjihuabiao1.setShjlbh(l.getShjlbh());
+        zhaopingjihuabiao1.setZwbh(zhaopingjihuabiao.getZwbh());
+        zhaopingjihuabiao1.setShbid(zhaopingjihuabiao.getShbid());
+        zhaopingjihuabiao1.setZmc(zhaopingjihuabiao.getZmc());
+        zhaopingjihuabiao1.setZrs(zhaopingjihuabiao.getZrs());
+       zhaopingjihuabiaoDao.insert(zhaopingjihuabiao1);
+//        zhaopingjihuabiaoDao.tianjiazpjh(zhaopingjihuabiao);
+        Shenhejiluzibiao shenhejiluzibiao=new Shenhejiluzibiao();
+        shenhejiluzibiao.setShjlbh(l.getShjlbh());
+        shenhejiluzibiao.setYbh(yhb.getYbh());
+        shenhejiluzibiao.setShjlzsj(new Date());
+        shenhejiluzibiao.setShjlzzt(1);
+        shenhejiluzibiao.setShjlzbz(zhaopingjihuabiao.getShjlzbz());
+        int v= shenhejiluzibiaoDao.insert(shenhejiluzibiao);
         return zhaopingjihuabiao;
     }
 

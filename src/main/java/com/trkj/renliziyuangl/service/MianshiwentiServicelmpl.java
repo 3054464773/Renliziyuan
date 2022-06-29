@@ -4,9 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.trkj.renliziyuangl.dao.MianshiguizhanbiaoDao;
 import com.trkj.renliziyuangl.dao.MianshiguizhanzibiaoDao;
 import com.trkj.renliziyuangl.dao.MianshijilubiaoDao;
+import com.trkj.renliziyuangl.pojo.LoginUser;
 import com.trkj.renliziyuangl.pojo.Mianshiguizhanzibiao;
 import com.trkj.renliziyuangl.pojo.Mianshijilubiao;
+import com.trkj.renliziyuangl.pojo.Yuangongbiao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.xml.crypto.Data;
@@ -59,24 +63,33 @@ public class MianshiwentiServicelmpl implements MianshiwentiService{
 public List<Mianshiguizhanzibiao> mianshiwenti(int zwbh,int rid, int ybh, Date mjsj) {
     List<Mianshiguizhanzibiao> b=mianshiguizhanzibiaoDao.mianshiwenti(zwbh,rid);
     Mianshijilubiao a=new Mianshijilubiao();
-    Mianshiguizhanzibiao c=new Mianshiguizhanzibiao();
-    Integer p=b.get(0).getMzbh();
     a.setRid(rid);
-    a.setMzbh(p);
     a.setYbh(ybh);
     a.setMjsj(mjsj);
     a.setMjzt(3);
     int l=mianshijilubiaoDao.insert(a);
     return  null;
 }
+//@Override
+//public List<Mianshiguizhanzibiao> mianshiwenti(int zwbh,int rid, int ybh, Date mjsj) {
+//    List<Mianshiguizhanzibiao> b=mianshiguizhanzibiaoDao.mianshiwenti(zwbh,rid);
+//    Mianshijilubiao a=new Mianshijilubiao();
+//    Mianshiguizhanzibiao c=new Mianshiguizhanzibiao();
+//    Integer p=b.get(0).getMzbh();
+//    a.setRid(rid);
+//    a.setMzbh(p);
+//    a.setYbh(ybh);
+//    a.setMjsj(mjsj);
+//    a.setMjzt(3);
+//    int l=mianshijilubiaoDao.insert(a);
+//    return  null;
+//}
     //判断面试
     @Override
-    public Mianshijilubiao mianshiwentitt(int mzbh, int rid, Date mjsj, int msyg,int mjbh,String mspj) {
+    public Mianshijilubiao mianshiwentitt(int rid, Date mjsj, int msyg,int mjbh,String mspj) {
                         Mianshijilubiao a=new Mianshijilubiao();
-                        a.setMzbh(mzbh);
                         a.setRid(rid);
                         a.setYbh(msyg);
-                        a.setMzbh(mzbh);
                         a.setMjsj(mjsj);
                         a.setMjzt(3);
                         int ccc=mianshijilubiaoDao.insert(a);
@@ -88,12 +101,32 @@ public List<Mianshiguizhanzibiao> mianshiwenti(int zwbh,int rid, int ybh, Date m
 
         return  null;
     }
-
+//    @Override
+//    public Mianshijilubiao mianshiwentitt(int mzbh, int rid, Date mjsj, int msyg,int mjbh,String mspj) {
+//        Mianshijilubiao a=new Mianshijilubiao();
+//        a.setMzbh(mzbh);
+//        a.setRid(rid);
+//        a.setYbh(msyg);
+//        a.setMzbh(mzbh);
+//        a.setMjsj(mjsj);
+//        a.setMjzt(3);
+//        int ccc=mianshijilubiaoDao.insert(a);
+//        UpdateWrapper<Mianshijilubiao> updateWrapper=new UpdateWrapper();
+//        updateWrapper.eq("mjbh",mjbh);
+//        updateWrapper.set("mjxcsj",mjsj);
+//        updateWrapper.set("mspj",mspj);
+//        int bbb=mianshijilubiaoDao.update(null,updateWrapper);
+//
+//        return  null;
+//    }
     @Override
     public Mianshiguizhanzibiao insertmz(Mianshiguizhanzibiao mianshiguizhanzibiao) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        Yuangongbiao yhb = loginUser.getYhb();
          Mianshiguizhanzibiao a=new Mianshiguizhanzibiao();
          a.setMzbh(mianshiguizhanzibiao.getMzbh());
-        a.setYbh(mianshiguizhanzibiao.getYbh());
+        a.setYbh(yhb.getYbh());
         a.setMbh(mianshiguizhanzibiao.getMbh());
         a.setMzwt(mianshiguizhanzibiao.getMzwt());
         int b=mianshiguizhanzibiaoDao.insert(a);

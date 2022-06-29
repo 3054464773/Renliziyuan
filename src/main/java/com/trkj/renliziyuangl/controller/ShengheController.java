@@ -25,5 +25,9 @@ public class ShengheController {
     public AjaxResponse deleteshenhe(@PathVariable("id") int id){
         return AjaxResponse.success(shservice.deleteshenhe(id));
     }
+    @GetMapping("shenheneir")
+    public AjaxResponse shenheneir(){
+        return AjaxResponse.success(shservice.shenheneir());
+    }
 
 }

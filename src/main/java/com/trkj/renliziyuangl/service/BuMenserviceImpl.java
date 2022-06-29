@@ -83,4 +83,14 @@ public class BuMenserviceImpl implements BuMenservice {
     public List<Bumenbiao> bumen() {
         return bmdao.bumen();
     }
+    @Override
+    public List<Bumenbiao> bububumen() {
+        return bmdao.bububumen();
+    }
+    @Override
+    public List<Bumenbiao> bumenmmm() {
+        return bmdao.bumenmmm();
+    }
+
+
 }

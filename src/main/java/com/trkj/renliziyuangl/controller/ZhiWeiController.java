@@ -36,6 +36,15 @@ public class ZhiWeiController {
     public AjaxResponse zhiweiw(){
         return AjaxResponse.success(zwservice.zhiwei());
     }
+    @GetMapping("/zhaopzhiwei/{bmbh}")
+    public AjaxResponse zhaopzhiwei(@PathVariable int bmbh){
+        return AjaxResponse.success(zwservice.zhaopzhiwei(bmbh));
+    }
+    @GetMapping("/zhaopjhzhiwei/{bmbh}")
+    public AjaxResponse zhaopjhzhiwei(@PathVariable int bmbh){
+        return AjaxResponse.success(zwservice.zhaopjhzhiwei(bmbh));
+    }
+
 //    @GetMapping("/zhiweiwqc")
 //    public AjaxResponse zhiweiwqc(){
 //        return AjaxResponse.success(zwservice.zhiweiqc());

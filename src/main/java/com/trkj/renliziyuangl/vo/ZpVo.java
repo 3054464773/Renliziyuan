@@ -49,7 +49,7 @@ public class ZpVo {
     private int mzbh;
     private int mjbh;
     private String zwmc;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date mjsj;
     private String bmmc;
     private  String gryx;
@@ -61,6 +61,7 @@ public class ZpVo {
     private Date byssj;
     private String yijixk;
     private String xxxz;
+    private int mscs;
 
 
 }

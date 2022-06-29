@@ -5,4 +5,19 @@
         select bmmc from bumenbiao
     </select>
 
+<!--    <select id="bububumen" resultType="com.trkj.renliziyuangl.pojo.Bumenbiao">-->
+
+<!--        select DISTINCT a.bmmc,a.bmbh from bumenbiao a INNER JOIN  zhiweibiao b on b.bmbh=a.bmbh-->
+<!--                                                       INNER JOIN  zhaopingjihuabiao c on c.zwbh=b.zwbh-->
+<!--    </select>-->
+
+    <select id="bumenmmm" resultType="com.trkj.renliziyuangl.pojo.Bumenbiao">
+        select bmbh,bmmc from bumenbiao
+    </select>
+    <select id="bububumen" resultType="com.trkj.renliziyuangl.pojo.Bumenbiao">
+
+        select DISTINCT a.bmmc,a.bmbh from bumenbiao a INNER JOIN  zhiweibiao b on b.bmbh=a.bmbh
+                                                       INNER JOIN  zhaopingjihuabiao c on c.zwbh=b.zwbh
+                                                       INNER JOIN   shenhejiluzibiao  d on d.shjlbh=c.shjlbh  where d.shjlzzt=2
+    </select>
 </mapper>

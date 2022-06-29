@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.trkj.renliziyuangl.pojo.Rencaizibiao;
 import com.trkj.renliziyuangl.vo.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -20,7 +22,7 @@ public interface RencaizibiaoDao extends BaseMapper<Rencaizibiao> {
     //第一次面试
     public List<ZpVo> selectMsss();
 //根据id查询
-    public Rencaizibiao selectid(int rzbh);
+    public rencaiVo selectid(int rzbh);
     //修改
     public int updataRecruit(Rencaizibiao rencaizibiao);
     //新增
@@ -33,4 +35,7 @@ public interface RencaizibiaoDao extends BaseMapper<Rencaizibiao> {
     public List<KaoqinjiluVo> kaoqin(int ybh);
     //查询出差记录
     public List<Chuchaivo> chuchaijjll(int ybh);
+
+    @Select("select count(*) mscs from mianshijilubiao WHERE rid=#{rid}")
+    ZpVo selZp(@Param("rid") int rid);
 }

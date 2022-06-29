@@ -7,8 +7,11 @@ import com.trkj.renliziyuangl.pojo.Shenghebiao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface ShenghebiaoDao extends BaseMapper<Shenghebiao> {
 
     IPage<Shenghebiao> findallshenhe(Page page, @Param("shname") String shname);
+    List<Shenghebiao> shenheneir();
 }

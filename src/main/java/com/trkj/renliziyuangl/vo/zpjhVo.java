@@ -17,4 +17,6 @@ public class zpjhVo {
     private String zmc;
     private String zwmc;
     private String bmmc;
+    private String shjlzbz;
+    private  int shjlzzt;
 }
