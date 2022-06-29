@@ -18,6 +18,7 @@ public class QuanxianController {
     @Autowired
     private Quanxianservice qxservice;
 
+
     @GetMapping("/findallquanxian")
     public AjaxResponse findallquanxian(int page){
         return AjaxResponse.success(qxservice.findallquanxian(page));

@@ -10,9 +10,16 @@ import com.trkj.renliziyuangl.pojo.Quanxianbiao;
 import com.trkj.renliziyuangl.untli.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,8 +28,10 @@ import java.util.Map;
 public class QuanxianserviceImpl implements Quanxianservice {
     @Autowired
     private QuanxianbiaoDao qxdao;
-
-
+    @Autowired
+    private YuangongbiaoDao dao;
+    @Autowired
+    private RedisTemplate redisTemplate;
     //查询所以权限
     @Override
     public Map findallquanxian(int ym) {
@@ -91,6 +100,21 @@ public class QuanxianserviceImpl implements Quanxianservice {
         for (int i : qxid) {
             qxdao.insertjiaoseqx(jsid,i);
         }
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        List<String> qxlist = dao.chaxunquanxina(loginUser.getYhb().getYbh());
+        loginUser.setQuanxian(qxlist);
+        List<GrantedAuthority> qx=new ArrayList<>();
+        for (String s : qxlist) {
+            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(s);
+            qx.add(simpleGrantedAuthority);
+        }
+        loginUser.setQxlist(qx);
+        redisTemplate.opsForValue().set("user" +loginUser.getYhb().getYbh(),loginUser);
+//        UsernamePasswordAuthenticationToken upat=new UsernamePasswordAuthenticationToken(loginUser,null,loginUser.getAuthorities());
+//        SecurityContextHolder.getContext().setAuthentication(upat);
+
         return true;
     }
     //给角色移除权限
@@ -100,6 +124,20 @@ public class QuanxianserviceImpl implements Quanxianservice {
 
             qxdao.deletejiaoseqx(jsid,i);
         }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        List<String> qxlist = dao.chaxunquanxina(loginUser.getYhb().getYbh());
+        loginUser.setQuanxian(qxlist);
+        List<GrantedAuthority> qx=new ArrayList<>();
+        for (String s : qxlist) {
+            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(s);
+            qx.add(simpleGrantedAuthority);
+        }
+        loginUser.setQxlist(qx);
+        redisTemplate.opsForValue().set("user" +loginUser.getYhb().getYbh(),loginUser);
+//        UsernamePasswordAuthenticationToken upat=new UsernamePasswordAuthenticationToken(loginUser,null,loginUser.getAuthorities());
+//        SecurityContextHolder.getContext().setAuthentication(upat);
+
 
         return true;
     }
