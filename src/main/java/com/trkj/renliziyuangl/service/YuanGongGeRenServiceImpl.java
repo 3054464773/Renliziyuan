@@ -1,11 +1,9 @@
 package com.trkj.renliziyuangl.service;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.trkj.renliziyuangl.dao.GongzuorizhibiaoDao;
-import com.trkj.renliziyuangl.dao.KaoqinjilubiaoDao;
-import com.trkj.renliziyuangl.dao.YuangonggzjlbiaoDao;
+import com.trkj.renliziyuangl.dao.*;
 import com.trkj.renliziyuangl.pojo.*;
 import com.trkj.renliziyuangl.vo.RizhiVo;
 import com.trkj.renliziyuangl.vo.YgPhoneVo;
@@ -14,11 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -30,11 +24,37 @@ public class YuanGongGeRenServiceImpl implements YuanGongGeRenService {
     private GongzuorizhibiaoDao gongzuorizhibiaoDao;
     @Autowired
     private KaoqinjilubiaoDao kaoqinjilubiaoDao;
+    @Autowired
+    private ChuchaibiaoDao chuchaibiaoDao;
+    @Autowired
+    private KaoqinjiaqilxbiaoDao kaoqinjiaqilxbiaoDao;
+    @Autowired
+    private ShenhejilubiaoDao shenhejilubiaoDao;
+    @Autowired
+    private ShenghebiaoDao shenghebiaoDao;
+    @Autowired
+    private JiaqishenqibiaoDao jiaqishenqibiaoDao;
 
     //查询员工通讯录
     @Override
-    public List ygphone(YgPhoneVo phone) {
-        return ygdao.selectygphone(phone);
+    public PageInfo<YgPhoneVo> ygphone(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        YgPhoneVo ygPhoneVo=new YgPhoneVo();
+        List selectygphone = ygdao.selectygphone(ygPhoneVo);
+        PageInfo<YgPhoneVo> info=new PageInfo<>(selectygphone);
+        return info;
+    }
+
+    //根据部门查询员工通讯录
+    @Override
+    public List selectygphonebybm(int bmbh) {
+        return ygdao.cxygphonebybm(bmbh);
+    }
+
+    //根据员工姓名模糊查询员工通讯录
+    @Override
+    public List mohucxygphonebyname(String rzname) {
+        return ygdao.mhcxygphonebyname(rzname);
     }
 
     //发表日志
@@ -237,6 +257,108 @@ public class YuanGongGeRenServiceImpl implements YuanGongGeRenService {
         }
         return kqjlb;
     }
+
+    //申请出差（员工个人）
+    @Override
+    public int shenqingchuchai(Chuchaibiao ccb) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        Yuangongbiao yhb = loginUser.getYhb();
+        Shenghebiao shb=new Shenghebiao();
+        shb.setShbmc("出差审核");
+        shenghebiaoDao.insert(shb);
+        Shenhejilubiao shjlb=new Shenhejilubiao();
+        shjlb.setYbh(yhb.getYbh());
+        shjlb.setShjlzt(2);
+        shjlb.setShjlsj(new Date());
+        shenhejilubiaoDao.insert(shjlb);
+        ccb.setCzt(1);
+        ccb.setShbid(shb.getShbid());
+        ccb.setShjlbh(shjlb.getShjlbh());
+        int insert = chuchaibiaoDao.insert(ccb);
+        return insert;
+    }
+
+    //查询员工的状态(判断员工是否能申请转正)
+    @Override
+    public canbaoryVo cxygzt() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        Yuangongbiao yhb = loginUser.getYhb();
+        return ygdao.yuangongxxbyid(yhb.getYbh());
+    }
+
+    //查询所有考勤假期类型
+    @Override
+    public List cxkqjqlx(Kaoqinjiaqilxbiao kqjqlxb) {
+        QueryWrapper<Kaoqinjiaqilxbiao> qw=new QueryWrapper<>();
+        return kaoqinjiaqilxbiaoDao.selectList(qw);
+    }
+
+    //申请排休
+    @Override
+    public int shenqingpaixiu(Jiaqishenqibiao jqsqb) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        Yuangongbiao yhb = loginUser.getYhb();
+        Shenghebiao shb=new Shenghebiao();
+        shb.setShbmc("排休审核");
+        shenghebiaoDao.insert(shb);
+        Shenhejilubiao shjlb=new Shenhejilubiao();
+        shjlb.setYbh(yhb.getYbh());
+        shjlb.setShjlzt(2);
+        shjlb.setShjlsj(new Date());
+        shenhejilubiaoDao.insert(shjlb);
+        jqsqb.setShbid(shb.getShbid());
+        jqsqb.setShjlbh(shjlb.getShjlbh());
+        jiaqishenqibiaoDao.insert(jqsqb);
+        return 1;
+    }
+
+    //申请转正
+    @Override
+    public int shenqingzhuanzheng(Yuangonggzjlbiao yggzjlb) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        Yuangongbiao yhb = loginUser.getYhb();
+        Shenghebiao shb=new Shenghebiao();
+        shb.setShbmc("转正审核");
+        shenghebiaoDao.insert(shb);
+        Shenhejilubiao shjlb=new Shenhejilubiao();
+        shjlb.setYbh(yhb.getYbh());
+        shjlb.setShjlzt(2);
+        shjlb.setShjlsj(new Date());
+        shenhejilubiaoDao.insert(shjlb);
+        yggzjlb.setShbid(shb.getShbid());
+        yggzjlb.setShjlbh(shjlb.getShjlbh());
+        yggzjlb.setYbh(yhb.getYbh());
+        yggzjlb.setYggzzt(2);
+        ygdao.insert(yggzjlb);
+        return 1;
+    }
+
+    //申请离职
+    @Override
+    public int shenqinglizhi(Yuangonggzjlbiao yggzjlb) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        Yuangongbiao yhb = loginUser.getYhb();
+        Shenghebiao shb=new Shenghebiao();
+        shb.setShbmc("离职审核");
+        shenghebiaoDao.insert(shb);
+        Shenhejilubiao shjlb=new Shenhejilubiao();
+        shjlb.setYbh(yhb.getYbh());
+        shjlb.setShjlzt(2);
+        shjlb.setShjlsj(new Date());
+        shenhejilubiaoDao.insert(shjlb);
+        yggzjlb.setShbid(shb.getShbid());
+        yggzjlb.setShjlbh(shjlb.getShjlbh());
+        yggzjlb.setYbh(yhb.getYbh());
+        yggzjlb.setYggzzt(3);
+        ygdao.insert(yggzjlb);
+        return 1;
+    }
+
 
 
 }

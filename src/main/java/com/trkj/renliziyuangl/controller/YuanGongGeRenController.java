@@ -1,7 +1,6 @@
 package com.trkj.renliziyuangl.controller;
 
-import com.trkj.renliziyuangl.pojo.Gongzuorizhibiao;
-import com.trkj.renliziyuangl.pojo.Rencaizibiao;
+import com.trkj.renliziyuangl.pojo.*;
 import com.trkj.renliziyuangl.service.YuanGongGeRenService;
 import com.trkj.renliziyuangl.vo.AjaxResponse;
 import com.trkj.renliziyuangl.vo.YgPhoneVo;
@@ -15,8 +14,20 @@ public class YuanGongGeRenController {
 
     //查询所有员工通讯录
     @GetMapping("/cxygphone")
-    public AjaxResponse cxygphone(YgPhoneVo phone){
-        return AjaxResponse.success(yggrservice.ygphone(phone));
+    public AjaxResponse cxygphone(int pageNum,int pageSize){
+        return AjaxResponse.success(yggrservice.ygphone(pageNum, pageSize));
+    }
+
+    //根据部门查询员工通讯录
+    @GetMapping("/cxygtxlbybm")
+    public AjaxResponse cxygtxlbybm(int bmbh){
+        return AjaxResponse.success(yggrservice.selectygphonebybm(bmbh));
+    }
+
+    //根据员工姓名模糊查询员工通讯录
+    @GetMapping("/mhcxygtxlbyname")
+    public AjaxResponse mhcxygtxlbyname(String rzname){
+        return AjaxResponse.success(yggrservice.mohucxygphonebyname(rzname));
     }
 
     //发表日志
@@ -104,5 +115,40 @@ public class YuanGongGeRenController {
         return AjaxResponse.success(yggrservice.ygdk());
     }
 
+    //员工申请出差
+    @PostMapping("/sqchuchai")
+    public AjaxResponse sqchuchai(@RequestBody Chuchaibiao ccb){
+        return AjaxResponse.success(yggrservice.shenqingchuchai(ccb));
+    }
+
+    //查询员工的状态(判断员工是否能申请转正)
+    @GetMapping("/selectyuangongzt")
+    public AjaxResponse selectyuangongzt(){
+        return AjaxResponse.success(yggrservice.cxygzt());
+    }
+
+    //查询所有考勤假期类型
+    @GetMapping("/selectkqjqlx")
+    public AjaxResponse selectkqjqlx(Kaoqinjiaqilxbiao kqjqlxb){
+        return AjaxResponse.success(yggrservice.cxkqjqlx(kqjqlxb));
+    }
+
+    //申请排休
+    @PostMapping("/sqpaixiu")
+    public AjaxResponse sqpaixiu(@RequestBody Jiaqishenqibiao jqsqb){
+        return AjaxResponse.success(yggrservice.shenqingpaixiu(jqsqb));
+    }
+
+    //申请转正
+    @PostMapping("/sqzhuanzheng")
+    public AjaxResponse sqzhuanzheng(@RequestBody Yuangonggzjlbiao yggzjlb){
+        return AjaxResponse.success(yggrservice.shenqingzhuanzheng(yggzjlb));
+    }
+
+    //申请离职
+    @PostMapping("/sqlizhi")
+    public AjaxResponse sqlizhi(@RequestBody Yuangonggzjlbiao yggzjlb){
+        return AjaxResponse.success(yggrservice.shenqinglizhi(yggzjlb));
+    }
 
 }

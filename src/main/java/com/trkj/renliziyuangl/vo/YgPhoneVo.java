@@ -6,5 +6,6 @@ import lombok.Data;
 public class YgPhoneVo {
     private int ybh;
     private String rzname;
+    private String bmmc;
     private String rzphone;
 }

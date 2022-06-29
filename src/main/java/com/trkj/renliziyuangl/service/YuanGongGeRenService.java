@@ -1,10 +1,7 @@
 package com.trkj.renliziyuangl.service;
 
 import com.github.pagehelper.PageInfo;
-import com.trkj.renliziyuangl.pojo.Bancibiao;
-import com.trkj.renliziyuangl.pojo.Gongzuorizhibiao;
-import com.trkj.renliziyuangl.pojo.Kaoqinjilubiao;
-import com.trkj.renliziyuangl.pojo.Rencaizibiao;
+import com.trkj.renliziyuangl.pojo.*;
 import com.trkj.renliziyuangl.vo.RizhiVo;
 import com.trkj.renliziyuangl.vo.YgPhoneVo;
 import com.trkj.renliziyuangl.vo.canbaoryVo;
@@ -13,7 +10,13 @@ import java.util.List;
 
 public interface YuanGongGeRenService {
     //查询员工通讯录
-    List ygphone(YgPhoneVo phone);
+    PageInfo<YgPhoneVo> ygphone(int pageNum, int pageSize);
+
+    //根据部门查询员工通讯录
+    List selectygphonebybm(int bmbh);
+
+    //根据员工姓名模糊查询员工通讯录
+    List mohucxygphonebyname(String rzname);
 
     //发表日志
     int fbrizhi(Gongzuorizhibiao gzrzb);
@@ -57,5 +60,22 @@ public interface YuanGongGeRenService {
     //员工打卡操作
     Kaoqinjilubiao ygdk();
 
+    //申请出差
+    int shenqingchuchai(Chuchaibiao ccb);
+
+    //查询员工的状态(判断员工是否能申请转正)
+    canbaoryVo cxygzt();
+
+    //查询所有考勤假期类型
+    List cxkqjqlx(Kaoqinjiaqilxbiao kqjqlxb);
+
+    //申请排休
+    int shenqingpaixiu(Jiaqishenqibiao jqsqb);
+
+    //申请转正
+    int shenqingzhuanzheng(Yuangonggzjlbiao yggzjlb);
+
+    //申请离职
+    int shenqinglizhi(Yuangonggzjlbiao yggzjlb);
 
 }

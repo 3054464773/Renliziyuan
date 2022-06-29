@@ -3,8 +3,32 @@
 <mapper namespace="com.trkj.renliziyuangl.dao.YuangonggzjlbiaoDao">
     <!-- 查询员工通讯录-->
     <select id="selectygphone" resultType="com.trkj.renliziyuangl.vo.YgPhoneVo">
-        select ygb.ybh,rczb.rzname,rczb.rzphone from yuangongbiao ygb
+       select ygb.ybh,rczb.rzname,bmb.bmmc,rczb.rzphone from yuangongbiao ygb
             inner join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+			inner join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
+			inner join bumenbiao bmb on bmb.bmbh=zwb.bmbh
+    </select>
+
+    <!--根据部门查询员工通讯录-->
+    <select id="cxygphonebybm" resultType="com.trkj.renliziyuangl.vo.YgPhoneVo">
+        select ygb.ybh,rczb.rzname,bmb.bmmc,rczb.rzphone from yuangongbiao ygb
+            inner join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+			inner join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
+			inner join bumenbiao bmb on bmb.bmbh=zwb.bmbh
+			where bmb.bmbh=#{bmbh}
+    </select>
+
+    <!--根据员工姓名模糊查询员工通讯录-->
+    <select id="mhcxygphonebyname" resultType="com.trkj.renliziyuangl.vo.YgPhoneVo">
+        select ygb.ybh,rczb.rzname,bmb.bmmc,rczb.rzphone from yuangongbiao ygb
+        inner join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+        inner join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
+        inner join bumenbiao bmb on bmb.bmbh=zwb.bmbh
+        <where>
+            <if test="rzname!=null and rzname!=''">
+                and rzname like concat('%',#{rzname},'%')
+            </if>
+        </where>
     </select>
 
     <!--我的日志-->
@@ -13,7 +37,6 @@
             inner join rencaizibiao rczb on rczb.rzbh=rzb.ybh
             where rzb.ybh=#{ybh} order by gzrzsj desc
     </select>
-
 
     <!--已点评日志-->
     <select id="cxyidianpingrz" resultType="com.trkj.renliziyuangl.vo.RizhiVo">
@@ -113,4 +136,12 @@
         select * from kaoqinjilubiao where ybh=#{ybh} and xzsj=DATE(CURDATE())
     </select>
 
+    <!--查询员工基本信息（ybh）-->
+    <select id="yuangongxxbyid" resultType="com.trkj.renliziyuangl.vo.canbaoryVo">
+        select ygb.ybh,rczb.rzname,ygb.ygzt,
+            rczb.rzsex,rczb.rzcsrq,rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
+            from yuangongbiao ygb
+            inner join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+			where ygb.ybh=#{ybh}
+    </select>
 </mapper>
