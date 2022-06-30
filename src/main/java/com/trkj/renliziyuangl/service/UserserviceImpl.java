@@ -207,9 +207,11 @@ public class UserserviceImpl implements Userservice {
         a.setBcbh(1);
         String str= String.valueOf(zpVo.getRzsfz());
         System.out.println("账号没为空"+str);
+        a.setBcbh(1);
         a.setYzh(str.substring(str.length()-3));
         a.setYmm("$2a$10$Tt7JJkXbioCxvmIt0.VrT.WVYW40LlYKZ6PSBz3/BC.FvLXCApah2");
         a.setYgzt(1);
+        a.setYgrzsj(new Date());
         int count=userDao.insert(a);
         return 1;
     }

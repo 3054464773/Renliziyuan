@@ -12,11 +12,22 @@
         UPDATE yuangongbiao y set y.ygzt =#{param2} where y.ybh =#{param1}
     </update>
 
+    <update id="shygqj">
+        UPDATE shenhejilubiao s set s.shjlzt =#{param1} where s.shjlbh =#{param2}
+    </update>
+
     <select id="findzpjh" resultType="com.trkj.renliziyuangl.pojo.Zhaopingjihuabiao">
         SELECT z.*,w.zwmc FROM zhaopingjihuabiao z INNER JOIN shenhejilubiao s on z.shjlbh=s.shjlbh  INNER JOIN zhiweibiao w on z.zwbh=w.zwbh and s.shjlzt=3
     </select>
 
     <select id="findyggzjl" resultType="com.trkj.renliziyuangl.pojo.Yuangonggzjlbiao">
         SELECT y.*,rr.rzname FROM yuangonggzjlbiao y INNER JOIN shenhejilubiao s on y.shjlbh=s.shjlbh  INNER JOIN yuangongbiao yy on y.ybh =yy.ybh INNER JOIN rencaizibiao rr  on yy.rzbh =rr.rzbh and s.shjlzt=3
+    </select>
+
+    <select id="findqj" resultType="com.trkj.renliziyuangl.pojo.Jiaqishenqibiao">
+        SELECT j.*,r.rzname,k.kqjqmc FROM shenhejilubiao s INNER JOIN jiaqishenqibiao j on s.shjlbh = j.shjlbh INNER JOIN yuangongbiao y on s.ybh=y.ybh INNER JOIN rencaizibiao r on y.rzbh=r.rzbh INNER JOIN kaoqinjiaqilxbiao k on j.kqjqbh=k.kqjqbh and s.shjlzt=3
+    </select>
+    <select id="findygcc" resultType="com.trkj.renliziyuangl.pojo.Chuchaibiao">
+        SELECT  c.*,r.rzname FROM shenhejilubiao s INNER JOIN chuchaibiao c on s.shjlbh=c.shjlbh  INNER JOIN yuangongbiao y on s.ybh=y.ybh INNER JOIN rencaizibiao r on y.rzbh = r.rzbh and s.shjlzt=3
     </select>
 </mapper>

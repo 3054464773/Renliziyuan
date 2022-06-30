@@ -75,7 +75,7 @@
             left join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
             left join bumenbiao bmb on bmb.bmbh=zwb.bmbh
             left join shebaofananbiao fab on fab.sbbh=ygb.sbbh
-        where ygb.ygzt=2 and ygb.sbbh is null
+        where ygb.ygzt=2 and (ygb.sbbh is null or ygb.sbbh=0)
     </select>
 
     <!--查询参保人员信息——社保方案为空的员工，需要参保，员工状态为3，正式员工-->
@@ -87,7 +87,7 @@
             left join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
             left join bumenbiao bmb on bmb.bmbh=zwb.bmbh
             left join shebaofananbiao fab on fab.sbbh=ygb.sbbh
-        where ygb.ygzt=3 and ygb.sbbh is null
+        where ygb.ygzt=3 and (ygb.sbbh is null or ygb.sbbh=0)
     </select>
 
     <!--查询社保缴费信息，已绑定社保编号的员工-->

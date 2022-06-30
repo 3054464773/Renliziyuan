@@ -101,8 +101,13 @@ public class JiaoseserviceImpl implements Jiaoseservice {
 
     @Override
     public List<Jiaoseandquanxianvo> findalljs(int[] jsid) {
-        List<Jiaoseandquanxianvo> findalljs = jsdao.findalljs(jsid);
-        return findalljs;
+        if (jsid.length==0){
+            int[] a={0};
+            return  jsdao.findalljs(a);
+        }else{
+            return  jsdao.findalljs(jsid);
+        }
+
     }
     //新增员工角色
     @Override
