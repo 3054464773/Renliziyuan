@@ -35,5 +35,8 @@ public class Chuchaibiao implements Serializable {
     @TableField(exist = false)
     private int shjlzt;
 
+    @TableField(exist = false)
+    private String rzname;
+
     private static final long serialVersionUID = 1L;
 }

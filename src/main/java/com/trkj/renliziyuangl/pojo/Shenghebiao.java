@@ -23,6 +23,8 @@ public class Shenghebiao implements Serializable {
 
     private int shzt;
     @TableField(exist = false)
+
     private String jsmc;
+
     private static final long serialVersionUID = 1L;
 }

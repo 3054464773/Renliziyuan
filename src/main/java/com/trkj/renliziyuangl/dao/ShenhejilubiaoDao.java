@@ -1,9 +1,7 @@
 package com.trkj.renliziyuangl.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.trkj.renliziyuangl.pojo.Shenhejilubiao;
-import com.trkj.renliziyuangl.pojo.Yuangonggzjlbiao;
-import com.trkj.renliziyuangl.pojo.Zhaopingjihuabiao;
+import com.trkj.renliziyuangl.pojo.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -20,4 +18,10 @@ public interface ShenhejilubiaoDao extends BaseMapper<Shenhejilubiao> {
     int shygzz(int pdtj, int shjlbh);
 
     int xiugaiygzt(int ygid, int ygzt);
+
+    List<Jiaqishenqibiao> findqj();
+
+    int shygqj(int pdtj, int shjlbh);
+
+    List<Chuchaibiao> findygcc();
 }

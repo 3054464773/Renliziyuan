@@ -11,10 +11,10 @@
         </collection>
     </resultMap>
     <select id="findallygjs" resultMap="map1"  >
+
         SELECT y.ybh,r.rzname,z.zwmc,j.jsmc,j.jsbh from yuangongbiao y
-            INNER JOIN userandrole u on y.ybh=u.ybh INNER JOIN jiaosebiao
-                j on j.jsbh=u.jsbh INNER JOIN rencaizibiao r on y.rzbh=r.rzbh INNER JOIN
-            zhiweibiao z on y.zwbh=z.zwbh where y.ygzt in  (2,3)
+            LEFT JOIN  userandrole u on y.ybh=u.ybh LEFT JOIN jiaosebiao j on j.jsbh=u.jsbh
+            LEFT JOIN rencaizibiao r on y.rzbh=r.rzbh LEFT JOIN zhiweibiao z on y.zwbh=z.zwbh where y.ygzt in (2,3)
     </select>
     <resultMap id="map2" type="com.trkj.renliziyuangl.vo.Jiaoseandquanxianvo">
         <result property="jsbh" column="jsbh"/>
@@ -25,8 +25,8 @@
     </resultMap>
     <select id="findalljs" resultMap="map2">
 
-        SELECT j.jsbh,j.jsmc,j3.qxmc from jiaosebiao j INNER  JOIN  jiaosequanxianbiao j2
-            on j.jsbh=j2.jsbh INNER JOIN  quanxianbiao j3 on j3.qxbh=j2.qxbh WHERE j.jsbh not  in
+        SELECT j.jsbh,j.jsmc,j3.qxmc from jiaosebiao j LEFT  JOIN  jiaosequanxianbiao j2
+            on j.jsbh=j2.jsbh LEFT JOIN  quanxianbiao j3 on j3.qxbh=j2.qxbh WHERE j.jsbh not  in
         <foreach  collection="array" item="item" open="(" close=")" separator=",">
             #{item}
         </foreach>
