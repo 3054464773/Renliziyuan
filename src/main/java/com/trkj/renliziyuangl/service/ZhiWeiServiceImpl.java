@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.renliziyuangl.dao.MianshiguizhanbiaoDao;
+import com.trkj.renliziyuangl.dao.XinzijibengongzibiaoDao;
 import com.trkj.renliziyuangl.dao.ZhaopingjihuabiaoDao;
 import com.trkj.renliziyuangl.dao.ZhiweibiaoDao;
 import com.trkj.renliziyuangl.pojo.Bumenbiao;
@@ -11,6 +12,7 @@ import com.trkj.renliziyuangl.pojo.Mianshiguizhanbiao;
 import com.trkj.renliziyuangl.pojo.Zhaopingjihuabiao;
 import com.trkj.renliziyuangl.pojo.Zhiweibiao;
 import com.trkj.renliziyuangl.vo.zpjhVo;
+import com.trkj.renliziyuangl.vo.zwVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,8 @@ public class ZhiWeiServiceImpl implements ZhiWeiService {
     private MianshiguizhanbiaoDao msgzDao;
     @Autowired
     private ZhaopingjihuabiaoDao zhaopingjihuabiaoDao;
+    @Autowired
+    private XinzijibengongzibiaoDao dao;
     @Override
     public Map findallzw(int ym) {
         Page<Zhiweibiao> bumenbiaoPage = zwdao.selectPage(new Page<>(ym, 8),  new LambdaQueryWrapper<Zhiweibiao>().orderByDesc(Zhiweibiao::getZwbh));
@@ -46,9 +50,12 @@ public class ZhiWeiServiceImpl implements ZhiWeiService {
     }
 
     @Override
-    public boolean insertzw(Zhiweibiao zw) {
+    public boolean insertzw(zwVo zw) {
         zw.setZwsj(new Date());
-        int insert = zwdao.insert(zw);
+        int insert = zwdao.insertzw(zw);
+        int a=dao.selectMaxZwbh();
+        System.out.println(a);
+        int i=dao.insertzwjbgz(a+0,0.0);
         return insert>0?true:false;
     }
 

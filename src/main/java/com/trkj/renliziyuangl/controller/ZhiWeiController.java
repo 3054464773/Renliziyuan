@@ -4,6 +4,7 @@ import com.trkj.renliziyuangl.pojo.Bumenbiao;
 import com.trkj.renliziyuangl.pojo.Zhiweibiao;
 import com.trkj.renliziyuangl.service.ZhiWeiService;
 import com.trkj.renliziyuangl.vo.AjaxResponse;
+import com.trkj.renliziyuangl.vo.zwVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class ZhiWeiController {
         return AjaxResponse.success(zwservice.mohufindzw(page,zwname));
     }
     @PostMapping("/insertzw")
-    public AjaxResponse insertzw(@Validated @RequestBody Zhiweibiao zw){
+    public AjaxResponse insertzw(@Validated @RequestBody zwVo zw){
         boolean insertbm = zwservice.insertzw(zw);
         return AjaxResponse.success(insertbm);
     }

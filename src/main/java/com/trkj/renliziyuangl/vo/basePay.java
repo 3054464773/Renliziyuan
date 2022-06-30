@@ -9,4 +9,5 @@ public class basePay {
     private String bmmc;
     private int ygzt;
     private int xzjbgz;
+    private int xzjbbh;
 }

@@ -35,6 +35,10 @@ public class payrollServiceImpl implements payrollService {
             //查出勤天数 计算应发工资
             SalaryVo salaryVo=dao.selectEmpYCQTS(list.get(i).getYbh());
             list.get(i).setKqCount(salaryVo.getKqCount());
+            //根据员工状态判断薪资是否发放80%
+            if(list.get(i).getYgzt()==2){
+                list.get(i).setXzjljbgz(list.get(i).getXzjljbgz()*0.8);
+            }
             if(list.get(i).getKqCount()==22){
                 //根据出勤天数判断是否有全勤奖励
                 list.get(i).setQuanqin(200.00);
@@ -144,6 +148,10 @@ public class payrollServiceImpl implements payrollService {
         for (int i=0;i<list.size();i++){
             SalaryVo vo=dao.selectEmpYCQTSByMonth(list.get(i).getYbh(),szjlsj);
             list.get(i).setKqCount(vo.getKqCount());
+            //根据员工状态判断薪资是否发放80%
+            if(list.get(i).getYgzt()==2){
+                list.get(i).setXzjljbgz(list.get(i).getXzjljbgz()*0.8);
+            }
             if(list.get(i).getKqCount()==22){
                 //根据出勤天数判断是否有全勤奖励
                 list.get(i).setQuanqin(200.00);
@@ -244,6 +252,10 @@ public class payrollServiceImpl implements payrollService {
         for (int i=0;i<list.size();i++){
             //查出勤天数 计算应发工资
             SalaryVo salaryVo=dao.selectEmpYCQTS(list.get(i).getYbh());
+            //根据员工状态判断薪资是否发放80%
+            if(list.get(i).getYgzt()==2){
+                list.get(i).setXzjljbgz(list.get(i).getXzjljbgz()*0.8);
+            }
             list.get(i).setKqCount(salaryVo.getKqCount());
             if(list.get(i).getKqCount()==22){
                 //根据出勤天数判断是否有全勤奖励
@@ -324,6 +336,10 @@ public class payrollServiceImpl implements payrollService {
             //查出勤天数 计算应发工资
             SalaryVo salaryVo=dao.selectEmpYCQTS(list.get(i).getYbh());
             list.get(i).setKqCount(salaryVo.getKqCount());
+            //根据员工状态判断薪资是否发放80%
+            if(list.get(i).getYgzt()==2){
+                list.get(i).setXzjljbgz(list.get(i).getXzjljbgz()*0.8);
+            }
             if(list.get(i).getKqCount()==22){
                 //根据出勤天数判断是否有全勤奖励
                 list.get(i).setQuanqin(200.00);
