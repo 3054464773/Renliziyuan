@@ -185,10 +185,12 @@
     </select>
 <!--    绩效记录-->
     <select id="jixiaojilu" resultType="com.trkj.renliziyuangl.vo.JixiaojiluVo">
-        select d.ybh,a.rzname,a.rzsex,p.jnr,p.jmc,a.rzbh
-        from rencaizibiao a INNER JOIN rencaibiao b on a.rzbh=b.rzbh
-                            INNER JOIN yuangongbiao d on d.rzbh=b.rzbh
-                            INNER JOIN  jixiaobiao  p on p.zwbh=d.zwbh where d.ybh=#{ybh}  order by ybh desc
+        select j.jmc,j.jnr,p.jxbh,p.jbh,p.ybh,p.jxsj,r.rzsex,p.jxfs,d.jdjb,d.jdfs,r.rzname from jixiaobiao j
+                                                                                            inner join jixiaopinfenbiao p on j.jbh=p.jbh
+                                                                                            inner join yuangongbiao y on y.ybh=p.ybh
+                                                                                            inner join rencaizibiao r on r.rzbh=y.rzbh
+                                                                                            inner join jixiaodinjibiao d on d.jxbh=p.jxbh
+        where p.jxfs!=0 and DATE_FORMAT(p.jxsj,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m') and  y.ybh=#{ybh}
     </select>
 <!--    出差记录-->
     <select id="chuchaijjll" resultType="com.trkj.renliziyuangl.vo.Chuchaivo">
@@ -196,7 +198,7 @@
         from rencaizibiao a INNER JOIN rencaibiao b on a.rzbh=b.rzbh
                             INNER JOIN yuangongbiao d on d.rzbh=b.rzbh
                             INNER JOIN shenhejilubiao k on d.ybh=k.ybh
-                            INNER JOIN chuchaibiao c on  k.shjlbh=c.shjlbh where d.ybh=#{ybh}  order by ybh desc
+                            INNER JOIN chuchaibiao c on  k.shjlbh=c.shjlbh where d.ybh=#{ybh}  and shjlzt=3 order by ybh desc
     </select>
 
 </mapper>

@@ -5,6 +5,7 @@ import com.trkj.renliziyuangl.vo.AjaxResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -33,4 +34,10 @@ public class payrollController {
     public AjaxResponse selectEmpInfoByName(int pageNum,int pageSize,String rzname){
      return AjaxResponse.success(service.selectEmpInfoByName(pageNum,pageSize,rzname))   ;
     }
+    @GetMapping("/selectEmpInfoByybh/{ybh}")
+    public AjaxResponse selectEmpInfoByybh(@PathVariable("ybh") int ybh){
+        System.out.println("有员工编号无"+ybh);
+        return AjaxResponse.success(service.selectEmpInfoByybh(ybh))   ;
+    }
+
 }

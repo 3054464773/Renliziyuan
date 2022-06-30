@@ -28,4 +28,6 @@ public interface XingzijilubiaoDao extends BaseMapper<Xingzijilubiao> {
     SalaryVo AttendanceEmp2ByMonth(@Param("ybh") int ybh, @Param("xzsj") String xzsj);
     List<SalaryVo> selectEmpInfoByBmmc(String bmmc);
     List<SalaryVo> selectEmpInfoByName(String rzname);
+    List<SalaryVo> selectEmpInfoByybh(int  ybh);
+
 }

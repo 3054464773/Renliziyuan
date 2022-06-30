@@ -20,4 +20,5 @@ public class UsersXinZiVo {
     private Date ygrzsj;
     private String zwmc;
     private String bmmc;
+    private int xzjljbgz;
 }

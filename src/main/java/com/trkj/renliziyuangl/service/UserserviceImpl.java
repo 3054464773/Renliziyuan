@@ -203,6 +203,8 @@ public class UserserviceImpl implements Userservice {
         Yuangongbiao a=new Yuangongbiao();
         a.setRzbh(zpVo.getRzbh());
         a.setZwbh(zpVo.getZwbh());
+        a.setYgrzsj(new Date());
+        a.setBcbh(1);
         String str= String.valueOf(zpVo.getRzsfz());
         System.out.println("账号没为空"+str);
         a.setBcbh(1);
