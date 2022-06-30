@@ -18,5 +18,7 @@
         SELECT * from zhiweibiao where bmbh=#{bmbh}
     </select>
 
-
+    <insert id="insertzw">
+        insert into zhiweibiao(bmbh,zwjs,zwmc,zwsj) values(#{bmbh},#{zwjs},#{zwmc},#{zwsj})
+    </insert>
 </mapper>

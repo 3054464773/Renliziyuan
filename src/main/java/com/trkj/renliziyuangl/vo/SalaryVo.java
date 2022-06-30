@@ -36,4 +36,5 @@ public class SalaryVo {
     private Double shifa;
     private Double quanqin;
     private String xzsj;
+    private int ygzt;
 }

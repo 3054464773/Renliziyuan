@@ -3,7 +3,7 @@
 <mapper namespace="com.trkj.renliziyuangl.dao.XinzijibengongzibiaoDao">
 
     <select id="findAllBasePay" resultType="com.trkj.renliziyuangl.vo.basePay">
-        select z.zwmc,b.bmmc,x.xzjbgz from xinzijibengongzibiao x
+        select x.xzjbbh,z.zwmc,b.bmmc,x.xzjbgz from xinzijibengongzibiao x
                                               inner join zhiweibiao z on x.zwbh=z.zwbh
                                               inner join bumenbiao b on b.bmbh=z.bmbh
                                               where x.zwbh=z.zwbh and x.xzjbgz!=0
@@ -17,6 +17,8 @@
                                               where x.zwbh=z.zwbh and x.xzjbgz!=0 and z.zwmc like "%" #{zwmc} "%"
                                               order by xzjbbh desc
     </select>
+
+
 
     <select id="findAllPositionSalary" resultType="com.trkj.renliziyuangl.vo.job">
         select x.xzjbbh,z.zwmc,b.bmmc,x.xzjbgz from xinzijibengongzibiao x
@@ -51,4 +53,10 @@
             where xzjbbh=#{xzjbbh};
     </update>
 
+    <insert id="insertzwjbgz">
+        insert into xinzijibengongzibiao(zwbh,xzjbgz) values (#{zwbh},#{xzjbgz})
+    </insert>
+    <select id="selectMaxZwbh" resultType="int">
+        select max(zwbh) from zhiweibiao
+    </select>
 </mapper>

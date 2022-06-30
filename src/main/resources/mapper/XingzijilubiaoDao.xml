@@ -4,7 +4,7 @@
 
 <!--    查基本工资-->
     <select id="selectEmpInfo" resultType="com.trkj.renliziyuangl.vo.SalaryVo">
-        select x1.ybh,y.sbbh,x1.xzjlbh, r.rzname,b.bmmc ,x1.xzjljbgz,x1.szjlsj ,z.zwmc,
+        select x1.ybh,y.sbbh,x1.xzjlbh, r.rzname,b.bmmc ,x1.xzjljbgz,x1.szjlsj ,z.zwmc,y.ygzt,
         x5.xzysmc,x5.xzysje  from xingzijilubiao x1
         inner join yuangongbiao y on x1.ybh=y.ybh
         inner join xinzijibengongzibiao x2 on y.zwbh=x2.zwbh
@@ -58,7 +58,7 @@
 
 <!--    根据月份查询员工历来工资-->
     <select id="selectEmpInfoByMonth" resultType="com.trkj.renliziyuangl.vo.SalaryVo">
-        select x1.ybh,y.sbbh,x1.xzjlbh,x1.szjlsj as xzsj, r.rzname,b.bmmc ,x1.xzjljbgz,x1.szjlsj ,z.zwmc,
+        select x1.ybh,y.sbbh,x1.xzjlbh,x1.szjlsj as xzsj, r.rzname,b.bmmc ,x1.xzjljbgz,x1.szjlsj ,z.zwmc,y.ygzt,
                x5.xzysmc,x5.xzysje  from xingzijilubiao x1
                                              inner join yuangongbiao y on x1.ybh=y.ybh
                                              inner join xinzijibengongzibiao x2 on y.zwbh=x2.zwbh
@@ -103,7 +103,7 @@
 
 <!--    按部门查询员工工资-->
     <select id="selectEmpInfoByBmmc" resultType="com.trkj.renliziyuangl.vo.SalaryVo">
-        select x1.ybh,y.sbbh,x1.xzjlbh,x1.szjlsj as xzsj, r.rzname,b.bmmc ,x1.xzjljbgz,x1.szjlsj ,z.zwmc,
+        select x1.ybh,y.sbbh,x1.xzjlbh,x1.szjlsj as xzsj, r.rzname,b.bmmc ,x1.xzjljbgz,x1.szjlsj ,z.zwmc,y.ygzt,
                x5.xzysmc,x5.xzysje  from xingzijilubiao x1
                                              inner join yuangongbiao y on x1.ybh=y.ybh
                                              inner join xinzijibengongzibiao x2 on y.zwbh=x2.zwbh
@@ -118,7 +118,7 @@
 
     <!--    根据员工姓名查询员工工资-->
     <select id="selectEmpInfoByName" resultType="com.trkj.renliziyuangl.vo.SalaryVo">
-        select x1.ybh,y.sbbh,x1.xzjlbh,x1.szjlsj as xzsj, r.rzname,b.bmmc ,x1.xzjljbgz,x1.szjlsj ,z.zwmc,
+        select x1.ybh,y.sbbh,x1.xzjlbh,x1.szjlsj as xzsj, r.rzname,b.bmmc ,x1.xzjljbgz,x1.szjlsj ,z.zwmc,y.ygzt,
                x5.xzysmc,x5.xzysje  from xingzijilubiao x1
                                              inner join yuangongbiao y on x1.ybh=y.ybh
                                              inner join xinzijibengongzibiao x2 on y.zwbh=x2.zwbh
