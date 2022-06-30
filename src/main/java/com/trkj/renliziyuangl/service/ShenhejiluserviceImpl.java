@@ -1,6 +1,8 @@
 package com.trkj.renliziyuangl.service;
 
 import com.trkj.renliziyuangl.dao.ShenhejilubiaoDao;
+import com.trkj.renliziyuangl.pojo.Chuchaibiao;
+import com.trkj.renliziyuangl.pojo.Jiaqishenqibiao;
 import com.trkj.renliziyuangl.pojo.Yuangonggzjlbiao;
 import com.trkj.renliziyuangl.pojo.Zhaopingjihuabiao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,22 @@ public class ShenhejiluserviceImpl implements Shenhejiluservice {
         }else {
             return shdao.shygzz(pdtj,shjlbh);
         }
-
     }
+
+    @Override
+    public List<Jiaqishenqibiao> findqj() {
+        return shdao.findqj();
+    }
+
+    @Override
+    public int shygqj(int pdtj, int shjlbh) {
+        return shdao.shygqj(pdtj,shjlbh);
+    }
+
+    @Override
+    public List<Chuchaibiao> findygcc() {
+        return shdao.findygcc();
+    }
+
+
 }

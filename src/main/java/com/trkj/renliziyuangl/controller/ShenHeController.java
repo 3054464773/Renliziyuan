@@ -30,5 +30,27 @@ public class ShenHeController {
     public AjaxResponse shygzz(int pdtj,int shjlbh,int ygid,int ygzt){
         return  AjaxResponse.success(shenheservice.shygzz(pdtj,shjlbh,ygid,ygzt));
     }
+    //查询请假
+    @GetMapping("/findqj")
+    public AjaxResponse findqj(){
+        return AjaxResponse.success(shenheservice.findqj());
+    }
+
+    //审核请假
+    @GetMapping("/shygqjia")
+    public AjaxResponse shygqj(int pdtj,int shjlbh){
+        System.out.println(pdtj+"aa"+shjlbh);
+        return AjaxResponse.success(shenheservice.shygqj(pdtj,shjlbh));
+    }
+    //查询出差
+    @GetMapping("/findygcc")
+    public AjaxResponse findygcc(){
+        return AjaxResponse.success(shenheservice.findygcc());
+    }
+    //审批出差
+    @GetMapping("/shygcc")
+    public AjaxResponse shygcc(int pdtj,int shjlbh){
+        return AjaxResponse.success(shenheservice.shygqj(pdtj,shjlbh));
+    }
 
 }
