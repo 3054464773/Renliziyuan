@@ -3,9 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.renliziyuangl.dao.ZpjhVoDao">
     <select id="bumenzpjh" resultType="com.trkj.renliziyuangl.vo.zpjhVo">
-    select a.zbh,a.shjlbh,a.shbid,b.zwmc,a.zrs,a.zmc,bm.bmmc from zhaopingjihuabiao a
-    INNER JOIN zhiweibiao b on  a.zwbh=b.zwbh
-    INNER JOIN bumenbiao bm on bm.bmbh=b.bmbh where bm.bmmc like #{bmmc} order by zbh desc
+        select * from zhaopingjihuabiao a
+                          INNER JOIN zhiweibiao b on  a.zwbh=b.zwbh
+                          INNER JOIN bumenbiao bm on bm.bmbh=b.bmbh
+                          INNER JOIN  shenhejilubiao sh on a.shjlbh=sh.shjlbh where bm.bmmc like #{bmmc} and sh.shjlzt!=2 order by zbh desc
     </select>
 <!--招聘计划模糊查询-->
     <select id="mohuzpjh" resultType="com.trkj.renliziyuangl.vo.zpjhVo">

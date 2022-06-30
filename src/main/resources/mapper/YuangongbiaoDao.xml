@@ -94,12 +94,12 @@
     </select>
 <!--    薪资查询-->
     <select id="findxinzi" resultType="com.trkj.renliziyuangl.vo.UsersXinZiVo" >
-        SELECT a.ybh,b.rzname,z.zwmc,x.xzjbgz,b.rzbh,a.ygrzsj,bm.bmmc FROM  yuangongbiao a    INNER JOIN rencaizibiao b
-                                                                                                         ON b.rzbh=a.rzbh
-                                                                                              INNER JOIN zhiweibiao z on z.zwbh=a.zwbh
-                                                                                              INNER JOIN xinzijibengongzibiao x  on x.zwbh=z.zwbh
-                                                                                              INNER JOIN  bumenbiao bm on bm.bmbh=z.bmbh
-       where a.ybh=#{ybh}  order by ybh desc
+        SELECT * FROM  yuangongbiao a    INNER JOIN rencaizibiao b
+                                                    ON b.rzbh=a.rzbh
+                                         INNER JOIN zhiweibiao z on z.zwbh=a.zwbh
+                                         INNER JOIN xingzijilubiao x  on x.ybh=a.zwbh
+                                         INNER JOIN  bumenbiao bm on bm.bmbh=z.bmbh
+       where a.ybh=#{ybh}
 
     </select>
     <select id="findwdg" resultType="com.trkj.renliziyuangl.vo.usersssVo" >

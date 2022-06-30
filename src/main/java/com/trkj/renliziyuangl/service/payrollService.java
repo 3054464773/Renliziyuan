@@ -23,4 +23,5 @@ public interface payrollService {
     SalaryVo AttendanceEmp2ByMonth( int ybh,String xzsj);
     PageInfo<SalaryVo> selectEmpInfoByBmmc(int pageNum,int pageSize,String bmmc);
     PageInfo<SalaryVo> selectEmpInfoByName(int pageNum,int pageSize,String rzname);
+    List<SalaryVo> selectEmpInfoByybh(int  ybh);
 }
