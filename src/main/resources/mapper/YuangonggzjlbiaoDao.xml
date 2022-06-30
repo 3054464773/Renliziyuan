@@ -103,12 +103,13 @@
 
     <!--根据员工id查询员工个人资料-->
     <select id="cxyuangonggerenziliao" resultType="com.trkj.renliziyuangl.vo.canbaoryVo">
-        select ygb.ybh,rczb.rzname,ygb.sbbh,ygb.ygzt,bmb.bmmc,
+        select ygb.ybh,rczb.rzname,fab.sbmc,ygb.ygzt,bmb.bmmc,
             rczb.rzsex,rczb.rzcsrq,rczb.rzage,rczb.rzxl, rczb.rzsfz,rczb.rzphone,rczb.rzdz,rczb.rzgzjl,rczb.rzhyzk,rczb.rzmz,rczb.rzzzmm
             from yuangongbiao ygb
-            inner join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
-            inner join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
-            inner join bumenbiao bmb on bmb.bmbh=zwb.bmbh
+            left join rencaizibiao rczb on ygb.rzbh=rczb.rzbh
+			left join shebaofananbiao fab on fab.sbbh=ygb.sbbh
+            left join zhiweibiao zwb on zwb.zwbh=ygb.zwbh
+            left join bumenbiao bmb on bmb.bmbh=zwb.bmbh
             where ygb.ybh =#{ybh}
     </select>
 
